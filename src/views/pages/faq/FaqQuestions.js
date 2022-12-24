@@ -8,7 +8,7 @@ const collapseItems = [
     id: 1,
     title: "What does royalty free mean?",
     content:
-      "Royalty free means you just need to pay for rights to use the item once per end product. You don't need to pay additional or ongoing fees for each person who sees or uses it. Please note that there may be some limits placed on uses under the different license types available on the marketplaces, such as our Photo and Music Licenses."
+      "Royalty free  you just need to pay for rights to use the item once per end product. You don't need to pay additional or ongoing fees for each person who sees or uses it. Please note that there may be some limits placed on uses under the different license types available on the marketplaces, such as our Photo and Music Licenses."
   },
   {
     id: 2,
