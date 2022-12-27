@@ -95,45 +95,45 @@ class CategoryList extends React.Component {
           );
         },
       },
-      {
-        headerName: "Category",
-        field: "category",
-        filter: true,
-        width: 150,
-        cellRendererFramework: (params) => {
-          return (
-            <div>
-              <span>{params.data.category}</span>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "SubCategory",
-        field: "subcategory",
-        filter: true,
-        width: 150,
-        cellRendererFramework: (params) => {
-          return (
-            <div>
-              <span>{params.data.subcategory}</span>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Description",
-        field: "description",
-        filter: true,
-        width: 120,
-        cellRendererFramework: (params) => {
-          return (
-            <div>
-              <span>{params.data.description}</span>
-            </div>
-          );
-        },
-      },
+      // {
+      //   headerName: "Category",
+      //   field: "category",
+      //   filter: true,
+      //   width: 150,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div>
+      //         <span>{params.data.category}</span>
+      //       </div>
+      //     );
+      //   },
+      // },
+      // {
+      //   headerName: "SubCategory",
+      //   field: "subcategory",
+      //   filter: true,
+      //   width: 150,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div>
+      //         <span>{params.data.subcategory}</span>
+      //       </div>
+      //     );
+      //   },
+      // },
+      // {
+      //   headerName: "Description",
+      //   field: "description",
+      //   filter: true,
+      //   width: 120,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div>
+      //         <span>{params.data.description}</span>
+      //       </div>
+      //     );
+      //   },
+      // },
       {
         headerName: "Delivery Zone",
         field: "deliveryzone",
@@ -266,6 +266,7 @@ class CategoryList extends React.Component {
                     render={({ history }) => (
                       <Button
                         className="btn btn-primary float-right"
+                        color="primary"
                         onClick={() =>
                           history.push("/app/freshlist/hubs/AddHub")
                         }

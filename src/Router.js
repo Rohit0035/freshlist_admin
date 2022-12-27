@@ -20,6 +20,10 @@ const ecommerceDashboard = lazy(() =>
 const CustomerGroup = lazy(() =>
   import("./views/apps/freshlist/customer/CustomerGroup")
 );
+const AddCustomer = lazy(() =>
+  import("./views/apps/freshlist/customer/AddCustomer")
+);
+
 const CustomerList = lazy(() =>
   import("./views/apps/freshlist/customer/CustomerList")
 );
@@ -42,8 +46,9 @@ const ViewCustomer = lazy(() =>
   import("./views/apps/freshlist/customer/ViewCustomer")
 );
 // wallet
-const Credit = lazy(() => import("./views/apps/freshlist/wallet/Credit"));
-const Debit = lazy(() => import("./views/apps/freshlist/wallet/Debit"));
+const WalletType = lazy(() =>
+  import("./views/apps/freshlist/wallet/WalletType")
+);
 const AddTransactions = lazy(() =>
   import("./views/apps/freshlist/wallet/AddTransactions")
 );
@@ -54,10 +59,8 @@ const Login = lazy(() => import("./views/pages/authentication/login/Login"));
 // Hub List
 const AddHub = lazy(() => import("./views/apps/freshlist/hubs/AddHub"));
 const HubList = lazy(() => import("./views/apps/freshlist/hubs/HubList"));
-// hub_list
 
 //Banner
-
 const BannerList = lazy(() =>
   import("./views/apps/freshlist/banner/BannerList")
 );
@@ -93,8 +96,8 @@ const ViewWithDraws = lazy(() =>
 //Driver
 
 const AddDriver = lazy(() => import("./views/apps/freshlist/driver/AddDriver"));
-const DeliveryManList = lazy(() =>
-  import("./views/apps/freshlist/driver/DeliveryManList")
+const DriverList = lazy(() =>
+  import("./views/apps/freshlist/driver/DriverList")
 );
 
 const EditDeliveryMan = lazy(() =>
@@ -313,6 +316,7 @@ const EditHouseProduct = lazy(() =>
 const BundleList = lazy(() =>
   import("./views/apps/freshlist/bundle/BundleList")
 );
+const AddBundle = lazy(() => import("./views/apps/freshlist/bundle/AddBundle"));
 
 // Subscriber
 const SubscriberList = lazy(() =>
@@ -743,6 +747,10 @@ class AppRouter extends React.Component {
             component={CustomerGroup}
           />
           <AppRoute
+            path="/app/freshlist/customer/addCustomer"
+            component={AddCustomer}
+          />
+          <AppRoute
             path="/app/freshlist/customer/customerList"
             component={CustomerList}
           />
@@ -763,8 +771,10 @@ class AppRouter extends React.Component {
             component={ReviewTable}
           />
           {/* Wallet */}
-          <AppRoute path="/app/freshlist/wallet/credit" component={Credit} />
-          <AppRoute path="/app/freshlist/wallet/debit" component={Debit} />
+          <AppRoute
+            path="/app/freshlist/wallet/walletType"
+            component={WalletType}
+          />
           <AppRoute
             path="/app/freshlist/wallet/addtransactions"
             component={AddTransactions}
@@ -840,8 +850,8 @@ class AppRouter extends React.Component {
             component={AddDriver}
           />
           <AppRoute
-            path="/app/freshlist/driver/deliveryManList"
-            component={DeliveryManList}
+            path="/app/freshlist/driver/driverList"
+            component={DriverList}
           />
           {/* Special */}
           <AppRoute
@@ -989,7 +999,7 @@ class AppRouter extends React.Component {
             component={ViewRejectedRequest}
           />
           <AppRoute
-            path="/app/freshlist/refundrequest/CompletedRequest"
+            path="/app/freshlist/refundrequest/completedRequest"
             component={CompletedRequest}
           />
           <AppRoute
@@ -1111,6 +1121,10 @@ class AppRouter extends React.Component {
           <AppRoute
             path="/app/freshlist/bundle/BundleList"
             component={BundleList}
+          />
+          <AppRoute
+            path="/app/freshlist/bundle/AddBundle"
+            component={AddBundle}
           />
           <AppRoute
             path="/app/freshlist/subscriber/subscriberList"

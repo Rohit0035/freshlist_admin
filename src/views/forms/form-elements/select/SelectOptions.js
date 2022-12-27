@@ -1,9 +1,9 @@
-import React from "react"
-import { Card, CardHeader, CardTitle, CardBody, Row, Col } from "reactstrap"
-import Select from "react-select"
-import makeAnimated from "react-select/animated"
-import CreatableSelect from "react-select/creatable"
-import chroma from "chroma-js"
+import React from "react";
+import { Card, CardHeader, CardTitle, CardBody, Row, Col } from "reactstrap";
+import Select from "react-select";
+import makeAnimated from "react-select/animated";
+import CreatableSelect from "react-select/creatable";
+import chroma from "chroma-js";
 
 const colourOptions = [
   { value: "ocean", label: "Ocean", color: "#00B8D9", isFixed: true },
@@ -11,8 +11,8 @@ const colourOptions = [
   { value: "purple", label: "Purple", color: "#5243AA", isFixed: true },
   { value: "red", label: "Red", color: "#FF5630", isFixed: false },
   { value: "orange", label: "Orange", color: "#FF8B00", isFixed: false },
-  { value: "yellow", label: "Yellow", color: "#FFC400", isFixed: false }
-]
+  { value: "yellow", label: "Yellow", color: "#FFC400", isFixed: false },
+];
 
 const groupedOptions = [
   {
@@ -22,8 +22,8 @@ const groupedOptions = [
       { value: "Dark Chocolate", label: "Dark Chocolate" },
       { value: "chocolate", label: "Chocolate" },
       { value: "strawberry", label: "Strawberry" },
-      { value: "salted-caramel", label: "Salted Caramel" }
-    ]
+      { value: "salted-caramel", label: "Salted Caramel" },
+    ],
   },
   {
     label: "Snacks",
@@ -32,17 +32,17 @@ const groupedOptions = [
       { value: "Burger", label: "Burger" },
       { value: "Pasta", label: "Pasta" },
       { value: "Pretzel", label: "Pretzel" },
-      { value: "Popcorn", label: "Popcorn" }
-    ]
-  }
-]
+      { value: "Popcorn", label: "Popcorn" },
+    ],
+  },
+];
 
-const animatedComponents = makeAnimated()
+const animatedComponents = makeAnimated();
 
 const colourStyles = {
-  control: styles => ({ ...styles, backgroundColor: "white" }),
+  control: (styles) => ({ ...styles, backgroundColor: "white" }),
   option: (styles, { data, isDisabled, isFocused, isSelected }) => {
-    const color = chroma(data.color)
+    const color = chroma(data.color);
     return {
       ...styles,
       backgroundColor: isDisabled
@@ -64,91 +64,92 @@ const colourStyles = {
       ":active": {
         ...styles[":active"],
         backgroundColor:
-          !isDisabled && (isSelected ? data.color : color.alpha(0.3).css())
-      }
-    }
+          !isDisabled && (isSelected ? data.color : color.alpha(0.3).css()),
+      },
+    };
   },
   multiValue: (styles, { data }) => {
-    const color = chroma(data.color)
+    const color = chroma(data.color);
     return {
       ...styles,
-      backgroundColor: color.alpha(0.1).css()
-    }
+      backgroundColor: color.alpha(0.1).css(),
+    };
   },
   multiValueLabel: (styles, { data }) => ({
     ...styles,
-    color: data.color
+    color: data.color,
   }),
   multiValueRemove: (styles, { data }) => ({
     ...styles,
     color: data.color,
     ":hover": {
       backgroundColor: data.color,
-      color: "white"
-    }
-  })
-}
+      color: "white",
+    },
+  }),
+};
 
 const styles = {
   multiValue: (base, state) => {
-    return state.data.isFixed ? { ...base, opacity: "0.5" } : base
+    return state.data.isFixed ? { ...base, opacity: "0.5" } : base;
   },
   multiValueLabel: (base, state) => {
     return state.data.isFixed
       ? { ...base, color: "#626262", paddingRight: 6 }
-      : base
+      : base;
   },
   multiValueRemove: (base, state) => {
-    return state.data.isFixed ? { ...base, display: "none" } : base
-  }
-}
+    return state.data.isFixed ? { ...base, display: "none" } : base;
+  },
+};
 
-const orderOptions = values => {
+const orderOptions = (values) => {
   if (values.length > 0)
-    return values.filter(v => v.isFixed).concat(values.filter(v => !v.isFixed))
-}
+    return values
+      .filter((v) => v.isFixed)
+      .concat(values.filter((v) => !v.isFixed));
+};
 
-const formatGroupLabel = data => (
+const formatGroupLabel = (data) => (
   <div className="d-flex justify-content-between align-center">
     <strong>
-      {" "}
       <span>{data.label}</span>
     </strong>
     <span>{data.options.length}</span>
   </div>
-)
+);
 
 class SelectOptions extends React.Component {
   state = {
-    value: orderOptions([colourOptions[0], colourOptions[1], colourOptions[3]])
-  }
+    value: orderOptions([colourOptions[0], colourOptions[1], colourOptions[3]]),
+  };
 
-  handleChange = newValue => {
-    colourOptions.concat(newValue)
-  }
+  handleChange = (newValue) => {
+    colourOptions.concat(newValue);
+  };
   handleInputChange = () => {
-    console.group("Input Changed")
-    console.groupEnd()
-  }
+    console.group("Input Changed");
+    console.groupEnd();
+  };
 
   fixedOnChange = (value, { action, removedValue }) => {
     switch (action) {
       case "remove-value":
       case "pop-value":
         if (removedValue.isFixed) {
-          return
+          return;
         }
-        break
+        break;
       case "clear":
-        value = colourOptions.filter(v => v.isFixed)
-        break
+        value = colourOptions.filter((v) => v.isFixed);
+        break;
       default:
-        return
+        return;
     }
 
-    value = orderOptions(value)
-    this.setState({ value: value })
-  }
+    value = orderOptions(value);
+    this.setState({ value: value });
+  };
 
   render() {
     return (
@@ -218,7 +219,7 @@ class SelectOptions extends React.Component {
                 value={this.state.value}
                 isMulti
                 styles={styles}
-                isClearable={this.state.value.some(v => !v.isFixed)}
+                isClearable={this.state.value.some((v) => !v.isFixed)}
                 name="colors"
                 className="React"
                 classNamePrefix="select"
@@ -229,7 +230,7 @@ class SelectOptions extends React.Component {
           </Row>
         </CardBody>
       </Card>
-    )
+    );
   }
 }
-export default SelectOptions
+export default SelectOptions;

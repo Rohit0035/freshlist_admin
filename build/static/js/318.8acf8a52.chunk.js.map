@@ -1,0 +1,1 @@
+{"version":3,"sources":["views/apps/freshlist/zone/CreateZone.js"],"names":["CreateZone"],"mappings":"qJAAA,2BAMeA,UAJf,WACE,OAAO","file":"static/js/318.8acf8a52.chunk.js","sourcesContent":["import React from \"react\";\r\n\r\nfunction CreateZone() {\r\n  return <div>Create Zone</div>;\r\n}\r\n\r\nexport default CreateZone;\r\n"],"sourceRoot":""}

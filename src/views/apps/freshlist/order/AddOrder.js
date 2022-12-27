@@ -13,28 +13,33 @@ import {
 } from "reactstrap";
 import { history } from "../../../../history";
 import axiosConfig from "../../../../axiosConfig";
+import ReactMultiSelectCheckboxes from "react-multiselect-checkboxes";
 
+const options = [
+  { label: "Email", value: 1 },
+  { label: "WhatsApp", value: 2 },
+  { label: "SMS", value: 3 },
+  { label: "App Notification", value: 4 },
+];
 export class AddOrder extends Component {
   constructor(props) {
     super(props);
     this.state = {
       delivery_slot: "",
-      // attribute: "",
       quantity: "",
       phone_no: "",
-      orderd_from: "",
       order_zone: "",
-      billing_add: "",
       delivery_add: "",
-      order_date: "",
-      // delivery_date: "",
-      // time_slot: "",
-      // items: "",
-      assing_drive: "",
+      attribute: "",
+      items: "",
       notifyby_email: "",
-      // status: "",
+      delivery_date: "",
+      time_slot: "",
+      status: "",
       productName: [],
       attribuName: [],
+      previousAdd: "",
+      newAddress: "",
     };
   }
   changeHandler1 = (e) => {
@@ -120,19 +125,6 @@ export class AddOrder extends Component {
                     />
                   </FormGroup>
                 </Col>
-
-                <Col lg="6" md="6">
-                  <FormGroup>
-                    <Label>Billing Address</Label>
-                    <Input
-                      type="text"
-                      placeholder="Billing Address"
-                      name="billing_add"
-                      value={this.state.billing_add}
-                      onChange={this.changeHandler}
-                    />
-                  </FormGroup>
-                </Col>
                 <Col lg="6" md="6">
                   <FormGroup>
                     <Label>Delivery Slot</Label>
@@ -145,7 +137,7 @@ export class AddOrder extends Component {
                     />
                   </FormGroup>
                 </Col>
-                <Col lg="6" md="6">
+                {/* <Col lg="6" md="6">
                   <FormGroup>
                     <Label>Items</Label>
                     <Input
@@ -156,19 +148,7 @@ export class AddOrder extends Component {
                       onChange={this.changeHandler}
                     />
                   </FormGroup>
-                </Col>
-                <Col lg="6" md="6">
-                  <FormGroup>
-                    <Label>Date</Label>
-                    <Input
-                      type="date"
-                      name="order_date"
-                      value={this.state.order_date}
-                      onChange={this.changeHandler}
-                    />
-                  </FormGroup>
-                </Col>
-
+                </Col> */}
                 <Col lg="6" md="6">
                   <FormGroup>
                     <Label>Delivery Address</Label>
@@ -181,24 +161,30 @@ export class AddOrder extends Component {
                     />
                   </FormGroup>
                 </Col>
-
                 <Col lg="6" md="6">
                   <FormGroup>
-                    <Label>Order from</Label>
-                    <CustomInput
-                      type="select"
-                      // placeholder="Order from"
-                      name="orderd_from"
-                      value={this.state.orderd_from}
+                    <Label>Previous Address</Label>
+                    <Input
+                      type="text"
+                      placeholder="Previous Address"
+                      name="previousAdd"
+                      value={this.state.previousAdd}
                       onChange={this.changeHandler}
-                    >
-                      <option>---Select---</option>
-                      <option value="web">Web</option>
-                      <option value="app">App</option>
-                    </CustomInput>
+                    />
                   </FormGroup>
                 </Col>
-
+                <Col lg="6" md="6">
+                  <FormGroup>
+                    <Label>New Address</Label>
+                    <Input
+                      type="text"
+                      placeholder="New Address"
+                      name="previousAdd"
+                      value={this.state.newAddress}
+                      onChange={this.changeHandler}
+                    />
+                  </FormGroup>
+                </Col>
                 <Col lg="6" md="6">
                   <FormGroup>
                     <Label>Delivery Date</Label>
@@ -223,36 +209,17 @@ export class AddOrder extends Component {
                     />
                   </FormGroup>
                 </Col>
-
                 <Col lg="6" md="6">
                   <FormGroup>
-                    <Label>Assign Driver</Label>
-                    <CustomInput
-                      type="select"
-                      // placeholder="Assign Driver"
-                      name="assing_drive"
-                      value={this.state.assing_drive}
-                      onChange={this.changeHandler}
-                    >
-                      <option>---Select---</option>
-                      <option value="ajay">Ajay</option>
-                      <option value="dinesh">Dinesh</option>
-                    </CustomInput>
-                  </FormGroup>
-                </Col>
+                    <Label>Notify</Label>
 
-                <Col lg="6" md="6">
-                  <FormGroup>
-                    <Label>Notify Email </Label>
-                    <Input
-                      type="email"
-                      placeholder=""
-                      name="notifyby_email"
-                      value={this.state.notifyby_email}
-                      onChange={this.changeHandler}
+                    <ReactMultiSelectCheckboxes
+                      options={options}
+                      width="100%"
                     />
                   </FormGroup>
                 </Col>
+
                 <Col lg="6" md="6">
                   <FormGroup>
                     <Label>Order Zone </Label>
@@ -313,24 +280,13 @@ export class AddOrder extends Component {
                     ))}
                   </Input>
                 </Col>
-                {/* 
-                <Col lg="6" md="6">
-                  <Label>Attribute</Label>
-                  <Input
-                    type="text"
-                    placeholder="Attribute"
-                    name="attribute"
-                    value={this.state.attribute}
-                    onChange={this.changeHandler}
-                  />
-                </Col> */}
                 <Col lg="6" md="6" className="mb-1">
                   <Label>Attribute Name</Label>
                   <Input
                     type="select"
                     placeholder="Enter Attribute"
-                    name="attribuName"
-                    value={this.state.attribuName}
+                    name="attribute"
+                    value={this.state.attribute}
                     onChange={this.changeHandler}
                   >
                     <option>Select Attribute</option>
@@ -341,6 +297,7 @@ export class AddOrder extends Component {
                     ))}
                   </Input>
                 </Col>
+
                 <Col lg="6" md="6">
                   <Label>Quantity</Label>
                   <Input
@@ -356,7 +313,7 @@ export class AddOrder extends Component {
                 <Button.Ripple
                   color="primary"
                   type="submit"
-                  className="mr-1 mb-1"
+                  className="mr-1 mt-2"
                 >
                   Add Order
                 </Button.Ripple>

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import GeneralInformation from "./GeneralInformation";
 import AccountInformation from "./AccountInformation";
-
+import VehicleInfo from "./VehicleInfo";
 import {
   Card,
   CardBody,
@@ -71,7 +71,6 @@ export class AddDriver extends Component {
   render() {
     return (
       <div>
-        <h1>Add New Driver</h1>
         <Col sm="12">
           <Col>
             <h1 sm="12">
@@ -83,6 +82,13 @@ export class AddDriver extends Component {
           <Col>
             <h1 sm="12">
               <AccountInformation />
+            </h1>
+          </Col>
+        </Col>
+        <Col sm="12">
+          <Col>
+            <h1 sm="12">
+              <VehicleInfo />
             </h1>
           </Col>
         </Col>

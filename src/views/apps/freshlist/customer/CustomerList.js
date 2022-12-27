@@ -218,7 +218,7 @@ class CustomerList extends React.Component {
                       history.push(`/app/freshlist/customer/AddCustomer`)
                     }
                   >
-                    Add New
+                    Add Customer
                   </Button>
                 </Col>
               </Row>

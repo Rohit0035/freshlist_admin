@@ -148,8 +148,9 @@ const navigationConfig = [
         permissions: ["admin", "editor"],
         navLink: "/app/freshlist/refundrequest/approvedRequest",
       },
+
       {
-        id: "completed",
+        id: "comp",
         title: "Completed",
         type: "item",
         icon: <FaCircle size={8} />,
@@ -187,7 +188,7 @@ const navigationConfig = [
       {
         id: "hub_sale",
         title: "Hub Sale",
-        // type: "item",
+        type: "item",
         icon: <FaCircle size={8} />,
         permissions: ["admin", "editor"],
         navLink: "/app/freshlist/sales/hub_sale",
@@ -243,16 +244,8 @@ const navigationConfig = [
         type: "item",
         icon: <FaCircle size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/wallet/credit",
+        navLink: "/app/freshlist/wallet/walletType",
       },
-      // {
-      //   id: "debit",
-      //   title: "Debit",
-      //   type: "item",
-      //   icon: <FaCircle size={8} />,
-      //   permissions: ["admin", "editor"],
-      //   navLink: "/app/freshlist/wallet/debit",
-      // },
     ],
   },
   {
@@ -270,7 +263,7 @@ const navigationConfig = [
       //   navLink: "/app/freshlist/vendor/addVendor",
       // },
       {
-        id: "vendor",
+        id: "vendor_list",
         title: "Vendors List",
         type: "item",
         icon: <FaCircle size={8} />,
@@ -301,14 +294,14 @@ const navigationConfig = [
     type: "collapse",
     icon: <FaUser size={15} />,
     children: [
-      {
-        id: "addriver",
-        title: "Add Driver",
-        type: "item",
-        icon: <FaCircle size={8} />,
-        permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/driver/addDriver",
-      },
+      // {
+      //   id: "addriver",
+      //   title: "Add Driver",
+      //   type: "item",
+      //   icon: <FaCircle size={8} />,
+      //   permissions: ["admin", "editor"],
+      //   navLink: "/app/freshlist/driver/addDriver",
+      // },
       {
         id: "driverList",
         title: "Driver List",
@@ -324,7 +317,7 @@ const navigationConfig = [
     groupTitle: "Hub MANAGEMENT",
   },
   {
-    id: "order",
+    id: "hub",
     title: "Hub",
     type: "collapse",
     icon: <FaShoppingCart size={15} />,
@@ -438,7 +431,7 @@ const navigationConfig = [
     groupTitle: "PRODUCT MANAGEMENT",
   },
   {
-    id: "category",
+    id: "categorys",
     title: "Category Setup",
     type: "collapse",
     icon: <FaStream size={15} />,
@@ -486,27 +479,19 @@ const navigationConfig = [
 
   // -------------
   {
-    id: "order",
+    id: "product_attribute",
     title: "Product Attribute",
     type: "collapse",
     icon: <FaProductHunt size={15} />,
     children: [
       {
-        id: "product",
+        id: "productlist",
         title: "ProductList",
         type: "item",
         icon: <FaCircle size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/house/HouseProductList",
+        navLink: "/app/freshlist/house/houseProductList",
       },
-      // {
-      //   id: "addproduct",
-      //   title: "AddProduct",
-      //   type: "item",
-      //   icon: <FaCircle size={8} />,
-      //   permissions: ["admin", "editor"],
-      //   navLink: "/app/freshlist/house/AddHouseProduct",
-      // },
       {
         id: "bundlelist",
         title: "Bundle",
@@ -523,14 +508,14 @@ const navigationConfig = [
     type: "collapse",
     icon: <FaStar size={15} />,
     children: [
-      {
-        id: "addbrand",
-        title: "Add Brand",
-        type: "item",
-        icon: <FaCircle size={8} />,
-        permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/brand/AddBrand",
-      },
+      // {
+      //   id: "addbrand",
+      //   title: "Add Brand",
+      //   type: "item",
+      //   icon: <FaCircle size={8} />,
+      //   permissions: ["admin", "editor"],
+      //   navLink: "/app/freshlist/brand/AddBrand",
+      // },
       {
         id: "brandlist",
         title: "Brand List",
@@ -548,14 +533,14 @@ const navigationConfig = [
     type: "collapse",
     icon: <FaStar size={15} />,
     children: [
-      {
-        id: "addbatch",
-        title: "Add Batch",
-        type: "item",
-        icon: <FaCircle size={8} />,
-        permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/batch/addbatch",
-      },
+      // {
+      //   id: "addbatch",
+      //   title: "Add Batch",
+      //   type: "item",
+      //   icon: <FaCircle size={8} />,
+      //   permissions: ["admin", "editor"],
+      //   navLink: "/app/freshlist/batch/addbatch",
+      // },
       {
         id: "assigntobatch",
         title: "Assign To Batch",

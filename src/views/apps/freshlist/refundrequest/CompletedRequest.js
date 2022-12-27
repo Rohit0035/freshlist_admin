@@ -18,7 +18,7 @@ import axiosConfig from "../../../../axiosConfig";
 import { ContextLayout } from "../../../../utility/context/Layout";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
-import { Eye, Trash2, ChevronDown } from "react-feather";
+import { Eye, Trash2, ChevronDown, Edit } from "react-feather";
 import { history } from "../../../../history";
 import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../../assets/scss/pages/users.scss";
@@ -41,12 +41,91 @@ class CompletedRequest extends React.Component {
         headerName: "S.No",
         valueGetter: "node.rowIndex + 1",
         field: "node.rowIndex + 1",
-        width: 100,
+        width: 150,
         filter: true,
       },
       {
         headerName: "Order ID ",
-        field: "you_are",
+        field: "orderId",
+        filter: true,
+        resizable: true,
+        width: 120,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="ml-2">
+                <span>{params.data.orderId}</span>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Email",
+        field: "email",
+        filter: true,
+        resizable: true,
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="ml-2">
+                <span>{params.data.notifyby_email}</span>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Phone",
+        field: "phone",
+        filter: true,
+        resizable: true,
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="ml-2">
+                <span>{params.data.phone_no}</span>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Order Date",
+        field: "order_date",
+        filter: "true",
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="">
+                <span>{params.data.order_date}</span>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Ordered",
+        field: "ordered",
+        filter: true,
+        resizable: true,
+        width: 80,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="ml-2">
+                <span>{params.data.orderd_from}</span>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Zone",
+        field: "zone",
         filter: true,
         resizable: true,
         width: 150,
@@ -54,100 +133,67 @@ class CompletedRequest extends React.Component {
           return (
             <div className="d-flex align-items-center cursor-pointer">
               <div className="ml-2">
-                <span>{params.data.you_are}</span>
+                <span>{params.data.order_zone}</span>
               </div>
             </div>
           );
         },
       },
       {
-        headerName: "Date",
-        field: "createdAt",
-        filter: "agSetColumnFilter",
-        width: 100,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
-                <span>
-                  <Moment format="lll">{params.data.createdAt}</Moment>
-                </span>
-              </div>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: " Return Date",
-        field: "createdAt",
-        filter: "agSetColumnFilter",
-        width: 150,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
-                <span>
-                  <Moment format="lll">{params.data.createdAt}</Moment>
-                </span>
-              </div>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Item",
-        field: "item",
+        headerName: "Delivery Address",
+        field: "delivery_address",
         filter: true,
         resizable: true,
-        width: 100,
+        width: 200,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
               <div className="ml-2">
-                <span>{params.data.item}</span>
+                <span>{params.data.delivery_add}</span>
               </div>
             </div>
           );
         },
       },
-      //   {
-      //     headerName: "Total Amount",
-      //     field: "pending_amount",
-      //     filter: true,
-      //     resizable: true,
-      //     width: 180,
-      //     cellRendererFramework: (params) => {
-      //       return (
-      //         <div className="d-flex align-items-center cursor-pointer">
-      //           <div className="ml-2">
-      //             <span>{params.data.comments}</span>
-      //           </div>
-      //         </div>
-      //       );
-      //     },
-      //   },
+      {
+        headerName: "Assign Driver",
+        field: "assign_driver",
+        filter: true,
+        resizable: true,
+        width: 180,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="ml-2">
+                <span>{params.data.assing_drive}</span>
+              </div>
+            </div>
+          );
+        },
+      },
       {
         headerName: "Status",
         field: "status",
         filter: true,
-        width: 100,
+        width: 150,
         cellRendererFramework: (params) => {
-          return params.value === "Published" ? (
+          return params.value === "Order Placed" ? (
             <div className="badge badge-pill badge-success">
               {params.data.status}
             </div>
-          ) : params.value === "Unpublished" ? (
+          ) : params.value === "painding" ? (
             <div className="badge badge-pill badge-warning">
               {params.data.status}
             </div>
           ) : null;
         },
       },
+
       {
         headerName: "Actions",
         field: "sortorder",
         field: "transactions",
-        width: 150,
+        width: 120,
         cellRendererFramework: (params) => {
           return (
             <div className="actions cursor-pointer">
@@ -157,9 +203,25 @@ class CompletedRequest extends React.Component {
                 color="green"
                 onClick={() =>
                   history.push(
-                    `/app/freshlist/refundrequest/viewRefundRequest/${params.data._id}`
+                    `/app/freshlist/order/viewAll/${params.data._id}`
                   )
                 }
+              />
+              <Edit
+                className="mr-50"
+                size="25px"
+                color="blue"
+                onClick={() => history.push("/app/freshlist/order/EditOrder")}
+              />
+              <Trash2
+                className="mr-50"
+                size="25px"
+                color="red"
+                onClick={() => {
+                  let selectedData = this.gridApi.getSelectedRows();
+                  this.runthisfunction(params.data._id);
+                  this.gridApi.updateRowData({ remove: selectedData });
+                }}
               />
             </div>
           );
@@ -256,7 +318,7 @@ class CompletedRequest extends React.Component {
             <Row className="m-2">
               <Col>
                 <h1 col-sm-6 className="float-left">
-                  Completed
+                  CompletedRequest
                 </h1>
               </Col>
             </Row>
@@ -311,7 +373,34 @@ class CompletedRequest extends React.Component {
                     <div className="d-flex flex-wrap justify-content-between mb-1">
                       <div className="table-input mr-1">
                         <Input
-                          placeholder="search..."
+                          placeholder="Hub Name"
+                          onChange={(e) =>
+                            this.updateSearchQuery(e.target.value)
+                          }
+                          value={this.state.value}
+                        />
+                      </div>
+                      <div className="table-input mr-1">
+                        <Input
+                          placeholder="Order Id"
+                          onChange={(e) =>
+                            this.updateSearchQuery(e.target.value)
+                          }
+                          value={this.state.value}
+                        />
+                      </div>
+                      <div className="table-input mr-1">
+                        <Input
+                          placeholder="Phone Number"
+                          onChange={(e) =>
+                            this.updateSearchQuery(e.target.value)
+                          }
+                          value={this.state.value}
+                        />
+                      </div>
+                      <div className="table-input mr-1">
+                        <Input
+                          placeholder="Enter Email"
                           onChange={(e) =>
                             this.updateSearchQuery(e.target.value)
                           }

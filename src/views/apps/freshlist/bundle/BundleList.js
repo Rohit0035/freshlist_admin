@@ -250,7 +250,7 @@ class BundleList extends React.Component {
                     Bundle List
                   </h1>
                 </Col>
-                <Col>
+                {/* <Col>
                   <Button
                     style={{ marginRight: "-15rem" }}
                     className="btn btn-danger float-right"
@@ -260,17 +260,18 @@ class BundleList extends React.Component {
                   >
                     Back
                   </Button>
-                </Col>
+                </Col> */}
                 <Col>
                   <Route
                     render={({ history }) => (
                       <Button
-                        className="btn btn-danger float-right"
+                        className="btn btn-primary float-right"
+                        color="primary"
                         onClick={() =>
                           history.push("/app/freshlist/bundle/addBundle")
                         }
                       >
-                        Add New
+                        Add Bundle
                       </Button>
                     )}
                   />

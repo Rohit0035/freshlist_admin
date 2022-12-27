@@ -1,11 +1,11 @@
-import React from "react"
-import { Row, Col } from "reactstrap"
-import Breadcrumbs from "../../../../components/@vuexy/breadCrumbs/BreadCrumb"
-import SelectReactstrap from "./SelectReactstrap"
-import ReactSelect from "./SelectReact"
-import Selectoptions from "./SelectOptions"
+import React from "react";
+import { Row, Col } from "reactstrap";
+import Breadcrumbs from "../../../../components/@vuexy/breadCrumbs/BreadCrumb";
+import SelectReactstrap from "./SelectReactstrap";
+import ReactSelect from "./SelectReact";
+import Selectoptions from "./SelectOptions";
 
-import "../../../../assets/scss/plugins/forms/react-select/_react-select.scss"
+import "../../../../assets/scss/plugins/forms/react-select/_react-select.scss";
 
 class Select extends React.Component {
   render() {
@@ -28,7 +28,7 @@ class Select extends React.Component {
           </Col>
         </Row>
       </React.Fragment>
-    )
+    );
   }
 }
-export default Select
+export default Select;

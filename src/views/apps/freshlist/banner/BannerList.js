@@ -209,10 +209,11 @@ class BannerList extends React.Component {
                 </Col>
                 <Col>
                   <Button
-                    className=" btn btn-danger float-right"
-                    // onClick={() =>
-                    //   history.push("/app/freshlist/banner/addBanner")
-                    // }
+                    className=" btn float-right"
+                    color="primary"
+                    onClick={() =>
+                      history.push("/app/freshlist/banner/addBanner")
+                    }
                   >
                     Add Banner
                   </Button>

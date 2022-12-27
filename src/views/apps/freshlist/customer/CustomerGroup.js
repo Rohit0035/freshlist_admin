@@ -56,20 +56,7 @@ class CustomerGroup extends React.Component {
       },
 
       {
-        headerName: "Date",
-        field: "createAt",
-        filter: true,
-        width: 200,
-        cellRendererFramework: (params) => {
-          return (
-            <div>
-              <span>{params.data.createAt}</span>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Multiple",
+        headerName: "Status",
         field: "status",
         filter: true,
         width: 150,

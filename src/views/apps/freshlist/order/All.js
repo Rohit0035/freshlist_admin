@@ -103,10 +103,7 @@ class All extends React.Component {
           return (
             <div className="d-flex align-items-center cursor-pointer">
               <div className="">
-                <span>
-                  {params.data.order_date}
-                  {/* <Moment format="lll">{params.data.createdAt}</Moment> */}
-                </span>
+                <span>{params.data.order_date}</span>
               </div>
             </div>
           );
@@ -145,22 +142,6 @@ class All extends React.Component {
         },
       },
       {
-        headerName: "Billing Address",
-        field: "billing_address",
-        filter: true,
-        resizable: true,
-        width: 200,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
-                <span>{params.data.billing_add}</span>
-              </div>
-            </div>
-          );
-        },
-      },
-      {
         headerName: "Delivery Address",
         field: "delivery_address",
         filter: true,
@@ -171,22 +152,6 @@ class All extends React.Component {
             <div className="d-flex align-items-center cursor-pointer">
               <div className="ml-2">
                 <span>{params.data.delivery_add}</span>
-              </div>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Items",
-        field: "items",
-        filter: true,
-        resizable: true,
-        width: 120,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
-                <span>{params.data.items}</span>
               </div>
             </div>
           );
@@ -431,7 +396,7 @@ class All extends React.Component {
                         history.push("/app/freshlist/order/addOrder")
                       }
                     >
-                      Add New
+                      Add Order
                     </Button>
                   )}
                 />
@@ -488,7 +453,34 @@ class All extends React.Component {
                     <div className="d-flex flex-wrap justify-content-between mb-1">
                       <div className="table-input mr-1">
                         <Input
-                          placeholder="Search ..."
+                          placeholder="Hub Name"
+                          onChange={(e) =>
+                            this.updateSearchQuery(e.target.value)
+                          }
+                          value={this.state.value}
+                        />
+                      </div>
+                      <div className="table-input mr-1">
+                        <Input
+                          placeholder="Order Id"
+                          onChange={(e) =>
+                            this.updateSearchQuery(e.target.value)
+                          }
+                          value={this.state.value}
+                        />
+                      </div>
+                      <div className="table-input mr-1">
+                        <Input
+                          placeholder="Phone Number"
+                          onChange={(e) =>
+                            this.updateSearchQuery(e.target.value)
+                          }
+                          value={this.state.value}
+                        />
+                      </div>
+                      <div className="table-input mr-1">
+                        <Input
+                          placeholder="Enter Email"
                           onChange={(e) =>
                             this.updateSearchQuery(e.target.value)
                           }

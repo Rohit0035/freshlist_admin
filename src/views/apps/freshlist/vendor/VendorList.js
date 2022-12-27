@@ -103,10 +103,23 @@ class VendorList extends React.Component {
         },
       },
       {
+        headerName: "Total Subscribers",
+        field: "subscribers",
+        filter: true,
+        width: 100,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <span>{params.data.subscribers}</span>
+            </div>
+          );
+        },
+      },
+      {
         headerName: "Total Orders",
         field: "desc",
         filter: true,
-        width: 200,
+        width: 100,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
@@ -120,7 +133,7 @@ class VendorList extends React.Component {
         headerName: "Status",
         field: "status",
         filter: true,
-        width: 150,
+        width: 120,
         cellRendererFramework: (params) => {
           return params.value === "Active" ? (
             <div className="badge badge-pill badge-success">

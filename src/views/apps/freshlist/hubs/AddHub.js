@@ -11,20 +11,20 @@ import {
   FormGroup,
   CustomInput,
 } from "reactstrap";
-// import { history } from "../../../../history";
+import { history } from "../../../../history";
 import axiosConfig from "../../../../axiosConfig";
 import { Route } from "react-router-dom";
 
 const AddHub = () => {
   const [formData, setFormData] = useState({
     name: "",
-    desc: "",
     email: "",
     mobile: "",
     address: "",
     delivery_zone: "",
-    cat: "",
-    subcat: "",
+    // cat: "",
+    // subcat: "",
+    // desc: "",
     status: "",
   });
   const changeHandler = (e) => {
@@ -53,6 +53,14 @@ const AddHub = () => {
             <h1 col-sm-6 className="float-left">
               Add Hub
             </h1>
+          </Col>
+          <Col>
+            <Button
+              className=" btn btn-danger float-right"
+              onClick={() => history.push("/app/freshlist/hubs/hub_list")}
+            >
+              Back
+            </Button>
           </Col>
         </Row>
         <CardBody>
@@ -109,7 +117,7 @@ const AddHub = () => {
                 </FormGroup>
               </Col>
 
-              <Col lg="6" md="6">
+              {/* <Col lg="6" md="6">
                 <FormGroup>
                   <Label>Category</Label>
                   <CustomInput
@@ -125,8 +133,8 @@ const AddHub = () => {
                     <option value="category2">Category2</option>
                   </CustomInput>
                 </FormGroup>
-              </Col>
-              <Col lg="6" md="6">
+              </Col> */}
+              {/* <Col lg="6" md="6">
                 <FormGroup>
                   <Label>Sub Category</Label>
                   <CustomInput
@@ -142,8 +150,8 @@ const AddHub = () => {
                     <option value="sub category2">Sub Category2</option>
                   </CustomInput>
                 </FormGroup>
-              </Col>
-              <Col lg="6" md="6">
+              </Col> */}
+              {/* <Col lg="6" md="6">
                 <FormGroup>
                   <Label>Description</Label>
                   <Input
@@ -154,7 +162,7 @@ const AddHub = () => {
                     onChange={changeHandler}
                   ></Input>
                 </FormGroup>
-              </Col>
+              </Col> */}
 
               <Col lg="6" md="6">
                 <FormGroup>
