@@ -2,6 +2,7 @@ import React from "react";
 import { Card, CardBody, Media, Row, Col, Button } from "reactstrap";
 import axiosConfig from "../../../../axiosConfig";
 import { history } from "../../../../history";
+import { Route } from "react-router-dom";
 class ViewAll extends React.Component {
   constructor(props) {
     super(props);
@@ -10,12 +11,11 @@ class ViewAll extends React.Component {
     };
   }
   componentDidMount() {
-    //console.log(this.props.match.params);
+    // console.log(this.props.match.params);
     let { id } = this.props.match.params;
     axiosConfig
-      .get(`/viewonebanner/${id}`)
+      .get(`/admin/viewone_order/${id}`)
       .then((response) => {
-        console.log(response.data);
         console.log(response.data.data);
         this.setState({ data: response.data.data });
       })
@@ -36,12 +36,16 @@ class ViewAll extends React.Component {
                   </h1>
                 </Col>
                 <Col>
-                  <Button
-                    className=" btn btn-danger float-right"
-                    onClick={() => history.push("/app/freshlist/order/All")}
-                  >
-                    Back
-                  </Button>
+                  <Route
+                    render={({ history }) => (
+                      <Button
+                        className=" btn btn-danger float-right"
+                        onClick={() => history.push("/app/freshlist/order/All")}
+                      >
+                        Back
+                      </Button>
+                    )}
+                  />
                 </Col>
               </Row>
               <CardBody>
@@ -67,58 +71,75 @@ class ViewAll extends React.Component {
                                   Order ID
                                 </div>
                                 <div className="text-truncate">
-                                  <span>{this.state.data.banner_title}</span>
+                                  <span>{this.state.data.orderId}</span>
                                 </div>
                               </div>
                               <div className="d-flex user-info">
                                 <div className="user-info-title font-weight-bold">
-                                  Item Image
+                                  Delivery Address
                                 </div>
                                 <div className="text-truncate">
-                                  <span>{this.state.data.bannertype}</span>
+                                  <span>{this.state.data.delivery_add}</span>
                                 </div>
                               </div>
                               <div className="d-flex user-info">
                                 <div className="user-info-title font-weight-bold">
-                                  Payment Method
+                                  Email
                                 </div>
                                 <div className="text-truncate">
-                                  <span>{this.state.data.bannertype}</span>
+                                  <span>{this.state.data.email}</span>
                                 </div>
                               </div>
                               <div className="d-flex user-info">
                                 <div className="user-info-title font-weight-bold">
-                                  Payment Status
+                                  Previous Address
                                 </div>
                                 <div className="text-truncate">
-                                  <span>{this.state.data.bannertype}</span>
+                                  <span>{this.state.data.previous_add}</span>
+                                </div>
+                              </div>
+                              <div className="d-flex user-info">
+                                <div className="user-info-title font-weight-bold">
+                                  New Address
+                                </div>
+                                <div className="text-truncate">
+                                  <span>{this.state.data.new_address}</span>
                                 </div>
                               </div>
 
                               <div className="d-flex user-info">
                                 <div className="user-info-title font-weight-bold">
-                                  Tax
+                                  Phone
                                 </div>
                                 <div className="text-truncate">
-                                  <span>{this.state.data.bannertype}</span>
+                                  <span>{this.state.data.phone_no}</span>
                                 </div>
                               </div>
                               <div className="d-flex user-info">
                                 <div className="user-info-title font-weight-bold">
-                                  Discount
+                                  Zone
                                 </div>
                                 <div className="text-truncate">
-                                  <span>{this.state.data.bannertype}</span>
+                                  <span>{this.state.data.order_zone}</span>
                                 </div>
                               </div>
                               <div className="d-flex user-info">
                                 <div className="user-info-title font-weight-bold">
-                                  Price
+                                  Notify
                                 </div>
                                 <div className="text-truncate">
-                                  <span>{this.state.data.bannertype}</span>
+                                  <span>{this.state.data.notify}</span>
                                 </div>
                               </div>
+                              <div className="d-flex user-info">
+                                <div className="user-info-title font-weight-bold">
+                                  Time Slot
+                                </div>
+                                <div className="text-truncate">
+                                  <span>{this.state.data.time_slot}</span>
+                                </div>
+                              </div>
+
                               <div className="users-page-view-table">
                                 <div className="d-flex user-info">
                                   <div className="user-info-title font-weight-bold">

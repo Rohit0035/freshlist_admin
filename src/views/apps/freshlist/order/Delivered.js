@@ -54,7 +54,7 @@ class Delivered extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
+              <div>
                 <span>{params.data.orderId}</span>
               </div>
             </div>
@@ -70,8 +70,8 @@ class Delivered extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
-                <span>{params.data.notifyby_email}</span>
+              <div>
+                <span>{params.data.email}</span>
               </div>
             </div>
           );
@@ -86,44 +86,44 @@ class Delivered extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
+              <div>
                 <span>{params.data.phone_no}</span>
               </div>
             </div>
           );
         },
       },
-      {
-        headerName: "Order Date",
-        field: "order_date",
-        filter: "true",
-        width: 200,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
-                <span>{params.data.order_date}</span>
-              </div>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Ordered",
-        field: "ordered",
-        filter: true,
-        resizable: true,
-        width: 80,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
-                <span>{params.data.orderd_from}</span>
-              </div>
-            </div>
-          );
-        },
-      },
+      // {
+      //   headerName: "Order Date",
+      //   field: "order_date",
+      //   filter: "true",
+      //   width: 200,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="d-flex align-items-center cursor-pointer">
+      //         <div className="">
+      //           <span>{params.data.order_date}</span>
+      //         </div>
+      //       </div>
+      //     );
+      //   },
+      // },
+      // {
+      //   headerName: "Ordered",
+      //   field: "ordered",
+      //   filter: true,
+      //   resizable: true,
+      //   width: 80,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="d-flex align-items-center cursor-pointer">
+      //         <div>
+      //           <span>{params.data.orderd_from}</span>
+      //         </div>
+      //       </div>
+      //     );
+      //   },
+      // },
       {
         headerName: "Zone",
         field: "zone",
@@ -133,7 +133,7 @@ class Delivered extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
+              <div>
                 <span>{params.data.order_zone}</span>
               </div>
             </div>
@@ -149,26 +149,45 @@ class Delivered extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
+              <div>
                 <span>{params.data.delivery_add}</span>
               </div>
             </div>
           );
         },
       },
+      // {
+      //   headerName: "Assign Driver",
+      //   field: "assign_driver",
+      //   filter: true,
+      //   resizable: true,
+      //   width: 180,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="d-flex align-items-center cursor-pointer">
+      //         <div>
+      //           <span>{params.data.assing_drive}</span>
+      //         </div>
+      //       </div>
+      //     );
+      //   },
+      // },
+
       {
-        headerName: "Assign Driver",
-        field: "assign_driver",
+        headerName: "Permitions",
+        field: "permitions",
         filter: true,
-        resizable: true,
-        width: 180,
+        width: 100,
         cellRendererFramework: (params) => {
           return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
-                <span>{params.data.assing_drive}</span>
-              </div>
-            </div>
+            <CustomInput
+              type="switch"
+              className="mr-1"
+              id="primary"
+              name="primary"
+              inline
+              onChange={this.handleSwitchChange}
+            ></CustomInput>
           );
         },
       },
@@ -178,15 +197,25 @@ class Delivered extends React.Component {
         filter: true,
         width: 150,
         cellRendererFramework: (params) => {
-          return params.value === "Order Placed" ? (
+          return params.value === "complete" ? (
             <div className="badge badge-pill badge-success">
               {params.data.status}
             </div>
-          ) : params.value === "painding" ? (
+          ) : params.value === "Pending" ? (
             <div className="badge badge-pill badge-warning">
               {params.data.status}
             </div>
-          ) : null;
+          ) : params.value === "Delivery" ? (
+            <div className="badge badge-pill bg-primary">
+              {params.data.status}
+            </div>
+          ) : params.value === "Canceled" ? (
+            <div className="badge badge-pill bg-danger">
+              {params.data.status}
+            </div>
+          ) : (
+            "no status"
+          );
         },
       },
 
@@ -230,16 +259,20 @@ class Delivered extends React.Component {
       },
     ],
   };
+  handleSwitchChange = () => {
+    return swal("Success!", "Submitted SuccessFull!", "success");
+  };
   async componentDidMount() {
-    await axiosConfig.get("/allcontactus").then((response) => {
+    await axiosConfig.get("/admin/delivery_order").then((response) => {
       let rowData = response.data.data;
       this.setState({ rowData });
+      console.log(rowData);
     });
   }
 
   async runthisfunction(id) {
-    console.log(id);
-    await axiosConfig.get(`/delcontactus/${id}`).then((response) => {
+    await axiosConfig.delete(`/admin/del_order/${id}`).then((response) => {
+      swal("Row Deleted!", "SuccessFull Deleted!", "error");
       console.log(response);
     });
   }

@@ -13,14 +13,10 @@ import {
 } from "reactstrap";
 import { history } from "../../../../history";
 import axiosConfig from "../../../../axiosConfig";
-import ReactMultiSelectCheckboxes from "react-multiselect-checkboxes";
-
-const options = [
-  { label: "Email", value: 1 },
-  { label: "WhatsApp", value: 2 },
-  { label: "SMS", value: 3 },
-  { label: "App Notification", value: 4 },
-];
+import Multiselect from "multiselect-react-dropdown";
+import swal from "sweetalert";
+import "../../../../../src/layouts/assets/scss/pages/users.scss";
+import { Route } from "react-router-dom";
 export class AddOrder extends Component {
   constructor(props) {
     super(props);
@@ -31,20 +27,22 @@ export class AddOrder extends Component {
       order_zone: "",
       delivery_add: "",
       attribute: "",
-      items: "",
-      notifyby_email: "",
+      // items: "",
+      email: "",
       delivery_date: "",
       time_slot: "",
       status: "",
       productName: [],
       attribuName: [],
-      previousAdd: "",
-      newAddress: "",
+      previous_add: "",
+      new_address: "",
+      notify: [],
+      // selectedOptions: [],
     };
   }
-  changeHandler1 = (e) => {
-    this.setState({ status: e.target.value });
-  };
+  // changeHandler1 = (e) => {
+  //   this.setState({ status: e.target.value });
+  // };
 
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
@@ -54,7 +52,7 @@ export class AddOrder extends Component {
     axiosConfig
       .get("/admin/product_list")
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         this.setState({
           productName: response.data.data,
         });
@@ -66,15 +64,16 @@ export class AddOrder extends Component {
     axiosConfig
       .get("/admin/getall_units")
       .then((response) => {
-        console.log(response);
         this.setState({
           attribuName: response.data.data,
         });
       })
       .catch((err) => {
+        swal("Oops", "Something went wrong!", "error");
         console.log(err);
       });
   }
+
   submitHandler = (e) => {
     e.preventDefault();
 
@@ -82,8 +81,8 @@ export class AddOrder extends Component {
       .post("/admin/addorder", this.state)
 
       .then((response) => {
-        console.log(response);
-        // swal("Success!", "Submitted SuccessFull!", "success");
+        console.log(response.data.data);
+        swal("Success!", "Submitted SuccessFull!", "success");
         this.props.history.push("/app/freshlist/order/all");
       })
       .catch((error) => {
@@ -102,12 +101,16 @@ export class AddOrder extends Component {
               </h1>
             </Col>
             <Col>
-              <Button
-                className=" btn btn-danger float-right"
-                onClick={() => history.push("/app/freshlist/order/all")}
-              >
-                Back
-              </Button>
+              <Route
+                render={({ history }) => (
+                  <Button
+                    className=" btn btn-danger float-right"
+                    onClick={() => history.push("/app/freshlist/order/all")}
+                  >
+                    Back
+                  </Button>
+                )}
+              />
             </Col>
           </Row>
           <CardBody>
@@ -118,10 +121,13 @@ export class AddOrder extends Component {
                     <Label>Mobile Number</Label>
                     <Input
                       type="number"
+                      pattern="[0-9]{0,5}"
                       placeholder="Mobile Number"
                       name="phone_no"
                       value={this.state.phone_no}
-                      onChange={this.changeHandler}
+                      // onChange={this.changeHandler}
+                      // onInput={this.handleChange.bind(this)}
+                      onChange={this.changeHandler.bind(this)}
                     />
                   </FormGroup>
                 </Col>
@@ -167,8 +173,8 @@ export class AddOrder extends Component {
                     <Input
                       type="text"
                       placeholder="Previous Address"
-                      name="previousAdd"
-                      value={this.state.previousAdd}
+                      name="previous_add"
+                      value={this.state.previous_add}
                       onChange={this.changeHandler}
                     />
                   </FormGroup>
@@ -179,8 +185,8 @@ export class AddOrder extends Component {
                     <Input
                       type="text"
                       placeholder="New Address"
-                      name="previousAdd"
-                      value={this.state.newAddress}
+                      name="new_address"
+                      value={this.state.new_address}
                       onChange={this.changeHandler}
                     />
                   </FormGroup>
@@ -211,15 +217,37 @@ export class AddOrder extends Component {
                 </Col>
                 <Col lg="6" md="6">
                   <FormGroup>
-                    <Label>Notify</Label>
-
-                    <ReactMultiSelectCheckboxes
-                      options={options}
-                      width="100%"
+                    <Label>Email</Label>
+                    <Input
+                      type="email"
+                      placeholder="Enter Email"
+                      name="email"
+                      value={this.state.email}
+                      onChange={this.changeHandler}
                     />
                   </FormGroup>
                 </Col>
 
+                <Col lg="6" md="6">
+                  <Label>Notify </Label>
+                  <Multiselect
+                    name="notify"
+                    value={this.state.notify}
+                    isObject={false}
+                    onRemove={(e) => {
+                      console.log(e);
+                    }}
+                    onSelect={(e) => {
+                      this.setState({ notify: e });
+                      // this.setState({ [e.target.name]: e.target.value });
+                      console.log(e);
+                    }}
+                    onChange={this.changeHandler}
+                    options={["SMS", "EMAIL", "WHATSAPP", "APP NOTIFICATION"]}
+                    showCheckbox
+                    className="mmm"
+                  />
+                </Col>
                 <Col lg="6" md="6">
                   <FormGroup>
                     <Label>Order Zone </Label>
@@ -232,8 +260,7 @@ export class AddOrder extends Component {
                     />
                   </FormGroup>
                 </Col>
-
-                {/* <Col lg="6" md="6">
+                <Col lg="6" md="6">
                   <Label>Order Status</Label>
                   <CustomInput
                     type="select"
@@ -243,17 +270,19 @@ export class AddOrder extends Component {
                     onChange={this.changeHandler}
                   >
                     <option>--Select--</option>
-                    <option value="Pending">Pending</option>
-                    <option value="Approved">Approved</option>
+                    <option value="pending">Pending</option>
+                    <option value="complete">Completed</option>
+                    <option value="delivery">Delivery</option>
+                    <option value="canceled">Canceled</option>
+                    {/* <option value="Approved">Approved</option>
                     <option value="Packaging">Packaging</option>
-                    <option value="Rejected">Rejected</option>
-                    <option value="Outfordelivery">Outfordelivery</option>
-                    <option value="Canceled">Canceled</option>
-                    <option value="Delivered">Delivered</option>
+                    <option value="Rejected">Rejected</option> */}
+                    {/* <option value="Outfordelivery">Outfordelivery</option> */}
+                    {/* <option value="Delivered">Delivered</option>
                     <option value="Failedtodeliver">Failedtodeliver</option>
-                    <option value="Returned">Returned</option>
+                    <option value="Returned">Returned</option> */}
                   </CustomInput>
-                </Col> */}
+                </Col>
               </Row>
               <Row className="m-2">
                 <Col>

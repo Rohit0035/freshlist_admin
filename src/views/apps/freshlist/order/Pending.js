@@ -19,7 +19,7 @@ import axiosConfig from "../../../../axiosConfig";
 import { ContextLayout } from "../../../../utility/context/Layout";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
-import { Eye, Trash2, ChevronDown, Edit } from "react-feather";
+import { Eye, Trash2, Edit, ChevronDown } from "react-feather";
 import { history } from "../../../../history";
 import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../../assets/scss/pages/users.scss";
@@ -31,12 +31,12 @@ class Pending extends React.Component {
     paginationPageSize: 20,
     currenPageSize: "",
     getPageSize: "",
-    defaultColDef: {
-      sortable: true,
-      editable: true,
-      resizable: true,
-      suppressMenu: true,
-    },
+    // defaultColDef: {
+    //   sortable: true,
+    //   editable: true,
+    //   resizable: true,
+    //   suppressMenu: true,
+    // },
     columnDefs: [
       {
         headerName: "S.No",
@@ -54,7 +54,7 @@ class Pending extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
+              <div className="">
                 <span>{params.data.orderId}</span>
               </div>
             </div>
@@ -70,8 +70,8 @@ class Pending extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
-                <span>{params.data.notifyby_email}</span>
+              <div className="">
+                <span>{params.data.email}</span>
               </div>
             </div>
           );
@@ -86,44 +86,14 @@ class Pending extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
+              <div className="">
                 <span>{params.data.phone_no}</span>
               </div>
             </div>
           );
         },
       },
-      {
-        headerName: "Order Date",
-        field: "order_date",
-        filter: "true",
-        width: 100,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
-                <span>{params.data.order_date}</span>
-              </div>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Ordered",
-        field: "ordered",
-        filter: true,
-        resizable: true,
-        width: 80,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
-                <span>{params.data.orderd_from}</span>
-              </div>
-            </div>
-          );
-        },
-      },
+
       {
         headerName: "Zone",
         field: "zone",
@@ -133,7 +103,7 @@ class Pending extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
+              <div className="">
                 <span>{params.data.order_zone}</span>
               </div>
             </div>
@@ -149,41 +119,22 @@ class Pending extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
+              <div className="">
                 <span>{params.data.delivery_add}</span>
               </div>
             </div>
           );
         },
       },
-      {
-        headerName: "Assign Driver",
-        field: "assign_driver",
-        filter: true,
-        resizable: true,
-        width: 180,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
-                <span>{params.data.assing_drive}</span>
-              </div>
-            </div>
-          );
-        },
-      },
+
       {
         headerName: "Status",
         field: "status",
         filter: true,
         width: 150,
         cellRendererFramework: (params) => {
-          return params.value === "Order Placed" ? (
+          return params.value === "Pending" ? (
             <div className="badge badge-pill badge-success">
-              {params.data.status}
-            </div>
-          ) : params.value === "painding" ? (
-            <div className="badge badge-pill badge-warning">
               {params.data.status}
             </div>
           ) : null;
@@ -231,15 +182,16 @@ class Pending extends React.Component {
     ],
   };
   async componentDidMount() {
-    await axiosConfig.get("/allcontactus").then((response) => {
+    await axiosConfig.get("/admin/pending_order").then((response) => {
       let rowData = response.data.data;
+      console.log(rowData);
       this.setState({ rowData });
     });
   }
 
   async runthisfunction(id) {
     console.log(id);
-    await axiosConfig.get(`/delcontactus/${id}`).then((response) => {
+    await axiosConfig.delete(`/admin/del_order/${id}`).then((response) => {
       console.log(response);
     });
   }

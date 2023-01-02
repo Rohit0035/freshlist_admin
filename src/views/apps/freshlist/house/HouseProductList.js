@@ -45,13 +45,13 @@ class HouseProductList extends React.Component {
       },
       {
         headerName: "Product Name",
-        field: "customerId",
+        field: "product_name",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.customerId}</span>
+              <span>{params.data.product_name}</span>
             </div>
           );
         },
@@ -72,13 +72,13 @@ class HouseProductList extends React.Component {
 
       {
         headerName: "Selling Price",
-        field: "lastname",
+        field: "selling_price",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.lastname}</span>
+              <span>{params.data.selling_price}</span>
             </div>
           );
         },
@@ -89,11 +89,11 @@ class HouseProductList extends React.Component {
         filter: true,
         width: 150,
         cellRendererFramework: (params) => {
-          return params.value === "Block" ? (
+          return params.data.status === "Active" ? (
             <div className="badge badge-pill badge-success">
               {params.data.status}
             </div>
-          ) : params.value === "Unblock" ? (
+          ) : params.data.status === "Inactive" ? (
             <div className="badge badge-pill badge-warning">
               {params.data.status}
             </div>
@@ -144,15 +144,15 @@ class HouseProductList extends React.Component {
     ],
   };
 
-  // async componentDidMount() {
-  //     await axios
-  //         .get("http://35.154.86.59/api/user/allcustomer")
-  //         .then((response) => {
-  //             let rowData = response.data.data;
-  //             console.log(rowData);
-  //             this.setState({ rowData });
-  //         });
-  // }
+  async componentDidMount() {
+    await axios
+      .get("http://3.6.37.16:8000/admin/product_list")
+      .then((response) => {
+        let rowData = response.data.data;
+        console.log(rowData);
+        this.setState({ rowData });
+      });
+  }
 
   // async runthisfunction(id) {
   //     console.log(id);
@@ -216,7 +216,8 @@ class HouseProductList extends React.Component {
                   <Route
                     render={({ history }) => (
                       <Button
-                        className="btn btn-primary float-right"
+                        className="btn  float-right"
+                        color="primary"
                         onClick={() =>
                           history.push("/app/freshlist/house/addHouseProduct")
                         }

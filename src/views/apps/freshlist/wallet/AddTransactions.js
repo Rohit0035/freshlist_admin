@@ -13,17 +13,17 @@ import {
 } from "reactstrap";
 import { history } from "../../../../history";
 import axiosConfig from "../../../../axiosConfig";
+import { Route } from "react-router-dom";
 
 export class AddTransactions extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      category_name: "",
-      selectedFile: null,
-      selectedName: "",
-      desc: "",
-      image: "",
-      status: "",
+      name: "",
+      mobile_no: "",
+      remarks: "",
+      wallet_type: "",
+      amount: "",
     };
   }
 
@@ -41,21 +41,21 @@ export class AddTransactions extends Component {
   };
   submitHandler = (e) => {
     e.preventDefault();
-    const data = new FormData();
-    data.append("category_name", this.state.category_name);
-    data.append("desc", this.state.desc);
-    data.append("status", this.state.status);
-    if (this.state.selectedFile !== null) {
-      data.append("image", this.state.selectedFile, this.state.selectedName);
-    }
-    for (var value of data.values()) {
-      console.log(value);
-    }
+    // const data = new FormData();
+    // data.append("category_name", this.state.category_name);
+    // data.append("desc", this.state.desc);
+    // data.append("status", this.state.status);
+    // if (this.state.selectedFile !== null) {
+    //   data.append("image", this.state.selectedFile, this.state.selectedName);
+    // }
+    // for (var value of data.values()) {
+    //   console.log(value);
+    // }
     axiosConfig
-      .post("/admin/addcategory", data)
+      .post("/admin/addwallet", this.state)
       .then((response) => {
-        console.log(response);
-        this.props.history.push("/app/freshlist/category/categoryList");
+        console.log(response.data.data);
+        // this.props.history.push("/app/freshlist/category/categoryList");
       })
       .catch((error) => {
         console.log(error);
@@ -72,12 +72,18 @@ export class AddTransactions extends Component {
               </h1>
             </Col>
             <Col>
-              <Button
-                className=" btn btn-danger float-right"
-                onClick={() => history.push("/app/freshlist/wallet/credit")}
-              >
-                Back
-              </Button>
+              <Route
+                render={({ history }) => (
+                  <Button
+                    className=" btn btn-danger float-right"
+                    onClick={() =>
+                      history.push("/app/freshlist/wallet/walletType")
+                    }
+                  >
+                    Back
+                  </Button>
+                )}
+              />
             </Col>
           </Row>
           <CardBody>
@@ -101,15 +107,15 @@ export class AddTransactions extends Component {
                     <Input
                       type="number"
                       placeholder="Mobile No."
-                      name="mobile"
-                      value={this.state.mobile}
+                      name="mobile_no"
+                      value={this.state.mobile_no}
                       onChange={this.changeHandler}
                     />
                   </FormGroup>
                 </Col>
-                <Col lg="6" md="6">
+                {/* <Col lg="6" md="6">
                   <FormGroup>
-                    <Label>Order Id</Label>
+                    <Label>Remarks</Label>
                     <Input
                       type="number"
                       placeholder="Order Id"
@@ -118,20 +124,20 @@ export class AddTransactions extends Component {
                       onChange={this.changeHandler}
                     />
                   </FormGroup>
-                </Col>
+                </Col> */}
                 <Col lg="6" md="6" className="mb-1">
                   <Label>Wallet Type</Label>
                   <Input
                     required
                     type="select"
-                    name="bannertype"
+                    name="wallet_type"
                     placeholder="Enter Iden Type"
-                    value={this.state.bannertype}
+                    value={this.state.wallet_type}
                     onChange={this.changeHandler}
                   >
                     <option value="select">--Select--</option>
-                    <option value="Credit">Credit</option>
-                    <option value="Debit">Debit</option>
+                    <option value="credit">Credit</option>
+                    <option value="debit">Debit</option>
                   </Input>
                 </Col>
                 <Col lg="6" md="6">

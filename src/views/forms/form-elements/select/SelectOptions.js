@@ -160,10 +160,11 @@ class SelectOptions extends React.Component {
         <CardBody>
           <Row>
             <Col md="6" sm="12">
-              <h5 className="text-bold-600 my-1">Multi Select</h5>
+              <h5 className="text-bold-600 my-1">Multi Select 123</h5>
               <Select
                 defaultValue={[colourOptions[2], colourOptions[3]]}
                 isMulti
+                // showCheckbox
                 name="colors"
                 options={colourOptions}
                 className="React"

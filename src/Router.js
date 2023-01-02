@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from "react";
-import { Router, Switch, Route } from "react-router-dom";
+import { Router, Switch, Route, HashRouter } from "react-router-dom";
 import { history } from "./history";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
@@ -734,7 +734,7 @@ class AppRouter extends React.Component {
   render() {
     return (
       // Set the directory path if you are deploying in sub-folder
-      <Router history={history}>
+      <HashRouter history={history}>
         <Switch>
           <AppRoute exact path="/" component={analyticsDashboard} />
           <AppRoute
@@ -917,7 +917,10 @@ class AppRouter extends React.Component {
             path="/app/freshlist/order/editOrder"
             component={EditOrder}
           />
-          <AppRoute path="/app/freshlist/order/viewAll" component={ViewAll} />
+          <AppRoute
+            path="/app/freshlist/order/viewAll/:id"
+            component={ViewAll}
+          />
           <AppRoute path="/app/freshlist/order/pending" component={Pending} />
           <AppRoute
             path="/app/freshlist/order/viewPending"
@@ -1430,7 +1433,11 @@ class AppRouter extends React.Component {
             path="/ui-element/syntaxhighlighter"
             component={syntaxhighlighter}
           />
-          <AppRoute path="/colors/colors" component={colors} />
+          <AppRoute
+            path="/Colored Select
+s/colors"
+            component={colors}
+          />
           <AppRoute path="/icons/reactfeather" component={reactfeather} />
           <AppRoute path="/cards/basic" component={basicCards} />
           <AppRoute path="/cards/statistics" component={statisticsCards} />
@@ -1557,7 +1564,7 @@ class AppRouter extends React.Component {
           <AppRoute path="/extensions/pagination" component={reactPaginate} />
           <AppRoute component={error404} fullLayout />
         </Switch>
-      </Router>
+      </HashRouter>
     );
   }
 }

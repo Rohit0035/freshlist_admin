@@ -219,12 +219,13 @@ class CategoryList extends React.Component {
                   <Route
                     render={({ history }) => (
                       <Button
-                        className="btn btn-primary float-right"
+                        className="btn float-right"
+                        color="primary"
                         onClick={() =>
                           history.push("/app/freshlist/category/addCategory")
                         }
                       >
-                        Add New
+                        Add Category
                       </Button>
                     )}
                   />

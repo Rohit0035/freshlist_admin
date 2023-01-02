@@ -19,6 +19,7 @@ import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "../../../../assets/scss/plugins/extensions/editor.scss";
 import draftToHtml from "draftjs-to-html";
+import { Route } from "react-router-dom";
 
 export class AddHouseProduct extends Component {
   constructor(props) {
@@ -58,7 +59,6 @@ export class AddHouseProduct extends Component {
       unT: [],
       clR: [],
       size: [],
-
       status: "",
     };
   }
@@ -114,7 +114,8 @@ export class AddHouseProduct extends Component {
     axiosConfig
       .get("/admin/getall_color")
       .then((response) => {
-        console.log(response);
+        console.log(response.data.data);
+
         this.setState({
           clR: response.data.data,
         });
@@ -196,14 +197,18 @@ export class AddHouseProduct extends Component {
               </h1>
             </Col>
             <Col>
-              <Button
-                className=" btn btn-danger float-right"
-                onClick={() =>
-                  history.push("/app/freshlist/house/houseProductList")
-                }
-              >
-                Back
-              </Button>
+              <Route
+                render={({ history }) => (
+                  <Button
+                    className=" btn btn-danger float-right"
+                    onClick={() =>
+                      history.push("/app/freshlist/house/houseProductList")
+                    }
+                  >
+                    Back
+                  </Button>
+                )}
+              />
             </Col>
           </Row>
           <Row>
@@ -263,7 +268,7 @@ export class AddHouseProduct extends Component {
                         onChange={this.changeHandler}
                       >
                         <option>select Color</option>
-                        {this.state.brN?.map((all_color) => (
+                        {this.state.clR?.map((all_color) => (
                           <option value={all_color?._id} key={all_color?._id}>
                             {all_color?.color_name}
                           </option>

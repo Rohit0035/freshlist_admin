@@ -19,7 +19,7 @@ import { Edit, Trash2, ChevronDown } from "react-feather";
 import { history } from "../../../../history";
 import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../../assets/scss/pages/users.scss";
-import { Route, Link } from "react-router-dom";
+import { Route } from "react-router-dom";
 
 class SubCategoryList extends React.Component {
   state = {
@@ -220,7 +220,8 @@ class SubCategoryList extends React.Component {
                   <Route
                     render={({ history }) => (
                       <Button
-                        className="btn btn-primary float-right"
+                        className="btn float-right"
+                        color="primary"
                         onClick={() =>
                           history.push(
                             "/app/freshlist/subcategory/addSubCategory"

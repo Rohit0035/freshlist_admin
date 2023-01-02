@@ -1,5 +1,5 @@
-import React from "react"
-import { Card, CardHeader, CardTitle, CardBody, CustomInput } from "reactstrap"
+import React from "react";
+import { Card, CardHeader, CardTitle, CardBody, CustomInput } from "reactstrap";
 
 class SwitchColors extends React.Component {
   render() {
@@ -67,7 +67,7 @@ class SwitchColors extends React.Component {
           </div>
         </CardBody>
       </Card>
-    )
+    );
   }
 }
-export default SwitchColors
+export default SwitchColors;

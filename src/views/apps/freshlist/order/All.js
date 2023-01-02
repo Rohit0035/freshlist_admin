@@ -13,6 +13,7 @@ import {
   DropdownItem,
   DropdownToggle,
   Button,
+  Badge,
 } from "reactstrap";
 import "../../../../assets/css/main.css";
 import axiosConfig from "../../../../axiosConfig";
@@ -23,7 +24,6 @@ import { Eye, Trash2, ChevronDown, Edit } from "react-feather";
 import { history } from "../../../../history";
 import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../../assets/scss/pages/users.scss";
-import Moment from "react-moment";
 import swal from "sweetalert";
 import { Route, Link } from "react-router-dom";
 class All extends React.Component {
@@ -32,12 +32,7 @@ class All extends React.Component {
     paginationPageSize: 20,
     currenPageSize: "",
     getPageSize: "",
-    defaultColDef: {
-      sortable: true,
-      editable: true,
-      resizable: true,
-      suppressMenu: true,
-    },
+    info: true,
     columnDefs: [
       {
         headerName: "S.No",
@@ -55,7 +50,7 @@ class All extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
+              <div>
                 <span>{params.data.orderId}</span>
               </div>
             </div>
@@ -71,8 +66,8 @@ class All extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
-                <span>{params.data.notifyby_email}</span>
+              <div>
+                <span>{params.data.email}</span>
               </div>
             </div>
           );
@@ -87,54 +82,54 @@ class All extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
+              <div>
                 <span>{params.data.phone_no}</span>
               </div>
             </div>
           );
         },
       },
-      {
-        headerName: "Order Date",
-        field: "order_date",
-        filter: "true",
-        width: 200,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
-                <span>{params.data.order_date}</span>
-              </div>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Ordered",
-        field: "ordered",
-        filter: true,
-        resizable: true,
-        width: 80,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
-                <span>{params.data.orderd_from}</span>
-              </div>
-            </div>
-          );
-        },
-      },
+      // {
+      //   headerName: "Order Date",
+      //   field: "order_date",
+      //   filter: "true",
+      //   width: 200,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="d-flex align-items-center cursor-pointer">
+      //         <div className="">
+      //           <span>{params.data.order_date}</span>
+      //         </div>
+      //       </div>
+      //     );
+      //   },
+      // },
+      // {
+      //   headerName: "Ordered",
+      //   field: "ordered",
+      //   filter: true,
+      //   resizable: true,
+      //   width: 80,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="d-flex align-items-center cursor-pointer">
+      //         <div>
+      //           <span>{params.data.orderd_from}</span>
+      //         </div>
+      //       </div>
+      //     );
+      //   },
+      // },
       {
         headerName: "Zone",
         field: "zone",
         filter: true,
         resizable: true,
-        width: 150,
+        width: 120,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
+              <div>
                 <span>{params.data.order_zone}</span>
               </div>
             </div>
@@ -150,26 +145,45 @@ class All extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
+              <div>
                 <span>{params.data.delivery_add}</span>
               </div>
             </div>
           );
         },
       },
+      // {
+      //   headerName: "Assign Driver",
+      //   field: "assign_driver",
+      //   filter: true,
+      //   resizable: true,
+      //   width: 180,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="d-flex align-items-center cursor-pointer">
+      //         <div>
+      //           <span>{params.data.assing_drive}</span>
+      //         </div>
+      //       </div>
+      //     );
+      //   },
+      // },
+
       {
-        headerName: "Assign Driver",
-        field: "assign_driver",
+        headerName: "Permitions",
+        field: "permitions",
         filter: true,
-        resizable: true,
         width: 180,
         cellRendererFramework: (params) => {
           return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
-                <span>{params.data.assing_drive}</span>
-              </div>
-            </div>
+            <CustomInput
+              type="switch"
+              className="mr-1"
+              id="primary"
+              name="primary"
+              inline
+              onChange={this.handleSwitchChange}
+            ></CustomInput>
           );
         },
       },
@@ -177,14 +191,22 @@ class All extends React.Component {
         headerName: "Status",
         field: "status",
         filter: true,
-        width: 150,
+        width: 120,
         cellRendererFramework: (params) => {
-          return params.value === "Order Placed" ? (
+          return params.value === "complete" ? (
             <div className="badge badge-pill badge-success">
               {params.data.status}
             </div>
-          ) : params.value === "painding" ? (
+          ) : params.value === "Pending" ? (
             <div className="badge badge-pill badge-warning">
+              {params.data.status}
+            </div>
+          ) : params.value === "Delivery" ? (
+            <div className="badge badge-pill bg-primary">
+              {params.data.status}
+            </div>
+          ) : params.value === "Canceled" ? (
+            <div className="badge badge-pill bg-danger">
               {params.data.status}
             </div>
           ) : null;
@@ -199,31 +221,45 @@ class All extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="actions cursor-pointer">
-              <Eye
-                className="mr-50"
-                size="25px"
-                color="green"
-                onClick={() =>
-                  history.push(
-                    `/app/freshlist/order/viewAll/${params.data._id}`
-                  )
-                }
+              <Route
+                render={({ history }) => (
+                  <Eye
+                    className="mr-50"
+                    size="25px"
+                    color="green"
+                    onClick={() =>
+                      history.push(
+                        `/app/freshlist/order/viewAll/${params.data._id}`
+                      )
+                    }
+                  />
+                )}
               />
-              <Edit
-                className="mr-50"
-                size="25px"
-                color="blue"
-                onClick={() => history.push("/app/freshlist/order/EditOrder")}
+              <Route
+                render={({ history }) => (
+                  <Edit
+                    className="mr-50"
+                    size="25px"
+                    color="blue"
+                    onClick={() =>
+                      history.push("/app/freshlist/order/EditOrder")
+                    }
+                  />
+                )}
               />
-              <Trash2
-                className="mr-50"
-                size="25px"
-                color="red"
-                onClick={() => {
-                  let selectedData = this.gridApi.getSelectedRows();
-                  this.runthisfunction(params.data._id);
-                  this.gridApi.updateRowData({ remove: selectedData });
-                }}
+              <Route
+                render={() => (
+                  <Trash2
+                    className="mr-50"
+                    size="25px"
+                    color="red"
+                    onClick={() => {
+                      let selectedData = this.gridApi.getSelectedRows();
+                      this.runthisfunction(params.data._id);
+                      this.gridApi.updateRowData({ remove: selectedData });
+                    }}
+                  />
+                )}
               />
             </div>
           );
@@ -231,17 +267,20 @@ class All extends React.Component {
       },
     ],
   };
+  handleSwitchChange = () => {
+    return swal("Success!", "Submitted SuccessFull!", "success");
+  };
   async componentDidMount() {
     await axiosConfig.get("/admin/allorder_list").then((response) => {
-      let rowData = response.data.data;
-      this.setState({ rowData });
-      console.log(rowData);
+      // let rowData = response.data.data;
+      this.setState({ rowData: response.data.data });
+      // console.log(rowData);
     });
   }
 
   async runthisfunction(id) {
-    console.log(id);
-    await axiosConfig.get(`/delcontactus/${id}`).then((response) => {
+    await axiosConfig.delete(`/admin/del_order/${id}`).then((response) => {
+      swal("Row Deleted!", "SuccessFull Deleted!", "error");
       console.log(response);
     });
   }
@@ -285,31 +324,6 @@ class All extends React.Component {
   };
   submitHandler = (e) => {
     e.preventDefault();
-    const data = new FormData();
-    data.append("banner_title", this.state.banner_title);
-    data.append("bannertype", this.state.bannertype);
-    data.append("status", this.state.status);
-    for (const file of this.state.selectedFile) {
-      if (this.state.selectedFile !== null) {
-        data.append("banner_img", file, file.name);
-      }
-    }
-    for (var value of data.values()) {
-      console.log(value);
-    }
-    for (var key of data.keys()) {
-      console.log(key);
-    }
-    axiosConfig
-      .post("/addbanner", data)
-      .then((response) => {
-        console.log(response);
-        swal("Successful!", "You clicked the button!", "success");
-        this.props.history.push("/app/freshlist/order/All");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   };
 
   render() {
@@ -383,7 +397,7 @@ class All extends React.Component {
             <Row className="m-2">
               <Col>
                 <h1 col-sm-6 className="float-left">
-                  All Order List
+                  All Order List <Badge pill>{rowData.length}</Badge>
                 </h1>
               </Col>
               <Col>

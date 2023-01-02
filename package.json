@@ -18,6 +18,7 @@
     "classnames": "~2.2.6",
     "draft-js": "^0.11.7",
     "draftjs-to-html": "^0.9.1",
+    "eslint": "^8.0.1",
     "file-saver": "^2.0.2",
     "firebase": "^7.10.0",
     "flatpickr": "^4.6.3",
@@ -33,10 +34,11 @@
     "match-sorter": "~4.0.2",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.33",
+    "multiselect-react-dropdown": "^2.0.25",
     "namor": "^2.0.2",
     "postcss-rtl": "^1.5.0",
     "prismjs": "^1.19.0",
-    "prop-types": "~15.7.2",
+    "prop-types": "^15.7.2",
     "query-string": "^6.10.1",
     "rc-slider": "^9.1.0",
     "react": "^16.13.0",
@@ -80,6 +82,7 @@
     "react-table": "~6.10.0",
     "react-toastify": "^5.5.0",
     "react-toggle": "~4.1.1",
+    "react-transition-group": "^4.1.0",
     "react-treebeard": "~3.2.3",
     "reactstrap": "^8.4.1",
     "recharts": "~1.8.5",
@@ -89,6 +92,7 @@
     "styled-components": "^5.0.1",
     "sweetalert": "^2.1.2",
     "swiper": "^5.3.0",
+    "update": "^0.7.4",
     "xlsx": "^0.15.5",
     "yarn": "^1.21.1",
     "yup": "^0.28.1"
@@ -103,6 +107,7 @@
     "extends": "react-app"
   },
   "devDependencies": {
+    "@types/eslint": "^8.4.10",
     "node-sass": "^4.14.1",
     "react-app-rewire-postcss": "^3.0.2",
     "react-app-rewired": "^2.2.1"

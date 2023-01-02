@@ -19,10 +19,11 @@ import axios from "axios";
 import axiosConfig from "../../../../axiosConfig";
 import { ContextLayout } from "../../../../utility/context/Layout";
 import { AgGridReact } from "ag-grid-react";
-import { Eye, Edit, Trash2, ChevronDown } from "react-feather";
+import { Eye, ChevronDown } from "react-feather";
 import { history } from "../../../../history";
 import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../../assets/scss/pages/users.scss";
+import { Route } from "react-router-dom";
 
 class WalletType extends React.Component {
   state = {
@@ -30,12 +31,12 @@ class WalletType extends React.Component {
     paginationPageSize: 20,
     currenPageSize: "",
     getPageSize: "",
-    defaultColDef: {
-      sortable: true,
-      editable: true,
-      resizable: true,
-      suppressMenu: true,
-    },
+    // defaultColDef: {
+    //   sortable: true,
+    //   editable: true,
+    //   resizable: true,
+    //   suppressMenu: true,
+    // },
     columnDefs: [
       {
         headerName: "S.No",
@@ -45,54 +46,53 @@ class WalletType extends React.Component {
         filter: true,
       },
       {
-        headerName: " Name",
-        field: "username",
+        headerName: "Order ID",
+        field: "orderId",
         filter: true,
-        width: 200,
+        width: 150,
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.username}</span>
+              <span>{params.data.orderId}</span>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: " Name",
+        field: "name",
+        filter: true,
+        width: 150,
+        cellRendererFramework: (params) => {
+          return (
+            <div>
+              <span>{params.data.name}</span>
             </div>
           );
         },
       },
       {
         headerName: "Mobile",
-        field: "mobile",
+        field: "mobile_no",
         filter: true,
-        width: 100,
+        width: 150,
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.mobile}</span>
+              <span>{params.data.mobile_no}</span>
             </div>
           );
         },
       },
       {
         headerName: "Type",
-        field: "type",
-        filter: true,
-        width: 100,
-        cellRendererFramework: (params) => {
-          return (
-            <div>
-              <span>{params.data.type}</span>
-            </div>
-          );
-        },
-      },
-
-      {
-        headerName: "Order ID",
-        field: "orderid",
+        field: "wallet_type",
         filter: true,
         width: 150,
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.orderid}</span>
+              <span>{params.data.wallet_type}</span>
             </div>
           );
         },
@@ -113,17 +113,17 @@ class WalletType extends React.Component {
       },
       {
         headerName: "Remarks",
-        field: "status",
+        field: "remarks",
         filter: true,
         width: 150,
         cellRendererFramework: (params) => {
-          return params.value === "true" ? (
+          return params.value === "remark" ? (
             <div className="badge badge-pill badge-success">
-              {params.data.status}
+              {params.data.remarks}
             </div>
           ) : params.value === "false" ? (
             <div className="badge badge-pill badge-warning">
-              {params.data.status}
+              {params.data.remarks}
             </div>
           ) : null;
         },
@@ -146,26 +146,6 @@ class WalletType extends React.Component {
                   )
                 }
               />
-              {/* <Edit
-                className="mr-50"
-                size="25px"
-                color="blue"
-                onClick={() =>
-                  history.push(
-                    `/app/freshlist/customer/editCustomer/${params.data._id}`
-                  )
-                }
-              />
-              <Trash2
-                className="mr-50"
-                size="25px"
-                color="red"
-                onClick={() => {
-                  let selectedData = this.gridApi.getSelectedRows();
-                  this.runthisfunction(params.data._id);
-                  this.gridApi.updateRowData({ remove: selectedData });
-                }}
-              /> */}
             </div>
           );
         },
@@ -174,7 +154,7 @@ class WalletType extends React.Component {
   };
 
   async componentDidMount() {
-    await axiosConfig.get("/user/userlist").then((response) => {
+    await axiosConfig.get("/admin/get_wallet").then((response) => {
       let rowData = response.data.data;
       console.log(rowData);
       this.setState({ rowData });
@@ -248,17 +228,17 @@ class WalletType extends React.Component {
                             onChange={this.changeHandler}
                           ></Input>
                         </Col>
-                        <Col lg="3" md="2">
+                        <Col>
                           <Label>Mobile</Label>
                           <Input
                             type="number"
                             placeholder="Enter Here"
-                            name="mobile"
-                            value={this.state.mobile}
+                            name="mobile_no"
+                            value={this.state.mobile_no}
                             onChange={this.changeHandler}
                           />
                         </Col>
-                        <Col lg="3" md="2">
+                        <Col>
                           <Label>Amount</Label>
                           <Input
                             type="number"
@@ -271,16 +251,22 @@ class WalletType extends React.Component {
                       </Row>
                     </Col>
                     <Col lg="4" className="mt-1">
-                      <Button
-                        sm="6"
-                        className="float-right"
-                        color="primary"
-                        onClick={() =>
-                          history.push(`/app/freshlist/wallet/AddTransactions`)
-                        }
-                      >
-                        Add Transactions
-                      </Button>
+                      <Route
+                        render={({ history }) => (
+                          <Button
+                            sm="6"
+                            className="float-right"
+                            color="primary"
+                            onClick={() =>
+                              history.push(
+                                `/app/freshlist/wallet/AddTransactions`
+                              )
+                            }
+                          >
+                            Add Transactions
+                          </Button>
+                        )}
+                      />
                     </Col>
                   </Row>
                 </Form>

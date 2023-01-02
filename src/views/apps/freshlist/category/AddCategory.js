@@ -13,6 +13,7 @@ import {
 } from "reactstrap";
 import { history } from "../../../../history";
 import axiosConfig from "../../../../axiosConfig";
+import { Route } from "react-router-dom";
 
 export class AddCategory extends Component {
   constructor(props) {
@@ -72,14 +73,18 @@ export class AddCategory extends Component {
               </h1>
             </Col>
             <Col>
-              <Button
-                className=" btn btn-danger float-right"
-                onClick={() =>
-                  history.push("/app/freshlist/category/categoryList")
-                }
-              >
-                Back
-              </Button>
+              <Route
+                render={({ history }) => (
+                  <Button
+                    className=" btn btn-danger float-right"
+                    onClick={() =>
+                      history.push("/app/freshlist/category/categoryList")
+                    }
+                  >
+                    Back
+                  </Button>
+                )}
+              />
             </Col>
           </Row>
           <CardBody>
