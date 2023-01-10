@@ -10,6 +10,7 @@ import {
   DropdownMenu,
   DropdownItem,
   DropdownToggle,
+  Badge,
 } from "reactstrap";
 import axios from "axios";
 import axiosConfig from "../../../../axiosConfig";

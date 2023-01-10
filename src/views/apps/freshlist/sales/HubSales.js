@@ -10,6 +10,7 @@ import {
   DropdownMenu,
   DropdownItem,
   DropdownToggle,
+  Badge,
 } from "reactstrap";
 import axios from "axios";
 import axiosConfig from "../../../../axiosConfig";
@@ -19,6 +20,7 @@ import { Eye, Edit, Trash2, ChevronDown } from "react-feather";
 import { history } from "../../../../history";
 import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../../assets/scss/pages/users.scss";
+import { Route } from "react-router-dom";
 
 class HubSales extends React.Component {
   state = {
@@ -177,16 +179,20 @@ class HubSales extends React.Component {
                   </h1>
                 </Col>
                 <Col>
-                  <Button
-                    sm="6"
-                    className="float-right"
-                    color="primary"
-                    onClick={() =>
-                      history.push(`/app/freshlist/customer/AddCustomer`)
-                    }
-                  >
-                    Add New
-                  </Button>
+                  <Route
+                    render={({ history }) => (
+                      <Button
+                        sm="6"
+                        className="float-right"
+                        color="primary"
+                        onClick={() =>
+                          history.push(`/app/freshlist/customer/AddCustomer`)
+                        }
+                      >
+                        Add New
+                      </Button>
+                    )}
+                  />
                 </Col>
               </Row>
               <CardBody>

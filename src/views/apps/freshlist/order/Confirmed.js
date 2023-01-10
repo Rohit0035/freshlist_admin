@@ -54,7 +54,7 @@ class Confirmed extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
+              <div className="">
                 <span>{params.data.orderId}</span>
               </div>
             </div>
@@ -70,7 +70,7 @@ class Confirmed extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
+              <div className="">
                 <span>{params.data.email}</span>
               </div>
             </div>
@@ -86,7 +86,7 @@ class Confirmed extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
+              <div className="">
                 <span>{params.data.phone_no}</span>
               </div>
             </div>
@@ -117,7 +117,7 @@ class Confirmed extends React.Component {
       //   cellRendererFramework: (params) => {
       //     return (
       //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div className="ml-2">
+      //         <div className="">
       //           <span>{params.data.orderd_from}</span>
       //         </div>
       //       </div>
@@ -133,7 +133,7 @@ class Confirmed extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
+              <div className="">
                 <span>{params.data.order_zone}</span>
               </div>
             </div>
@@ -149,7 +149,7 @@ class Confirmed extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
+              <div className="">
                 <span>{params.data.delivery_add}</span>
               </div>
             </div>

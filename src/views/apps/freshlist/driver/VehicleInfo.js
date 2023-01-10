@@ -92,7 +92,7 @@ export class VehicleInfo extends Component {
               <Form className="m-1" onSubmit={this.submitHandler}>
                 <Row className="mb-2">
                   <Col lg="6" md="6" className="mb-1">
-                    <Label>RC</Label>
+                    <Label>Registration Card</Label>
                     <CustomInput
                       required
                       type="file"

@@ -1,19 +1,9 @@
 import React from "react";
-import {
-  Card,
-  CardBody,
-  Media,
-  Row,
-  Col,
-  Button,
-  Label,
-  CustomInput,
-} from "reactstrap";
+import { Card, CardBody, Media, Row, Col, Button } from "reactstrap";
 import axiosConfig from "../../../../axiosConfig";
 import { history } from "../../../../history";
-import "../../../../assets/css/main.css";
-
-class ViewApprovedRequest extends React.Component {
+import { Route } from "react-router-dom";
+class ViewWallet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,12 +11,11 @@ class ViewApprovedRequest extends React.Component {
     };
   }
   componentDidMount() {
-    //console.log(this.props.match.params);
+    // console.log(this.props.match.params);
     let { id } = this.props.match.params;
     axiosConfig
-      .get(`/viewonebanner/${id}`)
+      .get(`/admin/viewone_order/${id}`)
       .then((response) => {
-        console.log(response.data);
         console.log(response.data.data);
         this.setState({ data: response.data.data });
       })
@@ -43,41 +32,27 @@ class ViewApprovedRequest extends React.Component {
               <Row className="m-2">
                 <Col>
                   <h1 col-sm-6 className="float-left">
-                    Approved Request Detail
+                    All Order Detail
                   </h1>
                 </Col>
-                <Col className="float-right">
-                  <h3>Change Refund Status</h3>
-                  <CustomInput
-                    type="select"
-                    name="type"
-                    value={this.state.type}
-                    onChange={this.changeHandler}
-                  >
-                    <option value="Pending">Pending</option>
-                    <option value="Approved">Approved</option>
-                    <option value="Refunded">Refunded</option>
-                    <option value="Rejected">Rejected</option>
-                  </CustomInput>
-                </Col>
-                <Col className="m-3">
-                  <Button
-                    className=" btn btn-danger float-right"
-                    onClick={() =>
-                      history.push(
-                        "/app/freshlist/refundrequest/approvedRequest"
-                      )
-                    }
-                  >
-                    Back
-                  </Button>
+                <Col>
+                  <Route
+                    render={({ history }) => (
+                      <Button
+                        className=" btn btn-danger float-right"
+                        onClick={() => history.push("/app/freshlist/order/All")}
+                      >
+                        Back
+                      </Button>
+                    )}
+                  />
                 </Col>
               </Row>
               <CardBody>
                 <Row className="mx-0" col="12">
                   <Col className="pl-0" sm="12" lg="6">
                     <Media className="d-sm-flex d-block">
-                      <Media className="mt-md-1 mt-0" left>
+                      {/* <Media className="mt-md-1 mt-0" left>
                         {this.state.data?.banner_img?.map((i) => (
                           <img
                             className="border-black m-0"
@@ -86,66 +61,91 @@ class ViewApprovedRequest extends React.Component {
                             height="400"
                           />
                         ))}
-                      </Media>
+                      </Media> */}
                       <Media body>
                         <Row className="ml-4">
                           <Col sm="9" md="12" lg="12">
                             <div className="users-page-view-table">
                               <div className="d-flex user-info">
                                 <div className="user-info-title font-weight-bold">
-                                  <h3>Refund id</h3>
+                                  Order ID
                                 </div>
                                 <div className="text-truncate">
-                                  <span>{this.state.data.banner_title}</span>
+                                  <span>{this.state.data.orderId}</span>
                                 </div>
                               </div>
                               <div className="d-flex user-info">
                                 <div className="user-info-title font-weight-bold">
-                                  <h3>Item Image</h3>
+                                  Delivery Address
                                 </div>
                                 <div className="text-truncate">
-                                  <span>{this.state.data.bannertype}</span>
+                                  <span>{this.state.data.delivery_add}</span>
                                 </div>
                               </div>
                               <div className="d-flex user-info">
                                 <div className="user-info-title font-weight-bold">
-                                  <h3>Payment Method</h3>
+                                  Email
                                 </div>
                                 <div className="text-truncate">
-                                  <span>{this.state.data.bannertype}</span>
+                                  <span>{this.state.data.email}</span>
                                 </div>
                               </div>
                               <div className="d-flex user-info">
                                 <div className="user-info-title font-weight-bold">
-                                  <h3>Refund Status</h3>
+                                  Previous Address
                                 </div>
                                 <div className="text-truncate">
-                                  <span>{this.state.data.bannertype}</span>
+                                  <span>{this.state.data.previous_add}</span>
+                                </div>
+                              </div>
+                              <div className="d-flex user-info">
+                                <div className="user-info-title font-weight-bold">
+                                  New Address
+                                </div>
+                                <div className="text-truncate">
+                                  <span>{this.state.data.new_address}</span>
                                 </div>
                               </div>
 
                               <div className="d-flex user-info">
                                 <div className="user-info-title font-weight-bold">
-                                  <h3>Tax</h3>
+                                  Phone
                                 </div>
                                 <div className="text-truncate">
-                                  <span>{this.state.data.bannertype}</span>
+                                  <span>{this.state.data.phone_no}</span>
                                 </div>
                               </div>
                               <div className="d-flex user-info">
                                 <div className="user-info-title font-weight-bold">
-                                  <h3>Discount</h3>
+                                  Zone
                                 </div>
                                 <div className="text-truncate">
-                                  <span>{this.state.data.bannertype}</span>
+                                  <span>{this.state.data.order_zone}</span>
                                 </div>
                               </div>
                               <div className="d-flex user-info">
                                 <div className="user-info-title font-weight-bold">
-                                  <h3>Price:</h3>
+                                  Notify
                                 </div>
                                 <div className="text-truncate">
-                                  <span>{this.state.data.bannertype}</span>
+                                  <span>{this.state.data.notify}</span>
+                                </div>
+                              </div>
+                              <div className="d-flex user-info">
+                                <div className="user-info-title font-weight-bold">
+                                  Time Slot
+                                </div>
+                                <div className="text-truncate">
+                                  <span>{this.state.data.time_slot}</span>
+                                </div>
+                              </div>
+
+                              <div className="users-page-view-table">
+                                <div className="d-flex user-info">
+                                  <div className="user-info-title font-weight-bold">
+                                    Status
+                                  </div>
+                                  <div>{this.state.data.status}</div>
                                 </div>
                               </div>
                             </div>
@@ -163,4 +163,4 @@ class ViewApprovedRequest extends React.Component {
     );
   }
 }
-export default ViewApprovedRequest;
+export default ViewWallet;

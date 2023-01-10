@@ -10,6 +10,7 @@ import {
   DropdownMenu,
   DropdownItem,
   DropdownToggle,
+  Badge,
 } from "reactstrap";
 import axios from "axios";
 import axiosConfig from "../../../../axiosConfig";
@@ -19,19 +20,23 @@ import { Eye, Edit, Trash2, ChevronDown } from "react-feather";
 import { history } from "../../../../history";
 import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../../assets/scss/pages/users.scss";
+import { Route } from "react-router-dom";
 
 class CustomerList extends React.Component {
   state = {
+    mobile: "",
+    email: "",
+    username: "",
     rowData: [],
     paginationPageSize: 20,
     currenPageSize: "",
     getPageSize: "",
-    defaultColDef: {
-      sortable: true,
-      editable: true,
-      resizable: true,
-      suppressMenu: true,
-    },
+    // defaultColDef: {
+    //   sortable: true,
+    //   editable: true,
+    //   resizable: true,
+    //   suppressMenu: true,
+    // },
     columnDefs: [
       {
         headerName: "S.No",
@@ -118,25 +123,33 @@ class CustomerList extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="actions cursor-pointer">
-              <Eye
-                className="mr-50"
-                size="25px"
-                color="green"
-                onClick={() =>
-                  history.push(
-                    `/app/freshlist/customer/viewCustomer/${params.data._id}`
-                  )
-                }
+              <Route
+                render={({ history }) => (
+                  <Eye
+                    className="mr-50"
+                    size="25px"
+                    color="green"
+                    onClick={() =>
+                      history.push(
+                        `/app/freshlist/customer/viewCustomer/${params.data._id}`
+                      )
+                    }
+                  />
+                )}
               />
-              <Edit
-                className="mr-50"
-                size="25px"
-                color="blue"
-                onClick={() =>
-                  history.push(
-                    `/app/freshlist/customer/editCustomer/${params.data._id}`
-                  )
-                }
+              <Route
+                render={({ history }) => (
+                  <Edit
+                    className="mr-50"
+                    size="25px"
+                    color="blue"
+                    onClick={() =>
+                      history.push(
+                        `/app/freshlist/customer/editCustomer/${params.data._id}`
+                      )
+                    }
+                  />
+                )}
               />
               {/* <Trash2
                                 className="mr-50"
@@ -158,7 +171,7 @@ class CustomerList extends React.Component {
   async componentDidMount() {
     await axiosConfig.get("/user/userlist").then((response) => {
       let rowData = response.data.data;
-      console.log(rowData);
+      // console.log("CustomerList", response);
       this.setState({ rowData });
     });
   }
@@ -210,16 +223,20 @@ class CustomerList extends React.Component {
                   </h1>
                 </Col>
                 <Col>
-                  <Button
-                    sm="6"
-                    className="float-right"
-                    color="primary"
-                    onClick={() =>
-                      history.push(`/app/freshlist/customer/AddCustomer`)
-                    }
-                  >
-                    Add Customer
-                  </Button>
+                  <Route
+                    render={({ history }) => (
+                      <Button
+                        sm="6"
+                        className="float-right"
+                        color="primary"
+                        onClick={() =>
+                          history.push(`/app/freshlist/customer/AddCustomer`)
+                        }
+                      >
+                        Add Customer
+                      </Button>
+                    )}
+                  />
                 </Col>
               </Row>
               <CardBody>

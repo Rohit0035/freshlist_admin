@@ -18,12 +18,13 @@ import { FaWallet, Facart, FaCartArrowDown, FaBoxOpen } from "react-icons/fa";
 import { BsBoxSeam } from "react-icons/bs";
 import { TbTruckDelivery } from "react-icons/tb";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import MainDash from "./MainDash";
 
 class AnalyticsDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      product: {},
+      product: "",
       customer: {},
       store: {},
       seller: {},
@@ -36,112 +37,124 @@ class AnalyticsDashboard extends React.Component {
   }
 
   componentDidMount() {
-    axiosConfig
-      .get("/totalproduct")
-      .then((response) => {
-        console.log(response.data);
-        this.setState({ product: response.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    axios
-      .get("http://35.154.86.59/api/user/totalcustomer")
-      .then((response) => {
-        console.log(response.data);
-
-        this.setState({ customer: response.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    axiosConfig
-      .get("/totalstore")
-      .then((response) => {
-        console.log(response.data);
-        this.setState({ store: response.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    axiosConfig
-      .get("/totalsale")
-      .then((response) => {
-        console.log(response.data);
-        this.setState({ sale: response.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    axiosConfig
-      .get("/totalorder")
-      .then((response) => {
-        console.log(response.data);
-        console.log(response.data.data);
-        this.setState({ order: response.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    axiosConfig
-      .get("/totalbrand")
-      .then((response) => {
-        console.log(response.data);
-        this.setState({ brand: response.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    axiosConfig
-      .get("/totalbanner")
-      .then((response) => {
-        console.log(response.data);
-        this.setState({ banner: response.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    axiosConfig
-      .get("/gettotalcoupon")
-      .then((response) => {
-        console.log(response.data);
-        this.setState({ Coupon: response.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    axiosConfig
-      .get("/total_sub")
-      .then((response) => {
-        console.log(response.data);
-        this.setState({ total_sub: response.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    // axiosConfig
+    //   .get("/admin/product_list")
+    //   .then((response) => {
+    //     console.log(response.data.data.length);
+    //     this.setState({ product: response.data.data.length });
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    // axios
+    //   .get("http://3.6.37.16:8000/admin/product_list")
+    //   .then((response) => {
+    //     console.log(response.data);
+    //     this.setState({ customer: response.data });
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    // axios
+    //   .get("http://35.154.86.59/api/user/totalcustomer")
+    //   .then((response) => {
+    //     console.log(response.data);
+    //     this.setState({ customer: response.data });
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    // axiosConfig
+    //   .get("/totalstore")
+    //   .then((response) => {
+    //     console.log(response.data);
+    //     this.setState({ store: response.data });
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    // axiosConfig
+    //   .get("/totalsale")
+    //   .then((response) => {
+    //     console.log(response.data);
+    //     this.setState({ sale: response.data });
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    // axiosConfig
+    //   .get("/totalorder")
+    //   .then((response) => {
+    //     console.log(response.data);
+    //     console.log(response.data.data);
+    //     this.setState({ order: response.data });
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    // axiosConfig
+    //   .get("/totalbrand")
+    //   .then((response) => {
+    //     console.log(response.data);
+    //     this.setState({ brand: response.data });
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    // axiosConfig
+    //   .get("/totalbanner")
+    //   .then((response) => {
+    //     console.log(response.data);
+    //     this.setState({ banner: response.data });
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    // axiosConfig
+    //   .get("/gettotalcoupon")
+    //   .then((response) => {
+    //     console.log(response.data);
+    //     this.setState({ Coupon: response.data });
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    // axiosConfig
+    //   .get("/total_sub")
+    //   .then((response) => {
+    //     console.log(response.data);
+    //     this.setState({ total_sub: response.data });
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   }
   render() {
     return (
       <React.Fragment>
-        <Row className="match-height">
+        <Row className="">
           {/* <Col lg="3" md="12">
             <Card
               className="bg-secondary"
               body
               inverse
               style={{ borderColor: "white" }}
-            > */}
-          {/* <CardTitle className="mb-1" tag="h4" style={{ color: "black" }}>
-                <FaBoxOpen style={{ color: 'orange' }} />&nbsp;&nbsp;
-                Total Products
-              </CardTitle> */}
-
-          {/* <CardText tag="h3" style={{ color: "white" }}>
-                {this.state.product.data}
-              </CardText> */}
-          {/* </Card>
+            >
+              <CardTitle
+                className=""
+                tag="h3"
+                style={{ color: "black", fontSize: "16px" }}
+              >
+                <FaBoxOpen style={{ color: "orange" }} />
+                &nbsp;&nbsp; Total Products
+                <CardText
+                  tag="span"
+                  style={{ color: "black", marginLeft: "4px" }}
+                >
+                  ({this.state.product})
+                </CardText>
+              </CardTitle>
+            </Card>
           </Col> */}
           {/* <Col lg="3" md="12">
             <Card className="bg-secondary" body inverse>
@@ -196,7 +209,7 @@ class AnalyticsDashboard extends React.Component {
             <Card className="bg-secondary" body inverse>
               <CardTitle className="mb-1" tag="h4" style={{ color: "black" }}>
                 <FcOk />
-                &nbsp;&nbsp;Confirmed(20)
+                &nbsp;&nbsp;Confirmed(10)
               </CardTitle>
               {/* <CardText tag="h3" style={{ color: "white" }}>
                 {this.state.banner.data}
@@ -216,7 +229,11 @@ class AnalyticsDashboard extends React.Component {
           </Col>
           <Col lg="3" md="12">
             <Card className="bg-secondary" body inverse>
-              <CardTitle className="mb-1" tag="h4" style={{ color: "black" }}>
+              <CardTitle
+                className="mb-1"
+                tag="h4"
+                style={{ color: "black", fontSize: "15px" }}
+              >
                 <FcShipped />
                 &nbsp;&nbsp;Out for delivery(39)
               </CardTitle>
@@ -260,9 +277,13 @@ class AnalyticsDashboard extends React.Component {
           </Col>
           <Col lg="3" md="12">
             <Card className="bg-secondary" body inverse>
-              <CardTitle className="mb-1" tag="h4" style={{ color: "black" }}>
+              <CardTitle
+                className="mb-1"
+                tag="h4"
+                style={{ color: "black", fontSize: "15px" }}
+              >
                 <AiOutlineCloseCircle />
-                &nbsp;&nbsp; Failed to delivery (02)
+                &nbsp;&nbsp; Failed delivery(2)
               </CardTitle>
               {/* <CardText tag="h3" style={{ color: "white" }}>
                 {this.state.Coupon.data}

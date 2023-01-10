@@ -13,6 +13,7 @@ import {
 } from "reactstrap";
 import { history } from "../../../../history";
 import axiosConfig from "../../../../axiosConfig";
+import { Route } from "react-router-dom";
 
 export class AddGallery extends Component {
   constructor(props) {
@@ -77,12 +78,18 @@ export class AddGallery extends Component {
                 <h2>Upload File</h2>
               </Col>
               <Col>
-                <Button
-                  className=" btn btn-danger float-right"
-                  onClick={() => history.push("/app/freshlist/gallery/gallery")}
-                >
-                  Back
-                </Button>
+                <Route
+                  render={({ history }) => (
+                    <Button
+                      className=" btn btn-danger float-right"
+                      onClick={() =>
+                        history.push("/app/freshlist/gallery/gallery")
+                      }
+                    >
+                      Back
+                    </Button>
+                  )}
+                />
               </Col>
             </Row>
             <CardBody>

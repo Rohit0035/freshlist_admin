@@ -55,8 +55,8 @@ table.dashboard-table {
   }
 }
 
-.support-tracker-card{
-  .apexcharts-canvas{
+.support-tracker-card {
+  .apexcharts-canvas {
     top: -40px;
   }
 }
@@ -69,4 +69,20 @@ table.dashboard-table {
       width: 140px;
     }
   }
+}
+// font weight our custom css mainDash
+h3.fntweight.card-title {
+  font-weight: 500;
+}
+[dir] .bg-secondary {
+  background-color: #fff !important;
+  border: 1px solid#7fb300;
+}
+
+// rs css start
+
+span.wt-text.card-text {
+  padding-left: 27px;
+  font-weight: 700;
+  font-size: 24px;
 }

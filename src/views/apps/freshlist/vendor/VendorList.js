@@ -10,6 +10,7 @@ import {
   DropdownItem,
   DropdownToggle,
   Button,
+  Badge,
 } from "reactstrap";
 import axiosConfig from "../../../../axiosConfig";
 import { ContextLayout } from "../../../../utility/context/Layout";
@@ -21,6 +22,7 @@ import { Eye, Edit, Trash2, ChevronDown } from "react-feather";
 import { history } from "../../../../history";
 import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../../assets/scss/pages/users.scss";
+import { Route } from "react-router-dom";
 class VendorList extends React.Component {
   state = {
     rowData: [],
@@ -43,34 +45,30 @@ class VendorList extends React.Component {
       },
       {
         headerName: "Shop Name",
-        field: "product_img",
+        field: "shop_name",
         filter: true,
         width: 150,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <img
-                className="rounded-circle mr-50"
-                src={params.data.product_img}
-                alt="user avatar"
-                height="40"
-                width="40"
-              />
+              <div className="ml-2">
+                <span>{params.data.shop_name}</span>
+              </div>
             </div>
           );
         },
       },
       {
         headerName: "Vendor Name",
-        field: "name",
+        field: "firstname",
         //filter: true,
         filter: "agSetColumnFilter",
-        width: 250,
+        width: 200,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
               <div className="ml-2">
-                <span>{params.data.name}</span>
+                <span>{params.data.firstname}</span>
               </div>
             </div>
           );
@@ -78,13 +76,13 @@ class VendorList extends React.Component {
       },
       {
         headerName: "Contact Info",
-        field: "desc",
+        field: "phone",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <span>{params.data.desc}</span>
+              <span>{params.data.phone}</span>
             </div>
           );
         },
@@ -153,23 +151,31 @@ class VendorList extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="actions cursor-pointer">
-              <Eye
-                className="mr-50"
-                size="25px"
-                color="green"
-                onClick={() =>
-                  history.push(
-                    `/app/freshlist/vendor/viewVendor/${params.data._id}`
-                  )
-                }
+              <Route
+                render={({ history }) => (
+                  <Eye
+                    className="mr-50"
+                    size="25px"
+                    color="green"
+                    onClick={() =>
+                      history.push(
+                        `/app/freshlist/vendor/viewVendor/${params.data._id}`
+                      )
+                    }
+                  />
+                )}
               />
-              <Trash2
-                size={20}
-                onClick={() => {
-                  let selectedData = this.gridApi.getSelectedRows();
-                  this.runthisfunction(params.data._id);
-                  this.gridApi.updateRowData({ remove: selectedData });
-                }}
+              <Route
+                render={({ history }) => (
+                  <Trash2
+                    size={20}
+                    onClick={() => {
+                      let selectedData = this.gridApi.getSelectedRows();
+                      this.runthisfunction(params.data._id);
+                      this.gridApi.updateRowData({ remove: selectedData });
+                    }}
+                  />
+                )}
               />
             </div>
           );
@@ -178,19 +184,20 @@ class VendorList extends React.Component {
     ],
   };
 
-  // async componentDidMount() {
-  //     await axiosConfig.get("/getproductCategory").then((response) => {
-  //         let rowData = response.data.data;
-  //         this.setState({ rowData });
-  //     });
-  // }
+  async componentDidMount() {
+    await axiosConfig.get("/admin/getall_vendor").then((response) => {
+      let rowData = response.data.data;
+      console.log(rowData);
+      this.setState({ rowData });
+    });
+  }
 
-  // async runthisfunction(id) {
-  //     console.log(id);
-  //     await axiosConfig.get(`/deleteproductcategory/${id}`).then((response) => {
-  //         console.log(response);
-  //     });
-  // }
+  async runthisfunction(id) {
+    console.log(id);
+    await axiosConfig.get(`/deleteproductcategory/${id}`).then((response) => {
+      console.log(response);
+    });
+  }
 
   onGridReady = (params) => {
     this.gridApi = params.api;
@@ -230,14 +237,19 @@ class VendorList extends React.Component {
                 </h1>
               </Col>
               <Col>
-                <Button
-                  className=" btn btn-danger float-right"
-                  onClick={() =>
-                    history.push("/app/freshlist/vendor/addVendor")
-                  }
-                >
-                  Add Vendor
-                </Button>
+                <Route
+                  render={({ history }) => (
+                    <Button
+                      className="float-right"
+                      color="primary"
+                      onClick={() =>
+                        history.push("/app/freshlist/vendor/addVendor")
+                      }
+                    >
+                      Add Vendor
+                    </Button>
+                  )}
+                />
               </Col>
             </Row>
             <CardBody>

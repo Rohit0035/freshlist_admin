@@ -313,6 +313,30 @@ const navigationConfig = [
     ],
   },
   {
+    id: "employee",
+    title: "Employee",
+    type: "collapse",
+    icon: <FaUser size={15} />,
+    children: [
+      {
+        id: "setup",
+        title: "Employee Role Setup",
+        type: "item",
+        icon: <FaCircle size={8} />,
+        permissions: ["admin", "editor"],
+        navLink: "/app/freshlist/employee/customsetuprole",
+      },
+      {
+        id: "employees",
+        title: "Employees",
+        type: "item",
+        icon: <FaCircle size={8} />,
+        permissions: ["admin", "editor"],
+        navLink: "/app/freshlist/employee/employeeslist",
+      },
+    ],
+  },
+  {
     type: "groupHeader",
     groupTitle: "Hub MANAGEMENT",
   },

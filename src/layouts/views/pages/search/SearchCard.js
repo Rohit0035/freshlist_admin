@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 import {
   Card,
   CardBody,
@@ -7,10 +7,10 @@ import {
   Col,
   Pagination,
   PaginationItem,
-  PaginationLink
-} from "reactstrap"
-import { Star, ChevronRight, ChevronLeft } from "react-feather"
-import searchResult from "../../../assets/img/pages/search-result.jpg"
+  PaginationLink,
+} from "reactstrap";
+import { Star, ChevronRight, ChevronLeft } from "react-feather";
+import searchResult from "../../../assets/img/pages/search-result.jpg";
 
 class SearchCard extends React.Component {
   render() {
@@ -403,7 +403,7 @@ class SearchCard extends React.Component {
           </Pagination>
         </div>
       </React.Fragment>
-    )
+    );
   }
 }
-export default SearchCard
+export default SearchCard;

@@ -13,7 +13,6 @@ import {
   DropdownItem,
   DropdownToggle,
   Button,
-  Badge,
 } from "reactstrap";
 import "../../../../assets/css/main.css";
 import axiosConfig from "../../../../axiosConfig";
@@ -25,6 +24,7 @@ import { history } from "../../../../history";
 import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../../assets/scss/pages/users.scss";
 import swal from "sweetalert";
+import AnalyticsDashboard from "../../../dashboard/analytics/AnalyticsDashboard";
 import { Route, Link } from "react-router-dom";
 class All extends React.Component {
   state = {
@@ -38,7 +38,7 @@ class All extends React.Component {
         headerName: "S.No",
         valueGetter: "node.rowIndex + 1",
         field: "node.rowIndex + 1",
-        width: 100,
+        width: 120,
         filter: true,
       },
       {
@@ -46,7 +46,7 @@ class All extends React.Component {
         field: "orderId",
         filter: true,
         resizable: true,
-        width: 120,
+        width: 150,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
@@ -169,24 +169,24 @@ class All extends React.Component {
       //   },
       // },
 
-      {
-        headerName: "Permitions",
-        field: "permitions",
-        filter: true,
-        width: 180,
-        cellRendererFramework: (params) => {
-          return (
-            <CustomInput
-              type="switch"
-              className="mr-1"
-              id="primary"
-              name="primary"
-              inline
-              onChange={this.handleSwitchChange}
-            ></CustomInput>
-          );
-        },
-      },
+      // {
+      //   headerName: "Permitions",
+      //   field: "permitions",
+      //   filter: true,
+      //   width: 180,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <CustomInput
+      //         type="switch"
+      //         className="mr-1"
+      //         id="primary"
+      //         name="primary"
+      //         inline
+      //         onChange={this.handleSwitchChange}
+      //       ></CustomInput>
+      //     );
+      //   },
+      // },
       {
         headerName: "Status",
         field: "status",
@@ -197,19 +197,21 @@ class All extends React.Component {
             <div className="badge badge-pill badge-success">
               {params.data.status}
             </div>
-          ) : params.value === "Pending" ? (
+          ) : params.value === "pending" ? (
             <div className="badge badge-pill badge-warning">
               {params.data.status}
             </div>
-          ) : params.value === "Delivery" ? (
+          ) : params.value === "delivery" ? (
             <div className="badge badge-pill bg-primary">
               {params.data.status}
             </div>
-          ) : params.value === "Canceled" ? (
+          ) : params.value === "canceled" ? (
             <div className="badge badge-pill bg-danger">
               {params.data.status}
             </div>
-          ) : null;
+          ) : (
+            "No Status"
+          );
         },
       },
 
@@ -223,26 +225,14 @@ class All extends React.Component {
             <div className="actions cursor-pointer">
               <Route
                 render={({ history }) => (
-                  <Eye
-                    className="mr-50"
-                    size="25px"
-                    color="green"
-                    onClick={() =>
-                      history.push(
-                        `/app/freshlist/order/viewAll/${params.data._id}`
-                      )
-                    }
-                  />
-                )}
-              />
-              <Route
-                render={({ history }) => (
                   <Edit
                     className="mr-50"
                     size="25px"
                     color="blue"
                     onClick={() =>
-                      history.push("/app/freshlist/order/EditOrder")
+                      history.push(
+                        `/app/freshlist/order/viewAll/${params.data._id}`
+                      )
                     }
                   />
                 )}
@@ -272,9 +262,9 @@ class All extends React.Component {
   };
   async componentDidMount() {
     await axiosConfig.get("/admin/allorder_list").then((response) => {
-      // let rowData = response.data.data;
-      this.setState({ rowData: response.data.data });
-      // console.log(rowData);
+      let rowData = response.data.data;
+      this.setState({ rowData });
+      console.log(rowData);
     });
   }
 
@@ -392,12 +382,15 @@ class All extends React.Component {
             </CardBody>
           </Card>
         </Col>
+        <Col>
+          <AnalyticsDashboard />
+        </Col>
         <Col sm="12">
           <Card>
             <Row className="m-2">
               <Col>
                 <h1 col-sm-6 className="float-left">
-                  All Order List <Badge pill>{rowData.length}</Badge>
+                  All Order List
                 </h1>
               </Col>
               <Col>
@@ -426,13 +419,13 @@ class All extends React.Component {
                           {this.gridApi
                             ? this.state.currenPageSize
                             : "" * this.state.getPageSize -
-                              (this.state.getPageSize - 1)}{" "}
-                          -{" "}
+                              (this.state.getPageSize - 1)}
+                          -
                           {this.state.rowData.length -
                             this.state.currenPageSize * this.state.getPageSize >
                           0
                             ? this.state.currenPageSize * this.state.getPageSize
-                            : this.state.rowData.length}{" "}
+                            : this.state.rowData.length}
                           of {this.state.rowData.length}
                           <ChevronDown className="ml-50" size={15} />
                         </DropdownToggle>

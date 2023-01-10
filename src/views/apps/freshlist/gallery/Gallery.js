@@ -104,17 +104,6 @@ class Gallery extends Component {
                   </h1>
                 </Col>
                 <Col>
-                  <Button
-                    style={{ marginRight: "-22rem" }}
-                    className=" btn btn-danger float-right"
-                    onClick={() =>
-                      history.push("/app/freshlist/gallery/Gallery")
-                    }
-                  >
-                    Back
-                  </Button>
-                </Col>
-                <Col>
                   <Route
                     render={({ history }) => (
                       <Button

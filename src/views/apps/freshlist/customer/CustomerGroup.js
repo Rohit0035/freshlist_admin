@@ -168,7 +168,7 @@ class CustomerGroup extends React.Component {
               <Row className="m-2">
                 <Col>
                   <h1 sm="6" className="float-left">
-                    Customer Group <Badge pill>{rowData.length}</Badge>
+                    Customer Group
                   </h1>
                 </Col>
                 <Col>

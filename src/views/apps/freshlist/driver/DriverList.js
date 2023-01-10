@@ -20,6 +20,7 @@ import { Eye, Edit, Trash2, ChevronDown } from "react-feather";
 import { history } from "../../../../history";
 import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../../assets/scss/pages/users.scss";
+import { Route } from "react-router-dom";
 
 class DriverList extends React.Component {
   state = {
@@ -38,41 +39,46 @@ class DriverList extends React.Component {
         headerName: "S.No",
         valueGetter: "node.rowIndex + 1",
         field: "node.rowIndex + 1",
-        width: 150,
+        width: 60,
         filter: true,
       },
       {
-        headerName: "Name",
-        field: "customerId",
+        headerName: "Image",
+        field: "deliveryman_img",
         filter: true,
-        width: 200,
+        width: 120,
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.customerId}</span>
+              <span></span>
+              <img
+                width={45}
+                style={{ borderRadius: "50%" }}
+                src={params.data?.deliveryman_img}
+                alt="img"
+              />
             </div>
           );
         },
       },
       {
-        headerName: "Email",
-        field: "email	",
+        headerName: "F-Name",
+        field: "firstname",
         filter: true,
-        width: 190,
+        width: 120,
         cellRendererFramework: (params) => {
           return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <span>{params.data.email}</span>
+            <div>
+              <span>{params.data.firstname}</span>
             </div>
           );
         },
       },
-
       {
-        headerName: "Total Orders",
+        headerName: "L-Name",
         field: "lastname",
         filter: true,
-        width: 200,
+        width: 120,
         cellRendererFramework: (params) => {
           return (
             <div>
@@ -82,10 +88,50 @@ class DriverList extends React.Component {
         },
       },
       {
+        headerName: "Address",
+        field: "address	",
+        filter: true,
+        width: 150,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <span>{params.data.address}</span>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Email",
+        field: "email	",
+        filter: true,
+        width: 150,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <span>{params.data.email}</span>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "phone_No",
+        field: "phone_no	",
+        filter: true,
+        width: 120,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <span>{params.data?.phone_no}</span>
+            </div>
+          );
+        },
+      },
+
+      {
         headerName: "Rating.",
         field: "mobile",
         filter: true,
-        width: 200,
+        width: 100,
         cellRendererFramework: (params) => {
           return (
             <div>
@@ -175,8 +221,9 @@ class DriverList extends React.Component {
   //         "auth-adtoken": localStorage.getItem("auth-adtoken"),
   //       },
   //     })}
-  // async runthisfunction(id) {
-  //     console.log(id);
+  // async runthisfunction(id)
+  //  {
+  //     console.log(id)
   //     await axios.get(`http://35.154.86.59/api/user/delcustomer/${id}`).then(
   //         (response) => {
   //             console.log(response);
@@ -219,18 +266,23 @@ class DriverList extends React.Component {
               <Row className="m-2">
                 <Col>
                   <h1 sm="6" className="float-left">
-                    Driver List <Badge pill>{rowData.length}</Badge>
+                    Driver List
                   </h1>
                 </Col>
                 <Col>
-                  <Button
-                    className=" btn btn-danger float-right"
-                    onClick={() =>
-                      history.push("/app/freshlist/driver/addDriver")
-                    }
-                  >
-                    Add Driver
-                  </Button>
+                  <Route
+                    render={({ history }) => (
+                      <Button
+                        className="float-right"
+                        color="primary"
+                        onClick={() =>
+                          history.push("/app/freshlist/driver/addDriver")
+                        }
+                      >
+                        Add Driver
+                      </Button>
+                    )}
+                  />
                 </Col>
               </Row>
               <CardBody>

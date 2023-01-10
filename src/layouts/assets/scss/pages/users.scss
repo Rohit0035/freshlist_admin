@@ -56,3 +56,9 @@
 .chip {
   background-color: #0096fb;
 }
+
+// view order with invoice
+[dir] .table th,
+[dir] .table td {
+  padding: 9px !important;
+}

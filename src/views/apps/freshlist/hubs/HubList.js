@@ -24,33 +24,39 @@ import { Route, Link } from "react-router-dom";
 
 class CategoryList extends React.Component {
   state = {
+    name: "",
+    mobile: "",
+    email: "",
+    address: "",
+    delivery_zone: "",
+    status: "",
     rowData: [],
     paginationPageSize: 20,
     currenPageSize: "",
     getPageSize: "",
-    defaultColDef: {
-      sortable: true,
-      editable: true,
-      resizable: true,
-      suppressMenu: true,
-    },
+    // defaultColDef: {
+    //   sortable: true,
+    //   editable: true,
+    //   resizable: true,
+    //   suppressMenu: true,
+    // },
     columnDefs: [
       {
         headerName: "S.No",
         valueGetter: "node.rowIndex + 1",
         field: "node.rowIndex + 1",
-        width: 150,
+        width: 100,
         filter: true,
       },
       {
         headerName: "Hub Name",
-        field: "hubName",
+        field: "name",
         filter: true,
         width: 140,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <span>{params.data.hubName}</span>
+              <span>{params.data.name}</span>
             </div>
           );
         },
@@ -95,54 +101,15 @@ class CategoryList extends React.Component {
           );
         },
       },
-      // {
-      //   headerName: "Category",
-      //   field: "category",
-      //   filter: true,
-      //   width: 150,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div>
-      //         <span>{params.data.category}</span>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "SubCategory",
-      //   field: "subcategory",
-      //   filter: true,
-      //   width: 150,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div>
-      //         <span>{params.data.subcategory}</span>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "Description",
-      //   field: "description",
-      //   filter: true,
-      //   width: 120,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div>
-      //         <span>{params.data.description}</span>
-      //       </div>
-      //     );
-      //   },
-      // },
       {
         headerName: "Delivery Zone",
-        field: "deliveryzone",
+        field: "delivery_zone",
         filter: true,
-        width: 180,
+        width: 150,
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.deliveryzone}</span>
+              <span>{params.data.delivery_zone}</span>
             </div>
           );
         },
@@ -152,13 +119,13 @@ class CategoryList extends React.Component {
         headerName: "Status",
         field: "status",
         filter: true,
-        width: 100,
+        width: 150,
         cellRendererFramework: (params) => {
-          return params.value === "true" ? (
+          return params.value === "Active" ? (
             <div className="badge badge-pill badge-success">
               {params.data.status}
             </div>
-          ) : params.value === "false" ? (
+          ) : params.value === "Inactive" ? (
             <div className="badge badge-pill badge-warning">
               {params.data.status}
             </div>
@@ -169,35 +136,51 @@ class CategoryList extends React.Component {
         headerName: "Actions",
         field: "sortorder",
         field: "transactions",
-        width: 100,
+        width: 150,
         cellRendererFramework: (params) => {
           return (
             <div className="actions cursor-pointer">
-              {/* <Eye
-                className="mr-50"
-                size="25px"
-                color="green"
-                onClick={() =>
-                  history.push(`/app/customer/viewCustomer/${params.data._id}`)
-                }
-              /> */}
-              <Edit
-                className="mr-50"
-                size="25px"
-                color="blue"
-                onClick={() =>
-                  history.push("/app/freshlist/category/editCategory")
-                }
+              <Route
+                render={({ history }) => (
+                  <Eye
+                    className="mr-50"
+                    size="25px"
+                    color="green"
+                    onClick={() =>
+                      history.push(
+                        `/app/customer/viewCustomer/${params.data._id}`
+                      )
+                    }
+                  />
+                )}
               />
-              <Trash2
-                className="mr-50"
-                size="25px"
-                color="red"
-                onClick={() => {
-                  let selectedData = this.gridApi.getSelectedRows();
-                  this.runthisfunction(params.data._id);
-                  this.gridApi.updateRowData({ remove: selectedData });
-                }}
+              <Route
+                render={({ history }) => (
+                  <Edit
+                    className="mr-50"
+                    size="25px"
+                    color="blue"
+                    onClick={() =>
+                      history.push(
+                        `/app/freshlist/hubs/editHub/${params.data._id}`
+                      )
+                    }
+                  />
+                )}
+              />
+              <Route
+                render={({ history }) => (
+                  <Trash2
+                    className="mr-50"
+                    size="25px"
+                    color="red"
+                    onClick={() => {
+                      let selectedData = this.gridApi.getSelectedRows();
+                      this.runthisfunction(params.data._id);
+                      this.gridApi.updateRowData({ remove: selectedData });
+                    }}
+                  />
+                )}
               />
             </div>
           );
@@ -207,11 +190,22 @@ class CategoryList extends React.Component {
   };
 
   async componentDidMount() {
-    await axiosConfig.get("/admin/getallcategory").then((response) => {
+    await axiosConfig.get("admin/hublist").then((response) => {
       let rowData = response.data.data;
       console.log(rowData);
       this.setState({ rowData });
     });
+  }
+  async runthisfunction(id) {
+    console.log(id);
+    await axiosConfig.delete(`/admin/del_hub/${id}`).then(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   onGridReady = (params) => {
@@ -247,7 +241,7 @@ class CategoryList extends React.Component {
               <Row className="m-2">
                 <Col>
                   <h1 sm="6" className="float-left">
-                    Hub List <Badge pill>{rowData.length}</Badge>
+                    Hub List
                   </h1>
                 </Col>
                 <Col>

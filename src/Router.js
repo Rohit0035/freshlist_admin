@@ -8,9 +8,11 @@ import knowledgeBaseCategory from "./views/pages/knowledge-base/Category";
 import knowledgeBaseQuestion from "./views/pages/knowledge-base/Questions";
 import { ContextLayout } from "./utility/context/Layout";
 
-const analyticsDashboard = lazy(() =>
-  import("./views/dashboard/analytics/AnalyticsDashboard")
-);
+// const analyticsDashboard = lazy(() =>
+//   import("./views/dashboard/analytics/AnalyticsDashboard")
+// );
+const MainDash = lazy(() => import("./views/dashboard/analytics/MainDash"));
+
 const ecommerceDashboard = lazy(() =>
   import("./views/dashboard/ecommerce/EcommerceDashboard")
 );
@@ -52,6 +54,9 @@ const WalletType = lazy(() =>
 const AddTransactions = lazy(() =>
   import("./views/apps/freshlist/wallet/AddTransactions")
 );
+const ViewWallet = lazy(() =>
+  import("./views/apps/freshlist/wallet/ViewWallet")
+);
 
 // Login
 const Login = lazy(() => import("./views/pages/authentication/login/Login"));
@@ -59,6 +64,8 @@ const Login = lazy(() => import("./views/pages/authentication/login/Login"));
 // Hub List
 const AddHub = lazy(() => import("./views/apps/freshlist/hubs/AddHub"));
 const HubList = lazy(() => import("./views/apps/freshlist/hubs/HubList"));
+const ViewHub = lazy(() => import("./views/apps/freshlist/hubs/ViewHub"));
+const EditHub = lazy(() => import("./views/apps/freshlist/hubs/EditHub"));
 
 //Banner
 const BannerList = lazy(() =>
@@ -89,6 +96,9 @@ const VendorInformation = lazy(() =>
 const VendorList = lazy(() =>
   import("./views/apps/freshlist/vendor/VendorList")
 );
+const ViewVendor = lazy(() =>
+  import("./views/apps/freshlist/vendor/ViewVendor")
+);
 const WithDraws = lazy(() => import("./views/apps/freshlist/vendor/WithDraws"));
 const ViewWithDraws = lazy(() =>
   import("./views/apps/freshlist/vendor/ViewWithDraws")
@@ -102,6 +112,15 @@ const DriverList = lazy(() =>
 
 const EditDeliveryMan = lazy(() =>
   import("./views/apps/freshlist/driver/EditDeliveryMan")
+);
+
+//Employee
+
+const CustomSetupRole = lazy(() =>
+  import("./views/apps/freshlist/employee/CustomSetupRole")
+);
+const EmployeesList = lazy(() =>
+  import("./views/apps/freshlist/employee/EmployeesList")
 );
 
 //special offer
@@ -199,6 +218,9 @@ const ViewCanceled = lazy(() =>
 );
 //Refund Request
 
+const AddRefund = lazy(() =>
+  import("./views/apps/freshlist/refundrequest/AddRefund")
+);
 const PendingRequest = lazy(() =>
   import("./views/apps/freshlist/refundrequest/PendingRequest")
 );
@@ -736,7 +758,7 @@ class AppRouter extends React.Component {
       // Set the directory path if you are deploying in sub-folder
       <HashRouter history={history}>
         <Switch>
-          <AppRoute exact path="/" component={analyticsDashboard} />
+          <AppRoute exact path="/" component={MainDash} />
           <AppRoute
             path="/ecommerce-dashboard"
             component={ecommerceDashboard}
@@ -778,6 +800,10 @@ class AppRouter extends React.Component {
           <AppRoute
             path="/app/freshlist/wallet/addtransactions"
             component={AddTransactions}
+          />
+          <AppRoute
+            path="/app/freshlist/wallet/viewWallet/:id"
+            component={ViewWallet}
           />
           <AppRoute
             path="/app/freshlist/customer/filterOption"
@@ -837,6 +863,10 @@ class AppRouter extends React.Component {
             component={VendorList}
           />
           <AppRoute
+            path="/app/freshlist/vendor/viewVendor/:id"
+            component={ViewVendor}
+          />
+          <AppRoute
             path="/app/freshlist/vendor/withDraws"
             component={WithDraws}
           />
@@ -844,7 +874,7 @@ class AppRouter extends React.Component {
             path="/app/freshlist/vendor/viewWithDraws"
             component={ViewWithDraws}
           />
-          {/* Delivery */}
+          {/* Driver */}
           <AppRoute
             path="/app/freshlist/driver/addDriver"
             component={AddDriver}
@@ -852,6 +882,15 @@ class AppRouter extends React.Component {
           <AppRoute
             path="/app/freshlist/driver/driverList"
             component={DriverList}
+          />
+          {/* Employee */}
+          <AppRoute
+            path="/app/freshlist/employee/customsetuprole"
+            component={CustomSetupRole}
+          />
+          <AppRoute
+            path="/app/freshlist/employee/employeeslist"
+            component={EmployeesList}
           />
           {/* Special */}
           <AppRoute
@@ -914,7 +953,7 @@ class AppRouter extends React.Component {
           <AppRoute path="/app/freshlist/order/all" component={All} />
           <AppRoute path="/app/freshlist/order/AddOrder" component={AddOrder} />
           <AppRoute
-            path="/app/freshlist/order/editOrder"
+            path="/app/freshlist/order/editOrder/:id"
             component={EditOrder}
           />
           <AppRoute
@@ -931,7 +970,7 @@ class AppRouter extends React.Component {
             component={Confirmed}
           />
           <AppRoute
-            path="/app/freshlist/order/{viewConfirmed"
+            path="/app/freshlist/order/{viewConfirmed}"
             component={ViewConfirmed}
           />
           <AppRoute
@@ -977,6 +1016,10 @@ class AppRouter extends React.Component {
             component={ViewCanceled}
           />
           {/* Refund Request */}
+          <AppRoute
+            path="/app/freshlist/refundrequest/addrefund"
+            component={AddRefund}
+          />
           <AppRoute
             path="/app/freshlist/refundrequest/pendingRequest"
             component={PendingRequest}
@@ -1372,6 +1415,11 @@ class AppRouter extends React.Component {
           {/* hub List */}
           <AppRoute path="/app/freshlist/hubs/AddHub" component={AddHub} />
           <AppRoute path="/app/freshlist/hubs/hub_list" component={HubList} />
+          <AppRoute
+            path="/app/freshlist/hubs/viewHub/:id"
+            component={ViewHub}
+          />
+          <AppRoute path="/app/freshlist/hubs/editHub" component={EditHub} />
           <AppRoute
             path="/pages/forgotpassword"
             component={forgotPassword}

@@ -58,13 +58,13 @@ class HouseProductList extends React.Component {
       },
       {
         headerName: "Purchase Price",
-        field: "email	",
+        field: "buying_price",
         filter: true,
         width: 190,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <span>{params.data.email}</span>
+              <span>{params.data.buying_price}</span>
             </div>
           );
         },

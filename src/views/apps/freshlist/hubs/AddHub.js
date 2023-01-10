@@ -55,12 +55,16 @@ const AddHub = () => {
             </h1>
           </Col>
           <Col>
-            <Button
-              className=" btn btn-danger float-right"
-              onClick={() => history.push("/app/freshlist/hubs/hub_list")}
-            >
-              Back
-            </Button>
+            <Route
+              render={({ history }) => (
+                <Button
+                  className=" btn btn-danger float-right"
+                  onClick={() => history.push("/app/freshlist/hubs/hub_list")}
+                >
+                  Back
+                </Button>
+              )}
+            />
           </Col>
         </Row>
         <CardBody>

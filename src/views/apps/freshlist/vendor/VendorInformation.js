@@ -13,6 +13,7 @@ import {
 } from "reactstrap";
 import { history } from "../../../../history";
 import axiosConfig from "../../../../axiosConfig";
+import { Route } from "react-router-dom";
 
 export class VendorInformation extends Component {
   constructor(props) {
@@ -80,14 +81,18 @@ export class VendorInformation extends Component {
                 </h3>
               </Col>
               <Col>
-                <Button
-                  className="btn btn-danger float-right"
-                  onClick={() =>
-                    history.push("/app/freshlist/vendor/vendorList")
-                  }
-                >
-                  Back
-                </Button>
+                <Route
+                  render={({ history }) => (
+                    <Button
+                      className="btn btn-danger float-right"
+                      onClick={() =>
+                        history.push("/app/freshlist/vendor/vendorList")
+                      }
+                    >
+                      Back
+                    </Button>
+                  )}
+                />
               </Col>
 
               {/* <div className="table-input mr-1">

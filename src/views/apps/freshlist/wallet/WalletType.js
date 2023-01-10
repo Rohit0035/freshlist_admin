@@ -136,15 +136,19 @@ class WalletType extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="actions cursor-pointer">
-              <Eye
-                className="mr-50"
-                size="25px"
-                color="green"
-                onClick={() =>
-                  history.push(
-                    `/app/freshlist/customer/viewCustomer/${params.data._id}`
-                  )
-                }
+              <Route
+                render={({ history }) => (
+                  <Eye
+                    className="mr-50"
+                    size="25px"
+                    color="green"
+                    onClick={() =>
+                      history.push(
+                        `/app/freshlist/wallet/viewWallet/${params.data._id}`
+                      )
+                    }
+                  />
+                )}
               />
             </div>
           );
@@ -278,7 +282,7 @@ class WalletType extends React.Component {
               <Row className="m-2">
                 <Col>
                   <h1 sm="6" className="float-left">
-                    Credit/Debit<Badge pill>{rowData.length}</Badge>
+                    Credit/Debit
                   </h1>
                 </Col>
               </Row>

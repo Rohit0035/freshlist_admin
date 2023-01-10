@@ -22,8 +22,8 @@ import { Eye, Trash2, ChevronDown } from "react-feather";
 import { history } from "../../../../history";
 import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../../assets/scss/pages/users.scss";
-import Moment from "react-moment";
 import swal from "sweetalert";
+import { Route } from "react-router-dom";
 class ApprovedRequest extends React.Component {
   state = {
     rowData: [],
@@ -61,6 +61,22 @@ class ApprovedRequest extends React.Component {
         },
       },
       {
+        headerName: "Customer Name",
+        field: "customername",
+        filter: true,
+        resizable: true,
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="ml-2">
+                <span>{params.data.customername}</span>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
         headerName: "Email",
         field: "email",
         filter: true,
@@ -77,7 +93,7 @@ class ApprovedRequest extends React.Component {
         },
       },
       {
-        headerName: "Phone",
+        headerName: "Mobile",
         field: "phone",
         filter: true,
         resizable: true,
@@ -92,40 +108,10 @@ class ApprovedRequest extends React.Component {
           );
         },
       },
+
       {
-        headerName: "Order Date",
-        field: "order_date",
-        filter: "true",
-        width: 200,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
-                <span>{params.data.order_date}</span>
-              </div>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Ordered",
-        field: "ordered",
-        filter: true,
-        resizable: true,
-        width: 80,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
-                <span>{params.data.orderd_from}</span>
-              </div>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Zone",
-        field: "zone",
+        headerName: "Unit Price",
+        field: "unitprice",
         filter: true,
         resizable: true,
         width: 150,
@@ -133,15 +119,31 @@ class ApprovedRequest extends React.Component {
           return (
             <div className="d-flex align-items-center cursor-pointer">
               <div className="ml-2">
-                <span>{params.data.order_zone}</span>
+                <span>{params.data.unitprice}</span>
               </div>
             </div>
           );
         },
       },
       {
-        headerName: "Delivery Address",
-        field: "delivery_address",
+        headerName: "Time Slot",
+        field: "timeslot",
+        filter: true,
+        resizable: true,
+        width: 150,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="ml-2">
+                <span>{params.data.timeslot}</span>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Product Name",
+        field: "productname",
         filter: true,
         resizable: true,
         width: 200,
@@ -149,33 +151,82 @@ class ApprovedRequest extends React.Component {
           return (
             <div className="d-flex align-items-center cursor-pointer">
               <div className="ml-2">
-                <span>{params.data.delivery_add}</span>
+                <span>{params.data.productname}</span>
               </div>
             </div>
           );
         },
       },
       {
-        headerName: "Assign Driver",
-        field: "assign_driver",
+        headerName: "Total Quantity",
+        field: "total_quantity",
         filter: true,
         resizable: true,
-        width: 180,
+        width: 200,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
               <div className="ml-2">
-                <span>{params.data.assing_drive}</span>
+                <span>{params.data.total_quantity}</span>
               </div>
             </div>
           );
         },
       },
       {
-        headerName: "Status",
+        headerName: "Total Price",
+        field: "total_price",
+        filter: true,
+        resizable: true,
+        width: 150,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="ml-2">
+                <span>{params.data.total_price}</span>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Payment",
+        field: "payment",
+        filter: true,
+        resizable: true,
+        width: 150,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="ml-2">
+                <span>{params.data.payment}</span>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Payment Status",
+        field: "paymentstatus",
+        filter: true,
+        resizable: true,
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="ml-2">
+                <span>{params.data.paymentstatus}</span>
+              </div>
+            </div>
+          );
+        },
+      },
+
+      {
+        headerName: "Product Status",
         field: "status",
         filter: true,
-        width: 150,
+        width: 200,
         cellRendererFramework: (params) => {
           return params.value === "Order Placed" ? (
             <div className="badge badge-pill badge-success">
@@ -318,8 +369,23 @@ class ApprovedRequest extends React.Component {
             <Row className="m-2">
               <Col>
                 <h1 col-sm-6 className="float-left">
-                  Approved Refund Requests
+                  Pending Refund Requests
                 </h1>
+              </Col>
+              <Col>
+                <Route
+                  render={({ history }) => (
+                    <Button
+                      className=" float-right"
+                      color="primary"
+                      onClick={() =>
+                        history.push("/app/freshlist/refundrequest/addRefund")
+                      }
+                    >
+                      Add Refund
+                    </Button>
+                  )}
+                />
               </Col>
             </Row>
             <CardBody>
@@ -371,15 +437,6 @@ class ApprovedRequest extends React.Component {
                       </UncontrolledDropdown>
                     </div>
                     <div className="d-flex flex-wrap justify-content-between mb-1">
-                      {/* <div className="table-input mr-1">
-                                                <Input
-                                                    placeholder="search..."
-                                                    onChange={(e) =>
-                                                        this.updateSearchQuery(e.target.value)
-                                                    }
-                                                    value={this.state.value}
-                                                />
-                                            </div> */}
                       <div className="table-input mr-1">
                         <Input
                           placeholder="Hub Name"

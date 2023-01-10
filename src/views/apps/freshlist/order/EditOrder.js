@@ -20,65 +20,75 @@ export class EditOrder extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      product: "",
-      attribute: "",
-      quantity: "",
-      name: "",
-      delivery_slot: "",
-      orderd_from: "",
       order_zone: "",
-      billing_add: "",
       phone_no: "",
       delivery_add: "",
-      order_date: "",
+      email: "",
+      delivery_slot: "",
       time_slot: "",
-      items: "",
       assing_drive: "",
-      notifyby_email: "",
-      order_id: "",
       status: "",
+      name: "",
+      orderId: "",
+      // product: "",
+      // attribute: "",
+      // quantity: "",
+      // orderd_from: "",
+      // billing_add: "",
+      // order_date: "",
+      // items: "",
+      // data: "",
     };
     this.handleChange = this.handleChange.bind(this);
   }
-
-  //   onChangeHandler = (event) => {
-  //     this.setState({ selectedFile: event.target.files[0] });
-  //     this.setState({ selectedName: event.target.files[0].name });
-  //     console.log(event.target.files[0]);
-  //   };
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  //   changeHandler = (e) => {
-  //     this.setState({ status: e.target.value });
-  //   };
+  changeHandler = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
   submitHandler = (e) => {
     e.preventDefault();
+    console.log(this.state.email);
+    let { id } = this.props.match.params;
+    console.log(id);
     axiosConfig
-      .post("/admin/addcategory", data)
+      .post(`/admin/edit_order/${id}`, this.state)
       .then((response) => {
         console.log(response);
-        this.props.history.push("/app/freshlist/order/orderList");
+        this.props.history.push("/app/freshlist/order/all");
+      })
+      .catch((error) => {
+        console.log(error.response.data);
+      });
+  };
+
+  componentDidMount() {
+    console.log(this.props.match.params);
+    let { id } = this.props.match.params;
+
+    axiosConfig
+      .get(`/admin/viewone_order/${id}`)
+      .then((response) => {
+        console.log("viewdata", response.data.data);
+        this.setState({
+          email: response.data.data.email,
+          phone_no: response.data.data.phone_no,
+          order_zone: response.data.data.order_zone,
+          orderId: response.data.data.orderId,
+          delivery_add: response.data.data.delivery_add,
+          delivery_slot: response.data.data.delivery_slot,
+          time_slot: response.data.data.time_slot,
+          name: response.data.data.name,
+          status: response.data.data.status,
+        });
       })
       .catch((error) => {
         console.log(error);
       });
-  };
-  // componentDidMount() {
-  //   // console.log(this.props.match.params);
-  //   let { id } = this.props.match.params;
-  //   axiosConfig
-  //     .get(`/admin/viewone_order/${id}`)
-  //     .then((response) => {
-  //       console.log(response.data.data);
-  //       this.setState({ data: response.data.data });
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }
+  }
   render() {
     return (
       <div>
@@ -110,178 +120,9 @@ export class EditOrder extends Component {
                     <Label>Order ID</Label>
                     <Input
                       type="text"
-                      placeholder="Order id"
-                      name="category_name"
-                      value={this.state.category_name}
-                      onChange={this.changeHandler}
-                      readonly
-                    />
-                  </FormGroup>
-                  {/* <div className="d-flex user-info">
-                    <div className="user-info-title font-weight-bold">
-                      Order ID
-                    </div>
-                    <div className="text-truncate">
-                      <span>{this.state.order_id}</span>
-                    </div>
-                  </div> */}
-                </Col>
-                <Col lg="6" md="6">
-                  <FormGroup>
-                    <Label>Mobile No.</Label>
-                    <Input
-                      type="Number"
-                      placeholder="Enter No."
-                      name="category_name"
-                      value={this.state.category_name}
-                      onChange={this.changeHandler}
-                    />
-                  </FormGroup>
-                </Col>
-                <Col lg="6" md="6">
-                  <FormGroup>
-                    <Label>Billing Address</Label>
-                    <Input
-                      type="text"
-                      placeholder="Enter No."
-                      name="category_name"
-                      value={this.state.category_name}
-                      onChange={this.changeHandler}
-                    />
-                  </FormGroup>
-                </Col>
-                <Col lg="6" md="6">
-                  <FormGroup>
-                    <Label>Delivery Slots</Label>
-                    <Input
-                      type="Number"
-                      placeholder="Enter No."
-                      name="category_name"
-                      value={this.state.category_name}
-                      onChange={this.changeHandler}
-                    />
-                  </FormGroup>
-                </Col>
-                <Col lg="6" md="6">
-                  <FormGroup>
-                    <Label>Item</Label>
-                    <Input
-                      type="text"
-                      placeholder="Enter Here"
-                      name="desc"
-                      value={this.state.desc}
-                      onChange={this.changeHandler}
-                    />
-                  </FormGroup>
-                </Col>
-                <Col lg="6" md="6">
-                  <FormGroup>
-                    <Label>Order Date</Label>
-                    <Input
-                      type="text"
-                      placeholder="Enter Date Here"
-                      name="desc"
-                      value={this.state.desc}
-                      onChange={this.changeHandler}
-                    />
-                  </FormGroup>
-                </Col>
-                <Col lg="6" md="6">
-                  <FormGroup>
-                    <Label>Latitude</Label>
-                    <Input
-                      type="urL"
-                      placeholder=""
-                      name="desc"
-                      value={this.state.desc}
-                      onChange={this.changeHandler}
-                    />
-                  </FormGroup>
-                </Col>
-                <Col lg="6" md="6">
-                  <FormGroup>
-                    <Label>Longitude</Label>
-                    <Input
-                      type="urL"
-                      placeholder=""
-                      name="desc"
-                      value={this.state.desc}
-                      onChange={this.changeHandler}
-                    />
-                  </FormGroup>
-                </Col>
-                <Col lg="6" md="6">
-                  <FormGroup>
-                    <Label>Delivery Address</Label>
-                    <Input
-                      type="select"
-                      placeholder="Enter Address"
-                      name="desc"
-                      value={this.state.desc}
-                      onChange={this.changeHandler}
-                    ></Input>
-                  </FormGroup>
-                </Col>
-                <Col lg="6" md="6">
-                  <FormGroup>
-                    <Label>Order From</Label>
-                    <CustomInput
-                      type="select"
-                      placeholder=""
-                      name="desc"
-                      value={this.state.desc}
-                      onChange={this.changeHandler}
-                    >
-                      <option>--Select--</option>
-                      <option value="Web">Web</option>
-                      <option value="App">App</option>
-                    </CustomInput>
-                  </FormGroup>
-                </Col>
-                <Col lg="6" md="6">
-                  <FormGroup>
-                    <Label>Delivery Date</Label>
-                    <Input
-                      type="text"
-                      placeholder=""
-                      name="desc"
-                      value={this.state.desc}
-                      onChange={this.changeHandler}
-                    ></Input>
-                  </FormGroup>
-                </Col>
-                <Col lg="6" md="6">
-                  <FormGroup>
-                    <Label>Assign Driver </Label>
-                    <Input
-                      type="text"
-                      placeholder="Enter Name"
-                      name="image"
-                      value={this.state.image}
-                      onChange={this.changeHandler}
-                    />
-                  </FormGroup>
-                </Col>
-                <Col lg="6" md="6">
-                  <FormGroup>
-                    <Label>Delivery Boy</Label>
-                    <Input
-                      type="text"
-                      placeholder="Enter Name"
-                      name="image"
-                      value={this.state.image}
-                      onChange={this.changeHandler}
-                    />
-                  </FormGroup>
-                </Col>
-                <Col lg="6" md="6">
-                  <FormGroup>
-                    <Label>Assign Hub</Label>
-                    <Input
-                      type="text"
-                      placeholder=""
-                      name="image"
-                      value={this.state.image}
+                      disabled={true}
+                      name=" orderId"
+                      value={this.state.orderId}
                       onChange={this.changeHandler}
                     />
                   </FormGroup>
@@ -289,39 +130,105 @@ export class EditOrder extends Component {
 
                 <Col lg="6" md="6">
                   <FormGroup>
-                    <Label>Customer Notification </Label>
+                    <Label>Email</Label>
                     <Input
-                      type="text"
-                      placeholder=""
-                      name="image"
-                      value={this.state.image}
+                      type="email"
+                      placeholder="Enter Email"
+                      name="email"
+                      value={this.state.email}
                       onChange={this.changeHandler}
                     />
                   </FormGroup>
                 </Col>
-
                 <Col lg="6" md="6">
                   <FormGroup>
-                    <Label>Order Status</Label>
-                    <CustomInput
-                      type="select"
-                      placeholder=""
-                      name="desc"
-                      value={this.state.desc}
+                    <Label>Mobile No</Label>
+                    <Input
+                      type="Number"
+                      placeholder="Enter No."
+                      name="phone_no"
+                      size={10}
+                      value={this.state.phone_no}
                       onChange={this.changeHandler}
-                    >
-                      <option>--Select--</option>
-                      <option value="Pending">Pending</option>
-                      <option value="Approved">Approved</option>
-                      <option value="Packaging">Packaging</option>
-                      <option value="Rejected">Rejected</option>
-                      <option value="Outfordelivery">Outfordelivery</option>
-                      <option value="Canceled">Canceled</option>
-                      <option value="Delivered">Delivered</option>
-                      <option value="Failedtodeliver">Failedtodeliver</option>
-                      <option value="Returned">Returned</option>
-                    </CustomInput>
+                    />
                   </FormGroup>
+                </Col>
+                <Col lg="6" md="6">
+                  <FormGroup>
+                    <Label>Order Zone</Label>
+                    <Input
+                      type="text"
+                      placeholder="Order Zone"
+                      name="order_zone"
+                      value={this.state.order_zone}
+                      onChange={this.changeHandler}
+                    />
+                  </FormGroup>
+                </Col>
+                <Col lg="6" md="6">
+                  <FormGroup>
+                    <Label>delivery_add</Label>
+                    <Input
+                      type="text"
+                      placeholder="Delivery Address"
+                      name="delivery_add"
+                      value={this.state.delivery_add}
+                      onChange={this.changeHandler}
+                    />
+                  </FormGroup>
+                </Col>
+                <Col lg="6" md="6">
+                  <FormGroup>
+                    <Label>Delivery Slot</Label>
+                    <Input
+                      type="text"
+                      placeholder="Delivery Slot"
+                      name="delivery_slot"
+                      value={this.state.delivery_slot}
+                      onChange={this.changeHandler}
+                    />
+                  </FormGroup>
+                </Col>
+                <Col lg="6" md="6">
+                  <FormGroup>
+                    <Label>Time Slot</Label>
+                    <Input
+                      type="time"
+                      placeholder="Time Slot"
+                      name="time_slot"
+                      value={this.state.time_slot}
+                      onChange={this.changeHandler}
+                    />
+                  </FormGroup>
+                </Col>
+                <Col lg="6" md="6">
+                  <FormGroup>
+                    <Label>Name</Label>
+                    <Input
+                      type="text"
+                      placeholder="Name"
+                      // disabled={true}
+                      name="name"
+                      value={this.state.name}
+                      onChange={this.changeHandler}
+                    />
+                  </FormGroup>
+                </Col>
+                <Col lg="6" md="6">
+                  <Label>Order Status</Label>
+                  <CustomInput
+                    type="select"
+                    placeholder=""
+                    name="status"
+                    value={this.state.status}
+                    onChange={this.changeHandler}
+                  >
+                    <option>--Select--</option>
+                    <option value="pending">Pending</option>
+                    <option value="complete">Completed</option>
+                    <option value="delivery">Delivery</option>
+                    <option value="canceled">Canceled</option>
+                  </CustomInput>
                 </Col>
               </Row>
               <Row className="my-2">

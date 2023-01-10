@@ -13,11 +13,11 @@ import {
   FormGroup,
 } from "reactstrap";
 import axiosConfig from "../../../../axiosConfig";
-// import { history } from "../../../history";
+import { history } from "../../../../history";
 import { Route } from "react-router-dom";
 import swal from "sweetalert";
 
-export default class EditCustomer extends Component {
+export default class EditHub extends Component {
   constructor(props) {
     super(props);
     this.state = {

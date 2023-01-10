@@ -10,18 +10,19 @@ import {
   DropdownMenu,
   DropdownItem,
   DropdownToggle,
+  Badge,
 } from "reactstrap";
 // import axiosConfig from "../../../axiosConfig";
 import axios from "axios";
 import { ContextLayout } from "../../../../utility/context/Layout";
 import { AgGridReact } from "ag-grid-react";
-import { Edit, Trash2, ChevronDown } from "react-feather";
+import { Eye, Edit, Trash2, ChevronDown } from "react-feather";
 import { history } from "../../../../history";
 import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../../assets/scss/pages/users.scss";
-import { Route, Link } from "react-router-dom";
-
-class BrandList extends React.Component {
+import { Route } from "react-router-dom";
+import { injectIntl } from "react-intl";
+class EmployeesList extends React.Component {
   state = {
     rowData: [],
     paginationPageSize: 20,
@@ -38,27 +39,27 @@ class BrandList extends React.Component {
         headerName: "S.No",
         valueGetter: "node.rowIndex + 1",
         field: "node.rowIndex + 1",
-        width: 150,
+        width: 120,
         filter: true,
       },
       {
-        headerName: "Brand Image",
-        field: "customerId",
+        headerName: "Name",
+        field: "firstname",
         filter: true,
-        width: 200,
+        width: 150,
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.customerId}</span>
+              <span>{params.data.firstname}</span>
             </div>
           );
         },
       },
       {
-        headerName: "Name",
+        headerName: "Email",
         field: "email	",
         filter: true,
-        width: 190,
+        width: 120,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
@@ -69,10 +70,10 @@ class BrandList extends React.Component {
       },
 
       {
-        headerName: "Total Product",
+        headerName: "Total Orders",
         field: "lastname",
         filter: true,
-        width: 200,
+        width: 150,
         cellRendererFramework: (params) => {
           return (
             <div>
@@ -82,19 +83,18 @@ class BrandList extends React.Component {
         },
       },
       {
-        headerName: "Total Order",
-        field: "lastname",
+        headerName: "Rating.",
+        field: "mobile",
         filter: true,
-        width: 200,
+        width: 150,
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.lastname}</span>
+              <span>{params.data.mobile}</span>
             </div>
           );
         },
       },
-
       {
         headerName: "Status",
         field: "status",
@@ -120,18 +120,13 @@ class BrandList extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="actions cursor-pointer">
-              {/* <Eye
-                                className="mr-50"
-                                size="25px"
-                                color="green"
-                                onClick={() =>
-                                    history.push(`/app/customer/viewCustomer/${params.data._id}`)}
-                            /> */}
               <Edit
                 className="mr-50"
                 size="25px"
                 color="blue"
-                onClick={() => history.push("/app/customer/editCustomer")}
+                onClick={() =>
+                  history.push("/app/freshlist/delivery/editDeliveryMan")
+                }
               />
               <Trash2
                 className="mr-50"
@@ -149,42 +144,16 @@ class BrandList extends React.Component {
       },
     ],
   };
-  // async componentDidMount() {
-  //     await axios.get(`http://35.154.86.59/api/user/view_onecust/${id}`)
-  //         .then((response) => {
-  //             let rowData = response.data.data;
-  //             console.log(rowData);
-  //             this.setState({ rowData });
-  //         });
-  // }
-  // async componentDidMount() {
-  //     await axios
-  //         .get("http://35.154.86.59/api/user/allcustomer")
-  //         .then((response) => {
-  //             let rowData = response.data.data;
-  //             console.log(rowData);
-  //             this.setState({ rowData });
-  //         });
-  // }
-  // // async componentDidMount() {
-  // //   let { id } = this.props.match.params;
-  // //   await axios
-  // //     .get(`/http://35.154.86.59/api/user/allcustomer/${id}`, {
-  // //       headers: {
-  // //         "auth-adtoken": localStorage.getItem("auth-adtoken"),
-  // //       },
-  // //     })}
-  // async runthisfunction(id) {
-  //     console.log(id);
-  //     await axios.get(`http://35.154.86.59/api/user/delcustomer/${id}`).then(
-  //         (response) => {
-  //             console.log(response);
-  //         },
-  //         (error) => {
-  //             console.log(error);
-  //         }
-  //     );
-  // }
+
+  async componentDidMount() {
+    await axios
+      .get("http://3.6.37.16:8000/admin/getall_drive")
+      .then((response) => {
+        let rowData = response.data.data;
+        console.log(rowData);
+        this.setState({ rowData });
+      });
+  }
   onGridReady = (params) => {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -218,23 +187,8 @@ class BrandList extends React.Component {
               <Row className="m-2">
                 <Col>
                   <h1 sm="6" className="float-left">
-                    Brand List
+                    EmployeesList
                   </h1>
-                </Col>
-                <Col>
-                  <Route
-                    render={({ history }) => (
-                      <Button
-                        className="btn float-right"
-                        color="primary"
-                        onClick={() =>
-                          history.push("/app/freshlist/brand/addBrand")
-                        }
-                      >
-                        Add New
-                      </Button>
-                    )}
-                  />
                 </Col>
               </Row>
               <CardBody>
@@ -336,4 +290,4 @@ class BrandList extends React.Component {
     );
   }
 }
-export default BrandList;
+export default EmployeesList;

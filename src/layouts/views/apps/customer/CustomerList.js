@@ -43,8 +43,8 @@ class CustomerList extends React.Component {
         // checkboxSelection: true,
         // headerCheckboxSelectionFilteredOnly: true,
         // headerCheckboxSelection: true,
-      },   
-      { 
+      },
+      {
         headerName: "Customer Id",
         field: "customerId",
         filter: true,
@@ -57,7 +57,7 @@ class CustomerList extends React.Component {
           );
         },
       },
-      { 
+      {
         headerName: "First Name",
         field: "firstname",
         filter: true,
@@ -69,8 +69,8 @@ class CustomerList extends React.Component {
             </div>
           );
         },
-      }, 
-      { 
+      },
+      {
         headerName: "Last Name",
         field: "lastname",
         filter: true,
@@ -129,7 +129,7 @@ class CustomerList extends React.Component {
       {
         headerName: "Actions",
         field: "sortorder",
-         field: "transactions",
+        field: "transactions",
         width: 150,
         cellRendererFramework: (params) => {
           return (
@@ -139,7 +139,8 @@ class CustomerList extends React.Component {
                 size="25px"
                 color="green"
                 onClick={() =>
-                history.push(`/app/customer/viewCustomer/${params.data._id}`)}
+                  history.push(`/app/customer/viewCustomer/${params.data._id}`)
+                }
               />
               {/* <Edit
                 className="mr-50"
@@ -164,22 +165,23 @@ class CustomerList extends React.Component {
     ],
   };
   async componentDidMount() {
-    await axios.get(`http://35.154.86.59/api/user/view_onecust/${id}`)
-    .then((response) => {
-      let rowData = response.data.data;
-      console.log(rowData);
-      this.setState({ rowData });
-    });
-  }
-  async componentDidMount() {
     await axios
-    .get("http://35.154.86.59/api/user/allcustomer")
-    .then((response) => {
+      .get(`http://35.154.86.59/api/user/view_onecust/${id}`)
+      .then((response) => {
         let rowData = response.data.data;
         console.log(rowData);
         this.setState({ rowData });
       });
-    }
+  }
+  async componentDidMount() {
+    await axios
+      .get("http://35.154.86.59/api/user/allcustomer")
+      .then((response) => {
+        let rowData = response.data.data;
+        console.log(rowData);
+        this.setState({ rowData });
+      });
+  }
   // async componentDidMount() {
   //   let { id } = this.props.match.params;
   //   await axios
@@ -227,15 +229,15 @@ class CustomerList extends React.Component {
       (
         <Row className="app-user-list">
           <Col sm="12"></Col>
-            <Col sm="12">
-              <Card>
-                <Row className="m-2">
-                  <Col>
-                    <h1 sm="6" className="float-left">
+          <Col sm="12">
+            <Card>
+              <Row className="m-2">
+                <Col>
+                  <h1 sm="6" className="float-left">
                     Customer List
-                    </h1>
-                  </Col>
-              {/* <Col>
+                  </h1>
+                </Col>
+                {/* <Col>
                     <Button
                         className=" btn btn-danger float-right"
                         onClick={() => history.push("/app/customer/addCustomer")}
@@ -243,8 +245,8 @@ class CustomerList extends React.Component {
                         Add Customer
                     </Button>
                   </Col> */}
-                </Row>
-                <CardBody>
+              </Row>
+              <CardBody>
                 {this.state.rowData === null ? null : (
                   <div className="ag-theme-material w-100 my-2 ag-grid-table">
                     <div className="d-flex flex-wrap justify-content-between align-items-center">
@@ -307,7 +309,8 @@ class CustomerList extends React.Component {
                         <div className="export-btn">
                           <Button.Ripple
                             color="primary"
-                            onClick={() => this.gridApi.exportDataAsCsv()}>
+                            onClick={() => this.gridApi.exportDataAsCsv()}
+                          >
                             Export as CSV
                           </Button.Ripple>
                         </div>
