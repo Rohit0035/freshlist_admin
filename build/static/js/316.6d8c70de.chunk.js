@@ -1,2 +1,0 @@
-(this["webpackJsonpvuexy-react-admin-dashboard"]=this["webpackJsonpvuexy-react-admin-dashboard"]||[]).push([[316],{2139:function(e,a,n){"use strict";n.r(a);var t=n(1),r=n.n(t);a.default=function(){return r.a.createElement("div",null,"Create Zone")}}}]);
-//# sourceMappingURL=316.6d8c70de.chunk.js.map
