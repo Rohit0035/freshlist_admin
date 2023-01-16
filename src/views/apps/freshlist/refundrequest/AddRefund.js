@@ -12,6 +12,7 @@ import {
   CustomInput,
 } from "reactstrap";
 import { history } from "../../../../history";
+import Multiselect from "multiselect-react-dropdown";
 import axiosConfig from "../../../../axiosConfig";
 // import Multiselect from "multiselect-react-dropdown";
 import swal from "sweetalert";
@@ -37,10 +38,15 @@ export class AddRefund extends Component {
       new_address: "",
       notify: [],
       rowData: [],
+      Replacement: "",
+      Refundstatus: "",
     };
   }
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
+  };
+  changeHandler1 = (e) => {
+    this.setState({ Refundstatus: e.target.value });
   };
   async componentDidMount() {
     axiosConfig.get("/admin/allorder_list").then((response) => {
@@ -120,13 +126,51 @@ export class AddRefund extends Component {
                 <Col lg="6" md="6">
                   <FormGroup>
                     <Label>Order Id</Label>
+                    <Multiselect
+                      selectionLimit="1"
+                      name="notify"
+                      // singleSelect
+                      placeholder="Search order id here"
+                      value={this.state.notify}
+                      isObject={false}
+                      onRemove={(e) => {
+                        console.log(e);
+                      }}
+                      onSelect={(e) => {
+                        this.setState({ notify: e });
+                        // this.setState({ [e.target.name]: e.target.value });
+                        console.log(e);
+                      }}
+                      onChange={this.changeHandler}
+                      options={[
+                        "$6465464564664",
+                        "$65466464",
+                        "$6546ddd4646465464",
+                        "$65464dd465466",
+                        "$6546ss6464",
+                        "$65aa466464",
+                        "$6546464vv646f5464",
+                        "$654644dr65f466",
+                        "$6546646rrf4",
+                        "$654sff6646f4",
+                        "$6546464frtt6465464",
+                        "$6546446f5466",
+                        "$6546646f4",
+                        "$6546f46df4f6465464",
+                        "$654ddfd6f4465466",
+                      ]}
+                      showCheckbox
+                      className="mmm "
+                    />
+
+                    {/* <Label>Order Id</Label>
                     <Input
                       type="number"
                       placeholder=""
                       name="orderId"
                       value={this.state.orderId}
                       onChange={this.changeHandler.bind(this)}
-                    />
+                    /> */}
                   </FormGroup>
                 </Col>
                 <Col lg="6" md="6">
@@ -134,7 +178,7 @@ export class AddRefund extends Component {
                     <Label>Customer Name</Label>
                     <Input
                       type="text"
-                      placeholder="Enter Customer"
+                      placeholder="Anujesh yadav"
                       name="customer"
                       value={this.state.customer}
                       onChange={this.changeHandler}
@@ -149,7 +193,7 @@ export class AddRefund extends Component {
                       type="number"
                       // maxLength={10}
                       // size={10}
-                      placeholder="Mobile Number"
+                      placeholder="7000420819"
                       name="phone_no"
                       value={this.state.phone_no}
                       onChange={this.changeHandler.bind(this)}
@@ -174,7 +218,7 @@ export class AddRefund extends Component {
                     <Label>Email</Label>
                     <Input
                       type="email"
-                      placeholder="Enter Email"
+                      placeholder="sanujesh@gmail.com "
                       name="email"
                       value={this.state.email}
                       onChange={this.changeHandler}
@@ -186,14 +230,14 @@ export class AddRefund extends Component {
                     <Label>Unit Price</Label>
                     <Input
                       type="number"
-                      placeholder=""
+                      placeholder="10"
                       name="unit"
                       value={this.state.unit}
                       onChange={this.changeHandler.bind(this)}
                     />
                   </FormGroup>
                 </Col>
-                <Col lg="6" md="6">
+                {/* <Col lg="6" md="6">
                   <FormGroup>
                     <Label>Time Slot</Label>
                     <Input
@@ -204,18 +248,43 @@ export class AddRefund extends Component {
                       onChange={this.changeHandler}
                     />
                   </FormGroup>
-                </Col>
+                </Col> */}
 
                 <Col lg="6" md="6">
                   <FormGroup>
                     <Label>Product Name</Label>
-                    <Input
+                    <Multiselect
+                      name="notify"
+                      placeholder="ata tamater Aalu "
+                      value={this.state.notify}
+                      isObject={false}
+                      onRemove={(e) => {
+                        console.log(e);
+                      }}
+                      onSelect={(e) => {
+                        this.setState({ notify: e });
+                        // this.setState({ [e.target.name]: e.target.value });
+                        console.log(e);
+                      }}
+                      onChange={this.changeHandler}
+                      options={[
+                        "Aalu",
+                        "tamater",
+                        "milk",
+                        "Soya Chunks",
+                        "Ata",
+                        "Ice Cream",
+                      ]}
+                      showCheckbox
+                      className="mmm "
+                    />
+                    {/* <Input
                       type="text"
                       placeholder="Enter Product"
                       name="product"
                       value={this.state.product}
                       onChange={this.changeHandler}
-                    />
+                    /> */}
                   </FormGroup>
                 </Col>
                 <Col lg="6" md="6">
@@ -223,7 +292,7 @@ export class AddRefund extends Component {
                     <Label>Total Quantity</Label>
                     <Input
                       type="text"
-                      placeholder="Enter Quantity"
+                      placeholder="5"
                       name="quantity"
                       value={this.state.quantity}
                       onChange={this.changeHandler}
@@ -235,24 +304,39 @@ export class AddRefund extends Component {
                     <Label>Total Price</Label>
                     <Input
                       type="text"
-                      placeholder="Enter Price"
+                      placeholder="50"
                       name="price"
                       value={this.state.price}
                       onChange={this.changeHandler}
                     />
                   </FormGroup>
                 </Col>
-
-                <Col lg="6" md="6" sm="6" className="mb-2 mt-1">
-                  <Label className="mb-1">Payment</Label>
+                <Col lg="6" md="6">
+                  <Label>Payment Status</Label>
+                  <CustomInput
+                    type="select"
+                    placeholder=" done"
+                    name="status"
+                    value={this.state.status}
+                    onChange={this.changeHandler}
+                  >
+                    <option value="Paid">Paid</option>
+                    <option value="Unpaid">Unpaid</option>
+                  </CustomInput>
+                </Col>
+              </Row>
+              <hr />
+              <Row className="mt-2">
+                {/* <Col lg="6" md="6" sm="6" className="mb-2 mt-1">
+                  <Label className="mb-1"> Refund Status </Label>
                   <div
                     className="form-label-group"
-                    onChange={this.changeHandler}
+                    onChange={this.changeHandler1}
                   >
                     <input
                       style={{ marginRight: "3px" }}
                       type="radio"
-                      name="payment"
+                      name="Refundstatus"
                       value="Replacement"
                     />
                     <span style={{ marginRight: "20px" }}>Replacement</span>
@@ -260,27 +344,40 @@ export class AddRefund extends Component {
                     <input
                       style={{ marginRight: "3px" }}
                       type="radio"
-                      name="payment"
+                      name="Refundstatus"
+                      value="Refund"
+                    />
+                    <span style={{ marginRight: "3px" }}>Refund</span>
+                  </div>
+                </Col> */}
+                <Col lg="6" md="6" sm="6" className="mb-2">
+                  <Label className="mb-1">
+                    <h4>Status</h4>
+                  </Label>
+                  <div
+                    className="form-label-group"
+                    onChange={this.changeHandler1}
+                  >
+                    <input
+                      style={{ marginRight: "3px" }}
+                      type="radio"
+                      name="status"
+                      value="Replacement"
+                    />
+                    <span style={{ marginRight: "20px" }}>Replacement</span>
+
+                    <input
+                      style={{ marginRight: "3px" }}
+                      type="radio"
+                      name="status"
                       value="Refund"
                     />
                     <span style={{ marginRight: "3px" }}>Refund</span>
                   </div>
                 </Col>
+
                 <Col lg="6" md="6">
-                  <Label>Payment Status</Label>
-                  <CustomInput
-                    type="select"
-                    placeholder=""
-                    name="status"
-                    value={this.state.status}
-                    onChange={this.changeHandler}
-                  >
-                    <option value="paid">paid</option>
-                    <option value="unpaid">unpaid</option>
-                  </CustomInput>
-                </Col>
-                <Col lg="6" md="6">
-                  <Label>Product Status</Label>
+                  <Label>{this.state.Refundstatus} Status</Label>
                   <CustomInput
                     type="select"
                     placeholder=""
@@ -301,13 +398,40 @@ export class AddRefund extends Component {
                     {/* <option value="Returned">Returned</option> */}
                   </CustomInput>
                 </Col>
-              </Row>
-              <FormGroup row>
-                <Label for="exampleText">Reason</Label>
-                <Col sm={10}>
-                  <Input id="exampleText" name="text" type="textarea" />
+                {this.state.Refundstatus == "Refund" ? (
+                  <>
+                    <Col lg="6" md="6">
+                      <Label className="mt-2"> Payment Refund Method</Label>
+
+                      <CustomInput
+                        type="select"
+                        placeholder=""
+                        name="status"
+                        value={this.state.status}
+                        onChange={this.changeHandler}
+                      >
+                        <option value="Paid">wallet</option>
+                        <option value="Unpaid">bank Account</option>
+                        <option value="Unpaid">UPI</option>
+                      </CustomInput>
+                    </Col>
+                  </>
+                ) : null}
+                <Col lg="6" md="6">
+                  <Label for="exampleText" className="">
+                    {this.state.Refundstatus} Reason
+                  </Label>
+                  <Col>
+                    <textarea
+                      className="form-control"
+                      id="exampleText"
+                      name="text"
+                      row="8"
+                      // cols="50"
+                    />
+                  </Col>
                 </Col>
-              </FormGroup>
+              </Row>
               <Row>
                 {/* <Col lg="6" md="6" className="mb-1">
                   <Label>Product Name</Label>
@@ -342,7 +466,7 @@ export class AddRefund extends Component {
                 <Button.Ripple
                   color="primary"
                   type="submit"
-                  className="mr-1 mt-2"
+                  className="mr-1 mt-2 mx-2"
                 >
                   Add Refund
                 </Button.Ripple>

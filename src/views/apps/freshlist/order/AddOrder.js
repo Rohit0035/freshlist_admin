@@ -21,33 +21,49 @@ export class AddOrder extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      delivery_slot: "",
       quantity: "",
       phone_no: "",
       order_zone: "",
       delivery_add: "",
       attribute: "",
-      // items: "",
       email: "",
       delivery_date: "",
       time_slot: "",
       status: "",
       productName: [],
       attribuName: [],
-      previous_add: "",
       new_address: "",
       notify: [],
+      inputlist: [{ notify: "", attribute: "", quantity: "" }],
       // selectedOptions: [],
     };
   }
-  // changeHandler1 = (e) => {
-  //   this.setState({ status: e.target.value });
-  // };
 
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  handleremove = (index) => {
+    const list = [...this.state.inputlist];
+    list.splice(index, 1);
+    this.setState({ inputlist: list });
+  };
+
+  handleinputchange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...this.state.inputlist];
+    list[index][name] = value;
+
+    this.setState({ inputlist: list });
+  };
+  handleClick = () => {
+    this.setState({
+      inputlist: [
+        ...this.state.inputlist,
+        { notify: "", attribute: "", quantity: "" },
+      ],
+    });
+  };
   async componentDidMount() {
     axiosConfig
       .get("/admin/product_list")
@@ -120,18 +136,17 @@ export class AddOrder extends Component {
                   <FormGroup>
                     <Label>Mobile Number</Label>
                     <Input
-                      type="number"
-                      pattern="[0-9]{0,5}"
+                      required
+                      type="tel"
+                      maxlength="10"
                       placeholder="Mobile Number"
                       name="phone_no"
                       value={this.state.phone_no}
-                      // onChange={this.changeHandler}
-                      // onInput={this.handleChange.bind(this)}
                       onChange={this.changeHandler.bind(this)}
                     />
                   </FormGroup>
                 </Col>
-                <Col lg="6" md="6">
+                {/* <Col lg="6" md="6">
                   <FormGroup>
                     <Label>Delivery Slot</Label>
                     <Input
@@ -142,7 +157,7 @@ export class AddOrder extends Component {
                       onChange={this.changeHandler}
                     />
                   </FormGroup>
-                </Col>
+                </Col> */}
                 {/* <Col lg="6" md="6">
                   <FormGroup>
                     <Label>Items</Label>
@@ -157,9 +172,21 @@ export class AddOrder extends Component {
                 </Col> */}
                 <Col lg="6" md="6">
                   <FormGroup>
+                    <Label>Email</Label>
+                    <Input
+                      type="email"
+                      placeholder="Enter Email"
+                      name="email"
+                      value={this.state.email}
+                      onChange={this.changeHandler}
+                    />
+                  </FormGroup>
+                </Col>
+                <Col lg="6" md="6">
+                  <FormGroup>
                     <Label>Delivery Address</Label>
                     <Input
-                      type="text"
+                      type="textarea"
                       placeholder="Delivery Address"
                       name="delivery_add"
                       value={this.state.delivery_add}
@@ -167,7 +194,7 @@ export class AddOrder extends Component {
                     />
                   </FormGroup>
                 </Col>
-                <Col lg="6" md="6">
+                {/* <Col lg="6" md="6">
                   <FormGroup>
                     <Label>Previous Address</Label>
                     <Input
@@ -178,12 +205,12 @@ export class AddOrder extends Component {
                       onChange={this.changeHandler}
                     />
                   </FormGroup>
-                </Col>
+                </Col> */}
                 <Col lg="6" md="6">
                   <FormGroup>
                     <Label>New Address</Label>
                     <Input
-                      type="text"
+                      type="textarea"
                       placeholder="New Address"
                       name="new_address"
                       value={this.state.new_address}
@@ -193,7 +220,7 @@ export class AddOrder extends Component {
                 </Col>
                 <Col lg="6" md="6">
                   <FormGroup>
-                    <Label>Delivery Date</Label>
+                    <Label>Select Delivery Date</Label>
                     <Input
                       type="date"
                       placeholder="Delivery Date"
@@ -205,7 +232,7 @@ export class AddOrder extends Component {
                 </Col>
                 <Col lg="6" md="6">
                   <FormGroup>
-                    <Label>Time Slot</Label>
+                    <Label>Time Slot of Delivery</Label>
                     <Input
                       type="time"
                       placeholder="Time Slot"
@@ -215,21 +242,9 @@ export class AddOrder extends Component {
                     />
                   </FormGroup>
                 </Col>
-                <Col lg="6" md="6">
-                  <FormGroup>
-                    <Label>Email</Label>
-                    <Input
-                      type="email"
-                      placeholder="Enter Email"
-                      name="email"
-                      value={this.state.email}
-                      onChange={this.changeHandler}
-                    />
-                  </FormGroup>
-                </Col>
 
                 <Col lg="6" md="6">
-                  <Label>Notify </Label>
+                  <Label>Notify by </Label>
                   <Multiselect
                     name="notify"
                     value={this.state.notify}
@@ -284,17 +299,80 @@ export class AddOrder extends Component {
                   </CustomInput>
                 </Col>
               </Row>
-              <Row className="m-2">
-                <Col>
-                  <h1 col-sm-6 className="float-left">
-                    Add Product
-                  </h1>
-                </Col>
+              <hr />
+              <Row className="">
+                <h1 col-sm-6 className="float-left mt-2 mb-2 mx-2">
+                  Add Product
+                </h1>
               </Row>
               <Row>
                 <Col lg="6" md="6" className="mb-1">
-                  <Label>Product Name</Label>
+                  <Label>Category name</Label>
                   <Input
+                    type="select"
+                    placeholder="Enter Attribute"
+                    name="attribute"
+                    value={this.state.attribute}
+                    onChange={this.changeHandler}
+                  >
+                    <option>Select Category</option>
+                    {this.state.attribuName?.map((attlist) => (
+                      <option value={attlist?._id} key={attlist?._id}>
+                        {attlist?.units_name}
+                      </option>
+                    ))}
+                  </Input>
+                </Col>
+                <Col lg="6" md="6" className="mb-1">
+                  <Label> Select Sub Category</Label>
+                  <Input
+                    type="select"
+                    placeholder="Enter Attribute"
+                    name="attribute"
+                    value={this.state.attribute}
+                    onChange={this.changeHandler}
+                  >
+                    <option>Select Sub-Category</option>
+                    {this.state.attribuName?.map((attlist) => (
+                      <option value={attlist?._id} key={attlist?._id}>
+                        {attlist?.units_name}
+                      </option>
+                    ))}
+                  </Input>
+                </Col>
+              </Row>
+
+              {this.state.inputlist.map((e, i) => {
+                return (
+                  <Row key={i}>
+                    <Col lg="3" md="3" className="mb-1">
+                      <Label>Product Name</Label>
+                      <Multiselect
+                        name="notify"
+                        value={this.state.notify}
+                        isObject={false}
+                        placeholder="Search and Select"
+                        onRemove={(e) => {
+                          console.log(e);
+                        }}
+                        onSelect={(e) => {
+                          this.setState({ notify: e });
+                          // this.setState({ [e.target.name]: e.target.value });
+                          console.log(e);
+                        }}
+                        selectionLimit="1"
+                        onChange={(e) => this.handleinputchange(e, i)}
+                        options={[
+                          "Aalu - 2kg ",
+                          "tamater",
+                          "ata",
+                          "milk",
+                          "began,",
+                        ]}
+                        showCheckbox
+                        className="mmm"
+                      />
+                      {/* <Input
                     type="select"
                     placeholder="Enter Product"
                     name="product"
@@ -307,37 +385,71 @@ export class AddOrder extends Component {
                         {pnlist?.product_name}
                       </option>
                     ))}
-                  </Input>
-                </Col>
-                <Col lg="6" md="6" className="mb-1">
-                  <Label>Attribute Name</Label>
-                  <Input
-                    type="select"
-                    placeholder="Enter Attribute"
-                    name="attribute"
-                    value={this.state.attribute}
-                    onChange={this.changeHandler}
-                  >
-                    <option>Select Attribute</option>
-                    {this.state.attribuName?.map((attlist) => (
-                      <option value={attlist?._id} key={attlist?._id}>
-                        {attlist?.units_name}
-                      </option>
-                    ))}
-                  </Input>
-                </Col>
+                  </Input> */}
+                    </Col>
+                    <Col lg="3" md="3" className="mb-1">
+                      <Label>Attribute Name</Label>
+                      <Input
+                        type="select"
+                        placeholder="Enter Attribute"
+                        name="attribute"
+                        value={this.state.inputlist.attribute}
+                        onChange={(e) => this.handleinputchange(e, i)}
+                      >
+                        <option>Select Attribute</option>
+                        {this.state.attribuName?.map((attlist) => (
+                          <option value={attlist?._id} key={attlist?._id}>
+                            {attlist?.units_name}
+                          </option>
+                        ))}
+                      </Input>
+                    </Col>
 
-                <Col lg="6" md="6">
-                  <Label>Quantity</Label>
-                  <Input
-                    type="number"
-                    placeholder="Quantity"
-                    name="quantity"
-                    value={this.state.quantity}
-                    onChange={this.changeHandler}
-                  />
-                </Col>
-              </Row>
+                    <Col lg="3" md="3">
+                      <Label>Quantity</Label>
+                      <Input
+                        type="number"
+                        placeholder="Quantity"
+                        name="quantity"
+                        value={this.state.inputlist.quantity}
+                        onChange={(e) => this.handleinputchange(e, i)}
+                      />
+                    </Col>
+                    {/* <Col>
+                      <Button.Ripple
+                        onClick={this.handleClick}
+                        color="primary"
+                        className="mr-1 mt-2"
+                      >
+                        Add new Field
+                      </Button.Ripple>
+                    </Col> */}
+                    <Col lg="3" md="3" className="d-flex">
+                      {this.state.inputlist.length !== 1 && (
+                        <Button.Ripple
+                          color="primary"
+                          className="mr-1 mt-2"
+                          style={{ height: "40px" }}
+                          onClick={() => this.handleremove(i)}
+                        >
+                          Remove
+                        </Button.Ripple>
+                      )}
+                      {this.state.inputlist.length - 1 === i && (
+                        <Button.Ripple
+                          color="primary"
+                          className="mr-1 mt-2"
+                          style={{ height: "40px" }}
+                          onClick={this.handleClick}
+                        >
+                          Add More
+                        </Button.Ripple>
+                      )}
+                    </Col>
+                  </Row>
+                );
+              })}
+
               <Row>
                 <Button.Ripple
                   color="primary"

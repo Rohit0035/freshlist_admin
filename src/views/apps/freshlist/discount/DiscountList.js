@@ -20,6 +20,7 @@ import { history } from "../../../../history";
 import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../../assets/scss/pages/users.scss";
 import { BsSearch } from "react-icons/bs";
+import { Route } from "react-router-dom";
 
 class DiscountList extends React.Component {
   state = {
@@ -42,127 +43,127 @@ class DiscountList extends React.Component {
         filter: true,
       },
       {
-        headerName: "Discount",
+        headerName: "Auto Generate Code",
         field: "customerId",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.customerId}</span>
+              <span></span>
             </div>
           );
         },
       },
       {
-        headerName: "Discount Type",
+        headerName: "Type",
         field: "discount",
         filter: true,
         width: 190,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <span>{params.data.email}</span>
+              <span></span>
             </div>
           );
         },
       },
 
       {
-        headerName: "Duration",
+        headerName: "Discount Type",
         field: "duration",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.lastname}</span>
+              {/* <span>{params.data.lastname}</span> */}
             </div>
           );
         },
       },
       {
-        headerName: "User Limit",
+        headerName: "Apply On",
         field: "mobile",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.mobile}</span>
+              {/* <span>{params.data.mobile}</span> */}
             </div>
           );
         },
       },
-      {
-        headerName: "Discount",
-        field: "mobile",
-        filter: true,
-        width: 200,
-        cellRendererFramework: (params) => {
-          return (
-            <div>
-              <span>{params.data.mobile}</span>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Discount Type",
-        field: "mobile",
-        filter: true,
-        width: 200,
-        cellRendererFramework: (params) => {
-          return (
-            <div>
-              <span>{params.data.mobile}</span>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Minimum Purchase",
-        field: "mobile",
-        filter: true,
-        width: 200,
-        cellRendererFramework: (params) => {
-          return (
-            <div>
-              <span>{params.data.mobile}</span>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Maximum Discount",
-        field: "mobile",
-        filter: true,
-        width: 200,
-        cellRendererFramework: (params) => {
-          return (
-            <div>
-              <span>{params.data.mobile}</span>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Status",
-        field: "status",
-        filter: true,
-        width: 150,
-        cellRendererFramework: (params) => {
-          return params.value === "Block" ? (
-            <div className="badge badge-pill badge-success">
-              {params.data.status}
-            </div>
-          ) : params.value === "Unblock" ? (
-            <div className="badge badge-pill badge-warning">
-              {params.data.status}
-            </div>
-          ) : null;
-        },
-      },
+      // {
+      //   headerName: "Discount",
+      //   field: "mobile",
+      //   filter: true,
+      //   width: 200,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div>
+      //         <span>{params.data.mobile}</span>
+      //       </div>
+      //     );
+      //   },
+      // },
+      // {
+      //   headerName: "Discount Type",
+      //   field: "mobile",
+      //   filter: true,
+      //   width: 200,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div>
+      //         <span>{params.data.mobile}</span>
+      //       </div>
+      //     );
+      //   },
+      // },
+      // {
+      //   headerName: "Minimum Purchase",
+      //   field: "mobile",
+      //   filter: true,
+      //   width: 200,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div>
+      //         <span>{params.data.mobile}</span>
+      //       </div>
+      //     );
+      //   },
+      // },
+      // {
+      //   headerName: "Maximum Discount",
+      //   field: "mobile",
+      //   filter: true,
+      //   width: 200,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div>
+      //         <span>{params.data.mobile}</span>
+      //       </div>
+      //     );
+      //   },
+      // },
+      // {
+      //   headerName: "Status",
+      //   field: "status",
+      //   filter: true,
+      //   width: 150,
+      //   cellRendererFramework: (params) => {
+      //     return params.value === "Block" ? (
+      //       <div className="badge badge-pill badge-success">
+      //         {params.data.status}
+      //       </div>
+      //     ) : params.value === "Unblock" ? (
+      //       <div className="badge badge-pill badge-warning">
+      //         {params.data.status}
+      //       </div>
+      //     ) : null;
+      //   },
+      // },
       {
         headerName: "Actions",
         field: "sortorder",
@@ -178,13 +179,17 @@ class DiscountList extends React.Component {
                                 onClick={() =>
                                     history.push(`/app/customer/viewCustomer/${params.data._id}`)}
                             /> */}
-              <Edit
-                className="mr-50"
-                size="25px"
-                color="blue"
-                onClick={() =>
-                  history.push("/app/freshlist/delivery/editDeliveryMan")
-                }
+              <Route
+                render={({ history }) => (
+                  <Edit
+                    className="mr-50"
+                    size="25px"
+                    color="blue"
+                    onClick={() =>
+                      history.push("/app/freshlist/discount/editDiscount")
+                    }
+                  />
+                )}
               />
               <Trash2
                 className="mr-50"
@@ -280,14 +285,17 @@ class DiscountList extends React.Component {
                     value={this.state.value}
                   />
                 </div>
-                {/* <Col>
-                                    <Button
-                                        className=" btn btn-danger float-right"
-                                        onClick={() => history.push("/app/freshlist/delivery/addDeliveryMan")}
-                                    >
-                                        Add Coupon
-                                    </Button>
-                                </Col> */}
+                <Col>
+                  <Route
+                    render={({ history }) => (
+                      <Button
+                        className=" btn btn-danger float-right"
+                        onClick={() => history.push("/app/freshlist/discount/addDiscount")}
+                      >
+                        Add Discount
+                      </Button>
+                    )} />
+                </Col>
               </Row>
               <CardBody>
                 {this.state.rowData === null ? null : (
@@ -299,14 +307,14 @@ class DiscountList extends React.Component {
                             {this.gridApi
                               ? this.state.currenPageSize
                               : "" * this.state.getPageSize -
-                                (this.state.getPageSize - 1)}{" "}
+                              (this.state.getPageSize - 1)}{" "}
                             -{" "}
                             {this.state.rowData.length -
                               this.state.currenPageSize *
-                                this.state.getPageSize >
-                            0
+                              this.state.getPageSize >
+                              0
                               ? this.state.currenPageSize *
-                                this.state.getPageSize
+                              this.state.getPageSize
                               : this.state.rowData.length}{" "}
                             of {this.state.rowData.length}
                             <ChevronDown className="ml-50" size={15} />

@@ -8,10 +8,11 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "../../../../assets/scss/plugins/extensions/editor.scss";
 import axiosConfig from "../../../../axiosConfig";
 import { history } from "../../../../history";
-import swal from 'sweetalert';
+import swal from "sweetalert";
+import { Route } from "react-router-dom";
 
 class AddPolicy extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       description: "",
@@ -36,10 +37,9 @@ class AddPolicy extends React.Component {
       .post("/addprivacy_policy", this.state)
       .then((response) => {
         console.log(response);
-        this.props.history.push("/app/privacyPolicy/privacyPolicy");
+        this.props.history.push("/app/freshlist/privacyPolicy/privacyPolicy");
         // alert("Privacy Policy Added Successfully !");
         swal("Good job!", "You clicked the button!", "success");
-
       })
       .catch((error) => {
         console.log(error);
@@ -58,13 +58,18 @@ class AddPolicy extends React.Component {
             </h1>
           </Col>
           <Col>
-            <Button
-              className=" btn btn-danger float-right"
-              onClick={() => history.push("/app/privacyPolicy/privacyPolicy")
-              }
-            >
-              Back
-            </Button>
+            <Route
+              render={({ history }) => (
+                <Button
+                  className=" btn btn-danger float-right"
+                  onClick={() =>
+                    history.push("/app/freshlist/privacyPolicy/privacyPolicy")
+                  }
+                >
+                  Back
+                </Button>
+              )}
+            />
           </Col>
         </Row>
         <CardBody>

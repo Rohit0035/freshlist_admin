@@ -15,7 +15,7 @@ import { history } from "../../../../history";
 import axiosConfig from "../../../../axiosConfig";
 
 export class ShopInformation extends Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -75,14 +75,65 @@ export class ShopInformation extends Component {
                         <Row className="m-1">
                             <Col >
                                 <h3 col-sm-6 className="float-left">
-                                    Shop Information
+                                    VENDOR PHOTO
                                 </h3>
                             </Col>
                         </Row>
                         <CardBody>
                             <Form className="m-1" onSubmit={this.submitHandler}>
                                 <Row className="mb-2">
-                                    <Col lg="6" md="6" className="mb-2">
+                                    <Col lg="6" md="6" className="mb-1">
+                                        <Label>Vendor Image</Label>
+                                        <CustomInput
+                                            required
+                                            type="file"
+                                            name="date"
+                                            value={this.state.date}
+                                            onChange={this.changeHandler}
+                                        ></CustomInput>
+                                    </Col>
+
+                                    <Col lg="6" md="6" className="mb-1">
+                                        <Label>ID PROOF</Label>
+                                        <Input
+                                            type="text"
+                                            name="desc"
+                                            placeholder="ADHAR CARD NUMBER"
+                                            value={this.state.desc}
+                                            onChange={this.changeHandler}
+                                        ></Input>
+                                        {/* </Col>
+                                    <Col lg="3" md="3" className="mb-1"> */}
+                                        {/* <Label>PINCODE</Label> */}
+                                        <Input
+                                            type="text"
+                                            name="desc"
+                                            placeholder="ENTER NUMBER"
+                                            value={this.state.desc}
+                                            onChange={this.changeHandler}
+                                        ></Input>
+                                    </Col>
+                                    <Col lg="6" md="6" className="mb-1">
+                                        <Label>Aadhar Image</Label>
+                                        <CustomInput
+                                            required
+                                            type="file"
+                                            name="aadhar"
+                                            value={this.state.aadhar}
+                                            onChange={this.changeHandler}
+                                        ></CustomInput>
+                                    </Col>
+                                    <Col lg="6" md="6" className="mb-1">
+                                        <Label>Pan Image</Label>
+                                        <CustomInput
+                                            required
+                                            type="file"
+                                            name="pan"
+                                            value={this.state.pan}
+                                            onChange={this.changeHandler}
+                                        ></CustomInput>
+                                    </Col>
+                                    {/* <Col lg="6" md="6" className="mb-2">
 
                                         <Label>Shop Name</Label>
                                         <Input
@@ -125,7 +176,7 @@ export class ShopInformation extends Component {
                                             onChange={this.changeHandler}
                                         ></CustomInput>
 
-                                    </Col>
+                                    </Col> */}
 
                                 </Row>
                                 <Row style={{ float: 'right' }}>

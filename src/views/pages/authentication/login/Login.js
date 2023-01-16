@@ -14,7 +14,7 @@ import {
   TabContent,
   TabPane,
 } from "reactstrap";
-import classnames from "classnames";
+// import classnames from "classnames";
 import logo from "../../../../assets/img/logo/logo.png";
 //import loginImg from "../../../../assets/img/pages/login.png";
 import "../../../../assets/scss/pages/authentication.scss";
@@ -24,15 +24,14 @@ import LoginFirebase from "./LoginFirebase";
 import LoginJWT from "./LoginJWT";
 import { connect } from "react-redux";
 import axios from "axios";
-import swal from 'sweetalert';
+import swal from "sweetalert";
 
 class Login extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.state = {
       email: "",
-      mobile: "",
       password: "",
     };
   }
@@ -43,27 +42,26 @@ class Login extends React.Component {
 
   loginHandler = (e) => {
     e.preventDefault();
-
+    console.log(this.state.email);
+    console.log(this.state.password);
+    // const header = {
+    //   "Content-Type": "application/json",
+    // };
     axios
-      .post("http://13.127.52.128:8000/admin/adminlogin", this.state, {
-        headers: {
-          "Content-Type": "application/json"
-        },
-      })
+      .post("http://3.6.37.16:8000/admin/adminlogin", this.state)
       .then((response) => {
+        swal("Successful!", "You clicked the button!", "success");
         console.log(response.data.user);
         console.log(response.data);
         localStorage.setItem("auth-admintoken", response.data.token);
-        swal("Successful!", "You clicked the button!", "success");
-        localStorage.setItem("userData", JSON.stringify(response.data.user));
-        history.push("/");
 
+        localStorage.setItem("userData", JSON.stringify(response.data.user));
+        this.props.history.push("/home");
+        // history.push("/");
       })
       .catch((error) => {
-
         console.log(error.response);
-        swal("error!", "Invalied! Please enter valied Phone No. or Password", "error");
-
+        swal("Error!", "Invalid! Email or Password ", "error");
       });
   };
 
@@ -82,13 +80,17 @@ class Login extends React.Component {
               <Row className="m-0">
                 <Col lg="12" md="12" className="p-1">
                   <Card className="rounded-0 mb-0 px-2 login-tabs-container">
+                    <div className="logo-box text-center p-1">
+                      <img src={logo} alt="loginImg" width="150" />
+                    </div>
                     <CardHeader className="pb-1">
                       <CardTitle>
-                        <img src={logo} alt="loginImg" width="300" style={{ width: "300" }} />
-                        <h4 className="mb-0">Login</h4>
+                        <h4 className="mb-0">
+                          <strong>Login</strong>
+                        </h4>
                       </CardTitle>
                     </CardHeader>
-                    <p className="px-2 auth-title">
+                    <p className="px-2 auth-title mb-2">
                       Welcome back, please login to your account.
                     </p>
                     <Form onSubmit={this.loginHandler}>
@@ -103,7 +105,7 @@ class Login extends React.Component {
                           required
                         />
                       </FormGroup>
-                      <Label>Mobile No.</Label>
+                      {/* <Label>Mobile No.</Label>
                       <FormGroup className="form-label-group position-relative has-icon-left">
                         <Input
                           type="number"
@@ -113,7 +115,7 @@ class Login extends React.Component {
                           onChange={this.handlechange}
                           required
                         />
-                      </FormGroup>
+                      </FormGroup> */}
                       <Label>Password</Label>
                       <FormGroup className="form-label-group position-relative has-icon-left">
                         <Input
@@ -143,7 +145,9 @@ class Login extends React.Component {
                           <TabPane tabId="1">
                             <LoginJWT />
                           </TabPane>
-                          <TabPane tabId="2"><LoginFirebase /></TabPane>
+                          <TabPane tabId="2">
+                            <LoginFirebase />
+                          </TabPane>
                           <TabPane tabId="3">{/* <LoginAuth0 /> */}</TabPane>
                         </TabContent>
                       </div>

@@ -87,7 +87,7 @@ const UserDropdown = (props) => {
           } else {
             localStorage.removeItem("auth-admintoken");
             localStorage.clear();
-            history.push("/pages/login");
+            history.push("/");
           }
         }}
       >
@@ -201,10 +201,11 @@ class NavbarUser extends React.PureComponent {
           >
             <Media className="text-center pr-0 mr-1" left>
               <img
-                className={`${item.imgClass
-                  ? item.imgClass + " cart-item-img"
-                  : "cart-item-img"
-                  }`}
+                className={`${
+                  item.imgClass
+                    ? item.imgClass + " cart-item-img"
+                    : "cart-item-img"
+                }`}
                 src={item.img}
                 width={item.width}
                 alt="Cart Item"

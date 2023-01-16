@@ -15,8 +15,8 @@ import axiosConfig from "../../../axiosConfig";
 import { ContextLayout } from "../../../utility/context/Layout";
 import { AgGridReact } from "ag-grid-react";
 import {
-   Edit,
-   Trash2,
+  Edit,
+  Trash2,
   // Clipboard,
   // Printer,
   // Download,
@@ -50,8 +50,8 @@ class AllOrder extends React.Component {
         // headerCheckboxSelectionFilteredOnly: true,
         // headerCheckboxSelection: true,
       },
-      
-      { 
+
+      {
         headerName: "Seller Name",
         field: "seller.name",
         filter: true,
@@ -64,7 +64,7 @@ class AllOrder extends React.Component {
           );
         },
       },
-      { 
+      {
         headerName: "First Name",
         field: "customer.firstname",
         filter: true,
@@ -77,7 +77,7 @@ class AllOrder extends React.Component {
           );
         },
       },
-      { 
+      {
         headerName: "Last Name",
         field: "customer.lastname",
         filter: true,
@@ -142,8 +142,7 @@ class AllOrder extends React.Component {
           );
         },
       },
-      
-      
+
       {
         headerName: "Product qty",
         field: "product_qty",
@@ -183,7 +182,7 @@ class AllOrder extends React.Component {
           );
         },
       },
-      
+
       {
         headerName: "Customer OrderId",
         field: "cus_orderId",
@@ -223,7 +222,7 @@ class AllOrder extends React.Component {
           );
         },
       },
-      
+
       {
         headerName: "Payment Type",
         field: "payment_type",
@@ -237,7 +236,7 @@ class AllOrder extends React.Component {
           );
         },
       },
-    
+
       {
         headerName: "Status",
         field: "status",
@@ -297,9 +296,8 @@ class AllOrder extends React.Component {
       //     );
       //   },
       // },
-
     ],
-   };
+  };
 
   async componentDidMount() {
     await axiosConfig.get("/orderlist").then((response) => {
@@ -335,9 +333,7 @@ class AllOrder extends React.Component {
     const { rowData, columnDefs, defaultColDef } = this.state;
     return (
       <Row className="app-user-list">
-        <Col sm="12">
-         
-        </Col>
+        <Col sm="12"></Col>
         <Col sm="12">
           <Card>
             <Row className="m-2">

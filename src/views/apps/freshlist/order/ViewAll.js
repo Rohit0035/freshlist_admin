@@ -21,10 +21,13 @@ class ViewAll extends React.Component {
     super(props);
     this.state = {
       data: {},
+      drivername: [],
     };
   }
+  changeHandler = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
   componentDidMount() {
-    // console.log(this.props.match.params);
     let { id } = this.props.match.params;
     axiosConfig
       .get(`/admin/viewone_order/${id}`)
@@ -34,6 +37,19 @@ class ViewAll extends React.Component {
       })
       .catch((error) => {
         console.log(error);
+      });
+  }
+
+  componentDidMount() {
+    axiosConfig
+      .get(`/admin/getall_drive`)
+      .then((response) => {
+        // let drivername = response.data.data;
+        console.log("DriverList", response.data.data);
+        this.setState({ drivername: response.data.data });
+      })
+      .catch((error) => {
+        console.log("Err145", error);
       });
   }
   render() {
@@ -59,13 +75,13 @@ class ViewAll extends React.Component {
                   <Col sm="6" style={{ textAlign: "right" }}>
                     <Route
                       render={() => (
-                        <Button.Ripple
+                        <Button
+                          className="mr-2"
                           color="primary"
-                          className=" mr-2"
                           onClick={() => print()}
                         >
-                          Print Invoice
-                        </Button.Ripple>
+                          Hub Invoice
+                        </Button>
                       )}
                     />
                     <Route
@@ -73,9 +89,9 @@ class ViewAll extends React.Component {
                         <Button
                           className=""
                           color="primary"
-                          onClick={() => print()}
+                          // onClick={() => print()}
                         >
-                          Hub Invoice
+                          Add Product
                         </Button>
                       )}
                     />
@@ -112,7 +128,8 @@ class ViewAll extends React.Component {
                       <thead>
                         <tr>
                           <th>SN</th>
-                          <th>Product Name</th>
+                          <th>Product</th>
+                          {/* <th>Model</th> */}
                           <th>Rack Number</th>
                           <th>Unit Price</th>
                           <th>Tax</th>
@@ -127,10 +144,10 @@ class ViewAll extends React.Component {
                           <th scope="row">1</th>
                           <td>Onion</td>
                           <td>29</td>
-                          <td>$27</td>
-                          <td>$2</td>
+                          <td>Rs27</td>
+                          <td>Rs2</td>
                           <td>18</td>
-                          <td>$40</td>
+                          <td>Rs2800</td>
                           <td
                             style={{
                               color: "#ff9f43",
@@ -176,10 +193,10 @@ class ViewAll extends React.Component {
                           <th scope="row">2</th>
                           <td>T-shirt</td>
                           <td>2</td>
-                          <td>$70</td>
-                          <td>$1</td>
+                          <td>Rs70</td>
+                          <td>Rs1</td>
                           <td>19</td>
-                          <td>$50</td>
+                          <td>Rs3500</td>
                           <td
                             style={{
                               color: "#ff9f43",
@@ -234,20 +251,27 @@ class ViewAll extends React.Component {
                           className="billingdetails mb-1 mt-1"
                           style={{ listStyle: "none" }}
                         >
-                          Shipping: <sapn className="float-right"> $10.0</sapn>
+                          Sub Total:{" "}
+                          <sapn className="float-right"> Rs6300</sapn>
+                        </li>
+                        <li
+                          className="billingdetails mb-1 mt-1"
+                          style={{ listStyle: "none" }}
+                        >
+                          Shipping: <sapn className="float-right"> Rs500</sapn>
                         </li>
                         <li
                           className="billingdetails mb-1 mt-1"
                           style={{ listStyle: "none" }}
                         >
                           Coupon Discount:
-                          <sapn className="float-right">-$0.0</sapn>
+                          <sapn className="float-right">-Rs0.0</sapn>
                         </li>
                         <li
                           className="billingdetails mb-1"
                           style={{ listStyle: "none" }}
                         >
-                          Total: <sapn className="float-right"> $100.0</sapn>
+                          Total: <sapn className="float-right"> Rs6800</sapn>
                         </li>
                       </ul>
                     </Col>
@@ -264,9 +288,9 @@ class ViewAll extends React.Component {
                     <Input
                       required
                       type="select"
-                      name="bannertype"
+                      name="status"
                       placeholder=""
-                      value={this.state.bannertype}
+                      value={this.state.status}
                       onChange={this.changeHandler}
                     >
                       {/* <option value="select">--Select--</option> */}
@@ -316,22 +340,25 @@ class ViewAll extends React.Component {
                     <Input
                       required
                       type="select"
-                      name="bannertype"
-                      placeholder=""
-                      value={this.state.bannertype}
+                      name="driver"
+                      placeholder="Driver Name"
+                      value={this.state.driver}
                       onChange={this.changeHandler}
                     >
-                      <option value="driver1">Driver 1</option>
-                      <option value="driver2">Driver 2</option>
+                      {this.state.drivername?.map((driname) => (
+                        <option value={driname?.firstname}>
+                          {driname?.firstname}
+                        </option>
+                      ))}
                     </Input>
                   </Col>
 
                   <Col sm="12" className="my-1">
-                    <Label>Driver Will Get ($) </Label>
+                    <Label>Driver Will Get (RS) </Label>
                     <Input
                       required
                       type="number"
-                      name="bannertype"
+                      name="rupees"
                       placeholder=""
                       value="40"
                       onChange={this.changeHandler}
@@ -356,14 +383,6 @@ class ViewAll extends React.Component {
                   <Col sm="12" className="my-1">
                     <Label>Customer Information</Label>
                     <Row>
-                      <Col sm="6">
-                        <img
-                          src="https://img.freepik.com/premium-vector/cute-little-boy-cartoon-waving-hand_322598-79.jpg?w=740"
-                          alt="aaa"
-                          width="50"
-                          height="80"
-                        />
-                      </Col>
                       <Col sm="6">
                         <h6>
                           <b>Rahul Sharma</b>

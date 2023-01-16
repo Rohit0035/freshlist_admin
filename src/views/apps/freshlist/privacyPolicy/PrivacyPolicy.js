@@ -22,6 +22,7 @@ import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../../assets/scss/pages/users.scss";
 import Moment from "react-moment";
 import "moment-timezone";
+import { Route } from "react-router-dom";
 
 class PrivacyPolicy extends React.Component {
   state = {
@@ -158,12 +159,18 @@ class PrivacyPolicy extends React.Component {
                 </h1>
               </Col>
               <Col>
-                <Button
-                  className=" btn btn-danger float-right"
-                  onClick={() => history.push("/app/freshlist/privacyPolicy/addPolicy")}
-                >
-                  Add New Policy
-                </Button>
+                <Route
+                  render={({ history }) => (
+                    <Button
+                      className=" btn btn-danger float-right"
+                      onClick={() =>
+                        history.push("/app/freshlist/privacyPolicy/addPolicy")
+                      }
+                    >
+                      Add New Policy
+                    </Button>
+                  )}
+                />
               </Col>
             </Row>
             <CardBody>
@@ -176,11 +183,11 @@ class PrivacyPolicy extends React.Component {
                           {this.gridApi
                             ? this.state.currenPageSize
                             : "" * this.state.getPageSize -
-                            (this.state.getPageSize - 1)}{" "}
+                              (this.state.getPageSize - 1)}{" "}
                           -{" "}
                           {this.state.rowData.length -
                             this.state.currenPageSize * this.state.getPageSize >
-                            0
+                          0
                             ? this.state.currenPageSize * this.state.getPageSize
                             : this.state.rowData.length}{" "}
                           of {this.state.rowData.length}

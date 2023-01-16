@@ -109,7 +109,7 @@ export class VendorInformation extends Component {
               <Form className="m-1" onSubmit={this.submitHandler}>
                 <Row className="mb-2">
                   <Col lg="6" md="6" className="mb-2">
-                    <Label>First Name</Label>
+                    <Label>Name</Label>
                     <Input
                       type="text"
                       name="type"
@@ -117,57 +117,63 @@ export class VendorInformation extends Component {
                       onChange={this.changeHandler}
                     ></Input>
                   </Col>
+
+
                   <Col lg="6" md="6" className="mb-1">
-                    <Label>Last Name</Label>
+                    <Label>Mobile No.</Label>
+                    <Input
+                      required
+                      type="number"
+                      name="date"
+                      placeholder="Enter Mobile Number."
+                      value={this.state.date}
+                      onChange={this.changeHandler}
+                    ></Input>
+                  </Col>
+                  <Col lg="6" md="6" className="mb-1">
+                    <Label>Door Number</Label>
                     <Input
                       type="text"
                       name="desc"
+                      placeholder="Door Number"
+                      value={this.state.desc}
+                      onChange={this.changeHandler}
+                    ></Input>
+                  </Col>
+                  <Col lg="6" md="6" className="mb-1">
+                    <Label>Street</Label>
+                    <Input
+                      type="text"
+                      name="desc"
+                      placeholder="Street"
+                      value={this.state.desc}
+                      onChange={this.changeHandler}
+                    ></Input>
+                  </Col>
+                  <Col lg="6" md="6" className="mb-1">
+                    <Label>City</Label>
+                    <Input
+                      type="text"
+                      name="desc"
+                      placeholder="City"
+                      value={this.state.desc}
+                      onChange={this.changeHandler}
+                    ></Input>
+                  </Col>
+                  <Col lg="6" md="6" className="mb-1">
+                    <Label>PINCODE</Label>
+                    <Input
+                      type="text"
+                      name="desc"
+                      placeholder="PINCODE"
                       value={this.state.desc}
                       onChange={this.changeHandler}
                     ></Input>
                   </Col>
 
-                  <Col lg="6" md="6" className="mb-1">
-                    <Label>Phone</Label>
-                    <Input
-                      required
-                      type="number"
-                      name="date"
-                      placeholder="Enter PhoneNo."
-                      value={this.state.date}
-                      onChange={this.changeHandler}
-                    ></Input>
-                  </Col>
-                  <Col lg="6" md="6" className="mb-1">
-                    <Label>Vendor Image</Label>
-                    <CustomInput
-                      required
-                      type="file"
-                      name="date"
-                      value={this.state.date}
-                      onChange={this.changeHandler}
-                    ></CustomInput>
-                  </Col>
-                  <Col lg="6" md="6" className="mb-1">
-                    <Label>Aadhar Image</Label>
-                    <CustomInput
-                      required
-                      type="file"
-                      name="aadhar"
-                      value={this.state.aadhar}
-                      onChange={this.changeHandler}
-                    ></CustomInput>
-                  </Col>
-                  <Col lg="6" md="6" className="mb-1">
-                    <Label>Pan Image</Label>
-                    <CustomInput
-                      required
-                      type="file"
-                      name="pan"
-                      value={this.state.pan}
-                      onChange={this.changeHandler}
-                    ></CustomInput>
-                  </Col>
+
+
+
                 </Row>
               </Form>
             </CardBody>

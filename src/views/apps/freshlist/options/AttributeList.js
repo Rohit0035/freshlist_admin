@@ -22,6 +22,7 @@ import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../../assets/scss/pages/users.scss";
 import Moment from "react-moment";
 import "moment-timezone";
+import { Route } from "react-router-dom";
 
 class CreateAttribute extends React.Component {
   state = {
@@ -170,15 +171,19 @@ class CreateAttribute extends React.Component {
                 </h1>
               </Col>
               <Col>
-                <Button
-                  className="float-right"
-                  color="primary"
-                  onClick={() =>
-                    history.push("/app/freshlist/options/createAttribute")
-                  }
-                >
-                  CreateAttribute
-                </Button>
+                <Route
+                  render={({ history }) => (
+                    <Button
+                      className="float-right"
+                      color="primary"
+                      onClick={() =>
+                        history.push("/app/freshlist/options/createAttribute")
+                      }
+                    >
+                      CreateAttribute
+                    </Button>
+                  )}
+                />
               </Col>
             </Row>
             <CardBody>

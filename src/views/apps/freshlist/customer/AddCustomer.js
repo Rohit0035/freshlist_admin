@@ -13,7 +13,6 @@ import {
 } from "reactstrap";
 import { history } from "../../../../history";
 import axiosConfig from "../../../../axiosConfig";
-import { Route } from "react-router-dom";
 
 const AddCustomer = () => {
   const [formData, setFormData] = useState({
@@ -55,8 +54,7 @@ const AddCustomer = () => {
               Add Customer
             </h1>
           </Col>
-          {/* <Col>
-          
+          <Col>
             <Button
               className="btn btn-danger float-right"
               onClick={() =>
@@ -65,20 +63,6 @@ const AddCustomer = () => {
             >
               Back
             </Button>
-          </Col> */}
-          <Col>
-            <Route
-              render={({ history }) => (
-                <Button
-                  className=" btn btn-danger float-right"
-                  onClick={() =>
-                    history.push("/app/freshlist/customer/customerList")
-                  }
-                >
-                  Back
-                </Button>
-              )}
-            />
           </Col>
         </Row>
         <CardBody>

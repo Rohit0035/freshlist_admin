@@ -222,7 +222,7 @@ class HouseProductList extends React.Component {
                           history.push("/app/freshlist/house/addHouseProduct")
                         }
                       >
-                        Add New
+                        Add Product
                       </Button>
                     )}
                   />

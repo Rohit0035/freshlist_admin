@@ -208,9 +208,10 @@ class DriverList extends React.Component {
     await axios
       .get("http://3.6.37.16:8000/admin/getall_drive")
       .then((response) => {
-        let rowData = response.data.data;
-        console.log(rowData);
-        this.setState({ rowData });
+        this.setState({ rowData: response.data.data });
+      })
+      .catch((err) => {
+        console.log("Error", err);
       });
   }
   // async componentDidMount() {

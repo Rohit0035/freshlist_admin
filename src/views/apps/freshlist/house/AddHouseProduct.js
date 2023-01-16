@@ -12,6 +12,7 @@ import {
   CustomInput,
   List,
 } from "reactstrap";
+import Multiselect from "multiselect-react-dropdown";
 import { history } from "../../../../history";
 import axiosConfig from "../../../../axiosConfig";
 import { EditorState, convertToRaw } from "draft-js";
@@ -30,6 +31,7 @@ export class AddHouseProduct extends Component {
       selectedName: "",
       description: "",
       type: "",
+      attribuName: [],
       model: "",
       brand: "",
       quantity: "",
@@ -57,12 +59,31 @@ export class AddHouseProduct extends Component {
       categoryT: [],
       brN: [],
       unT: [],
-      clR: [],
-      size: [],
       status: "",
+      inputlist: [{ notify: "", attribute: "", quantity: "" }],
     };
   }
+  handleremove = (index) => {
+    const list = [...this.state.inputlist];
+    list.splice(index, 1);
+    this.setState({ inputlist: list });
+  };
 
+  handleinputchange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...this.state.inputlist];
+    list[index][name] = value;
+
+    this.setState({ inputlist: list });
+  };
+  handleClick = () => {
+    this.setState({
+      inputlist: [
+        ...this.state.inputlist,
+        { notify: "", attribute: "", quantity: "" },
+      ],
+    });
+  };
   onChangeHandler = (event) => {
     this.setState({ selectedFile: event.target.files[0] });
     this.setState({ selectedName: event.target.files[0].name });
@@ -87,6 +108,11 @@ export class AddHouseProduct extends Component {
     });
   };
   async componentDidMount() {
+    axiosConfig.get("/admin/getall_units").then((response) => {
+      this.setState({
+        attribuName: response.data.data,
+      });
+    });
     axiosConfig
       .get("/admin/getallcategory")
       .then((response) => {
@@ -105,30 +131,6 @@ export class AddHouseProduct extends Component {
         console.log(response);
         this.setState({
           brN: response.data.data,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    axiosConfig
-      .get("/admin/getall_color")
-      .then((response) => {
-        console.log(response.data.data);
-
-        this.setState({
-          clR: response.data.data,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    axiosConfig
-      .get("/admin/getall_size")
-      .then((response) => {
-        console.log(response);
-        this.setState({
-          size: response.data.data,
         });
       })
       .catch((error) => {
@@ -259,7 +261,7 @@ export class AddHouseProduct extends Component {
                         ))}
                       </Input>
                     </Col>
-                    <Col lg="6" md="6" className="mb-1">
+                    {/* <Col lg="6" md="6" className="mb-1">
                       <Label>Color</Label>
                       <Input
                         type="select"
@@ -274,8 +276,8 @@ export class AddHouseProduct extends Component {
                           </option>
                         ))}
                       </Input>
-                    </Col>
-                    <Col lg="6" md="6" className="mb-1">
+                    </Col> */}
+                    {/* <Col lg="6" md="6" className="mb-1">
                       <Label>Size</Label>
                       <Input
                         type="select"
@@ -290,7 +292,7 @@ export class AddHouseProduct extends Component {
                           </option>
                         ))}
                       </Input>
-                    </Col>
+                    </Col> */}
 
                     <Col lg="6" md="6" className="mb-1">
                       <Label>Model</Label>
@@ -323,7 +325,117 @@ export class AddHouseProduct extends Component {
                         onChange={this.changeHandler}
                       />
                     </Col>
-                    <Col lg="6" md="6" className="mb-2">
+                  </Row>
+                  {this.state.inputlist.map((e, i) => {
+                    return (
+                      <Row key={i}>
+                        {/* <Col lg="3" md="3" className="mb-1">
+                          <Label>Product Name</Label>
+                          <Multiselect
+                            name="notify"
+                            value={this.state.notify}
+                            isObject={false}
+                            placeholder="Search and Select"
+                            onRemove={(e) => {
+                              console.log(e);
+                            }}
+                            onSelect={(e) => {
+                              this.setState({ notify: e });
+                              
+                              console.log(e);
+                            }}
+                            selectionLimit="1"
+                            onChange={(e) => this.handleinputchange(e, i)}
+                            options={[
+                              "Aalu - 2kg ",
+                              "tamater",
+                              "ata",
+                              "milk",
+                              "began,",
+                            ]}
+                            showCheckbox
+                            className="mmm"
+                          />
+                          
+                        </Col> */}
+                        <Col lg="3" md="3" className="mb-1">
+                          <Label>Attribute Name</Label>
+                          <Input
+                            type="select"
+                            placeholder="Enter Attribute"
+                            name="attribute"
+                            value={this.state.attribute}
+                            onChange={(e) => this.handleinputchange(e, i)}
+                          >
+                            <option>Select Attribute</option>
+                            {this.state.attribuName?.map((attlist) => (
+                              <option value={attlist?._id} key={attlist?._id}>
+                                {attlist?.units_name}
+                              </option>
+                            ))}
+                          </Input>
+                        </Col>
+
+                        <Col lg="3" md="3">
+                          <Label>Quantity</Label>
+                          <Input
+                            type="number"
+                            placeholder="Quantity"
+                            name="quantity"
+                            value={this.state.inputlist.notify}
+                            onChange={(e) => this.handleinputchange(e, i)}
+                          />
+                        </Col>
+                        <Col lg="3" md="3">
+                          <Label>Price</Label>
+                          <Input
+                            type="number"
+                            placeholder="Quantity"
+                            name="quantity"
+                            value={this.state.inputlist.quantity}
+                            onChange={(e) => this.handleinputchange(e, i)}
+                          />
+                        </Col>
+                        {/* <Col>
+                      <Button.Ripple
+                        onClick={this.handleClick}
+                        color="primary"
+                        className="mr-1 mt-2"
+                      >
+                        Add new Field
+                      </Button.Ripple>
+                    </Col> */}
+                        <Col
+                          lg="3"
+                          md="3"
+                          className="d-flex justify-content-left"
+                        >
+                          {this.state.inputlist.length - 1 === i && (
+                            <Button
+                              color="primary"
+                              style={{ height: "40px" }}
+                              className="mr-1 mt-2 addmorebutton form-control"
+                              onClick={this.handleClick}
+                            >
+                              Add
+                            </Button>
+                          )}
+                          {this.state.inputlist.length !== 1 && (
+                            <Button
+                              color="primary"
+                              style={{ height: "40px", width: "100%" }}
+                              className="mr-1 mt-2 addmorebutton form-control d-flex justify-content-center"
+                              onClick={() => this.handleremove(i)}
+                            >
+                              Remove
+                            </Button>
+                          )}
+                        </Col>
+                      </Row>
+                    );
+                  })}
+                  <Row>
+                    {/* <Col lg="6" md="6" className="mb-2">
                       <Label>Attribute</Label>
                       <CustomInput
                         type="select"
@@ -337,7 +449,7 @@ export class AddHouseProduct extends Component {
                         <option value="2KG">2KG</option>
                         <option value="3KG">3KG</option>
                       </CustomInput>
-                    </Col>
+                    </Col> */}
 
                     <Col lg="6" md="6" className="mb-2">
                       <Label>GST Class %</Label>
@@ -453,30 +565,36 @@ export class AddHouseProduct extends Component {
                   </Row>
 
                   <Row>
-                    <Col lg="4" md="4" className="mb-1">
+                    <Col lg="12" md="12" className="mb-1">
                       <Label>MetaData</Label>
-                      <Input
+                      <textarea
                         type="text"
+                        rows={4}
+                        className="form-control"
                         placeholder="MetaData"
                         name="type"
                         value={this.state.sortorder}
                         onChange={this.changeHandler}
                       />
                     </Col>
-                    <Col lg="4" md="4" className="mb-1">
+                    <Col lg="12" md="12" className="mb-1">
                       <Label>MetaData Description </Label>
-                      <Input
+                      <textarea
                         type="text"
+                        className="form-control"
+                        rows={4}
                         placeholder="Description"
                         name="type"
                         value={this.state.sortorder}
                         onChange={this.changeHandler}
                       />
                     </Col>
-                    <Col lg="4" md="4" className="mb-1">
+                    <Col lg="12" md="12" className="mb-1">
                       <Label>Product Search Tags</Label>
-                      <Input
+                      <textarea
                         type="text"
+                        rows={4}
+                        className="form-control"
                         placeholder="Product Search Tags"
                         name="type"
                         value={this.state.sortorder}

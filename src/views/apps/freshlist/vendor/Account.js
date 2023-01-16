@@ -74,7 +74,7 @@ export class Account extends Component {
             <Row className="m-1">
               <Col>
                 <h3 col-sm-6 className="float-left">
-                  Account Information
+                  Service Details
                 </h3>
               </Col>
 
@@ -91,7 +91,39 @@ export class Account extends Component {
             <CardBody>
               <Form className="m-1" onSubmit={this.submitHandler}>
                 <Row className="mb-2">
-                  <Col lg="4" md="4" className="mb-2">
+
+
+                  <Col lg="6" md="6" className="mb-1">
+                    <Label>Location</Label>
+                    <Input
+                      type="text"
+                      name="desc"
+                      placeholder="Location"
+                      value={this.state.desc}
+                      onChange={this.changeHandler}
+                    ></Input>
+                  </Col>
+                  <Col lg="6" md="6" className="mb-1">
+                    <Label>City</Label>
+                    <Input
+                      type="text"
+                      name="desc"
+                      placeholder="City"
+                      value={this.state.desc}
+                      onChange={this.changeHandler}
+                    ></Input>
+                  </Col>
+                  <Col lg="6" md="6" className="mb-1">
+                    <Label>PINCODE</Label>
+                    <Input
+                      type="text"
+                      name="desc"
+                      placeholder="PINCODE"
+                      value={this.state.desc}
+                      onChange={this.changeHandler}
+                    ></Input>
+                  </Col>
+                  {/* <Col lg="4" md="4" className="mb-2">
                     <Label>Email</Label>
                     <Input
                       type="text"
@@ -120,7 +152,7 @@ export class Account extends Component {
                       value={this.state.date}
                       onChange={this.changeHandler}
                     ></Input>
-                  </Col>
+                  </Col> */}
                 </Row>
               </Form>
             </CardBody>
