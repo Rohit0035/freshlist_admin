@@ -169,8 +169,105 @@ const navigationConfig = [
   },
   {
     type: "groupHeader",
+    groupTitle: "Freebies MANAGEMENT",
+  },
+  {
+    id: "manageFreebies",
+    title: "Manage Freebies",
+    type: "item",
+    icon: <FaUser size={15} />,
+    permissions: ["admin", "editor"],
+    navLink: "/app/freshlist/freebies/freebies",
+  },
+  {
+    type: "groupHeader",
+    groupTitle: "Cart MANAGEMENT",
+  },
+  {
+    id: "suggestedProducts",
+    title: "Suggested Products",
+    type: "item",
+    icon: <FaUser size={15} />,
+    permissions: ["admin", "editor"],
+    navLink: "/app/freshlist/cart/suggestedProducts",
+  },
+  {
+    type: "groupHeader",
+    groupTitle: "SEO MANAGEMENT",
+  },
+  {
+    id: "metatitle",
+    title: "Meta Title",
+    type: "item",
+    icon: <FaUser size={15} />,
+    permissions: ["admin", "editor"],
+    navLink: "/app/freshlist/cart/suggestedProducts",
+  },
+  {
+    id: "metadescription",
+    title: "Meta Description",
+    type: "item",
+    icon: <FaUser size={15} />,
+    permissions: ["admin", "editor"],
+    navLink: "/app/freshlist/cart/suggestedProducts",
+  },
+  {
+    id: "seoUrl",
+    title: "SEO-URL",
+    type: "item",
+    icon: <FaUser size={15} />,
+    permissions: ["admin", "editor"],
+    navLink: "/app/freshlist/cart/suggestedProducts",
+  },
+  {
+    id: "bulkExport&Import",
+    title: "BULK Export And Import",
+    type: "item",
+    icon: <FaUser size={15} />,
+    permissions: ["admin", "editor"],
+    navLink: "/app/freshlist/cart/suggestedProducts",
+  },
+  {
+    type: "groupHeader",
+    groupTitle: "Delivery Control MANAGEMENT",
+  },
+  {
+    id: "deliveryslots",
+    title: "Delivery Slots",
+    type: "item",
+    icon: <FaUser size={15} />,
+    permissions: ["admin", "editor"],
+    navLink: "/app/freshlist/cart/suggestedProducts",
+  },
+  {
+    id: "holiday",
+    title: "Holiday Management",
+    type: "item",
+    icon: <FaUser size={15} />,
+    permissions: ["admin", "editor"],
+    navLink: "/app/freshlist/cart/suggestedProducts",
+  },
+  {
+    id: "weekdays",
+    title: "Weekdays",
+    type: "item",
+    icon: <FaUser size={15} />,
+    permissions: ["admin", "editor"],
+    navLink: "/app/freshlist/cart/suggestedProducts",
+  },
+  {
+    id: "Export&Import",
+    title: "BULK Export And Import",
+    type: "item",
+    icon: <FaUser size={15} />,
+    permissions: ["admin", "editor"],
+    navLink: "/app/freshlist/cart/suggestedProducts",
+  },
+  {
+    type: "groupHeader",
     groupTitle: "Report MANAGEMENT",
   },
+
   {
     id: "sales",
     title: "Sales",
@@ -178,59 +275,27 @@ const navigationConfig = [
     icon: <FaWallet size={15} />,
     children: [
       {
-        id: "total_sale",
+        id: "totalSales",
         title: "Total Sale",
         type: "item",
         icon: <FaCircle size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/sales/total_sales",
+        navLink: "/app/freshlist/sales/totalSales",
       },
       {
-        id: "hub_sale",
+        id: "hubSales",
         title: "Hub Sale",
         type: "item",
         icon: <FaCircle size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/sales/hub_sale",
+        navLink: "/app/freshlist/sales/hubSales",
       },
     ],
   },
 
   {
     type: "groupHeader",
-    groupTitle: "USER MANAGEMENT",
-  },
-  {
-    id: "customer",
-    title: "Customers  ",
-    type: "collapse",
-    icon: <FaWallet size={15} />,
-    children: [
-      {
-        id: "customergroup",
-        title: "Customer Group",
-        type: "item",
-        icon: <FaCircle size={8} />,
-        permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/customer/customergroup",
-      },
-      {
-        id: "list",
-        title: "Customer List",
-        type: "item",
-        icon: <FaCircle size={8} />,
-        permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/customer/customerList",
-      },
-      // {
-      //   id: "wallet",
-      //   title: "Wallet",
-      //   type: "item",
-      //   icon: <FaCircle size={8} />,
-      //   permissions: ["admin", "editor"],
-      //   navLink: "/app/freshlist/customer/wallet",
-      // },
-    ],
+    groupTitle: "Wallet Management",
   },
   {
     id: "wallet",
@@ -247,6 +312,47 @@ const navigationConfig = [
         navLink: "/app/freshlist/wallet/walletType",
       },
     ],
+  },
+  {
+    type: "groupHeader",
+    groupTitle: "DRIVER MANAGEMENT",
+  },
+  {
+    id: "driver",
+    title: "Driver",
+    type: "collapse",
+    icon: <FaUser size={15} />,
+    children: [
+      {
+        id: "addriver",
+        title: "Add Driver",
+        type: "item",
+        icon: <FaCircle size={8} />,
+        permissions: ["admin", "editor"],
+        navLink: "/app/freshlist/driver/addDriver",
+      },
+      {
+        id: "driverList",
+        title: "Driver List",
+        type: "item",
+        icon: <FaCircle size={8} />,
+        permissions: ["admin", "editor"],
+        navLink: "/app/freshlist/driver/driverList",
+      },
+    ],
+  },
+
+  {
+    type: "groupHeader",
+    groupTitle: "SUBSCRIPTIONS MANAGEMENT",
+  },
+  {
+    id: "subscriptions",
+    title: "Subscriptions",
+    type: "item",
+    icon: <FaUser size={15} />,
+    permissions: ["admin", "editor"],
+    navLink: "/app/freshlist/subscriber/subscriberList",
   },
   {
     id: "vendor",
@@ -281,37 +387,42 @@ const navigationConfig = [
     ],
   },
   {
-    id: "subscriptions",
-    title: "Subscriptions",
-    type: "item",
-    icon: <FaUser size={15} />,
-    permissions: ["admin", "editor"],
-    navLink: "/app/freshlist/subscriber/subscriberList",
+    type: "groupHeader",
+    groupTitle: "CUSTOMER MANAGEMENT",
   },
   {
-    id: "driver",
-    title: "Driver",
+    id: "customer",
+    title: "Customers  ",
     type: "collapse",
-    icon: <FaUser size={15} />,
+    icon: <FaWallet size={15} />,
     children: [
       {
-        id: "addriver",
-        title: "Add Driver",
+        id: "customergroup",
+        title: "Customer Group",
         type: "item",
         icon: <FaCircle size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/driver/addDriver",
+        navLink: "/app/freshlist/customer/customergroup",
       },
       {
-        id: "driverList",
-        title: "Driver List",
+        id: "list",
+        title: "Customer List",
         type: "item",
         icon: <FaCircle size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/driver/driverList",
+        navLink: "/app/freshlist/customer/customerList",
       },
+      // {
+      //   id: "wallet",
+      //   title: "Wallet",
+      //   type: "item",
+      //   icon: <FaCircle size={8} />,
+      //   permissions: ["admin", "editor"],
+      //   navLink: "/app/freshlist/customer/wallet",
+      // },
     ],
   },
+
   {
     id: "employee",
     title: "Employee",
@@ -355,19 +466,30 @@ const navigationConfig = [
       //   navLink: "/app/freshlist/hubs/addhub",
       // },
       {
-        id: "hub_list",
+        id: "hubList",
         title: "HubList",
         type: "item",
         icon: <FaCircle size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/hubs/hub_list",
+        navLink: "/app/freshlist/hubs/hubList",
       },
     ],
   },
-
   {
     type: "groupHeader",
-    groupTitle: "PROMOTION MANAGEMENT",
+    groupTitle: "Mobile App Management",
+  },
+  {
+    id: "notification",
+    title: "Notification",
+    type: "item",
+    icon: <GiWantedReward size={18} />,
+    permissions: ["admin", "editor"],
+    navLink: "/app/freshlist/mobile/Notification",
+  },
+  {
+    type: "groupHeader",
+    groupTitle: " Banner Management",
   },
   {
     id: "Banner",
@@ -377,6 +499,11 @@ const navigationConfig = [
     permissions: ["admin", "editor"],
     navLink: "/app/freshlist/banner/BannerList",
   },
+  {
+    type: "groupHeader",
+    groupTitle: "PROMOTION MANAGEMENT",
+  },
+
   {
     id: "special",
     title: "Special",
@@ -430,7 +557,7 @@ const navigationConfig = [
         type: "item",
         icon: <FaCircle size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/dealOfDay/dealOfDay",
+        navLink: "/app/freshlist/dealOfDay/DealOfDay",
       },
       {
         id: "featuredeal",
@@ -444,7 +571,7 @@ const navigationConfig = [
         id: "notification",
         title: "Delivery Cities",
         type: "item",
-        icon: <FaCircle size={8} />,
+        icon: <GiWantedReward size={8} />,
         permissions: ["admin", "editor"],
         navLink: "/app/freshlist/notif/notification",
       },
@@ -452,7 +579,7 @@ const navigationConfig = [
   },
   {
     type: "groupHeader",
-    groupTitle: "PRODUCT MANAGEMENT",
+    groupTitle: "CATEGORY MANAGEMENT",
   },
   {
     id: "categorys",
@@ -477,6 +604,11 @@ const navigationConfig = [
         navLink: "/app/freshlist/subcategory/subCategoryList",
       },
     ],
+  },
+
+  {
+    type: "groupHeader",
+    groupTitle: "PRODUCT MANAGEMENT",
   },
 
   // -------------
@@ -634,12 +766,12 @@ const navigationConfig = [
   // },
   {
     type: "groupHeader",
-    groupTitle: "INCOME MANAGEMENT",
+    groupTitle: "SUPPORT MANAGEMENT",
   },
 
   {
     id: "privacypolicy",
-    title: "PrivacyPolicy",
+    title: "Privacy Policy",
     type: "item",
     icon: <FaCog size={15} />,
     permissions: ["admin", "editor"],

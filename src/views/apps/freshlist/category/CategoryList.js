@@ -117,23 +117,31 @@ class CategoryList extends React.Component {
                   history.push(`/app/customer/viewCustomer/${params.data._id}`)
                 }
               /> */}
-              <Edit
-                className="mr-50"
-                size="25px"
-                color="blue"
-                onClick={() =>
-                  history.push("/app/freshlist/category/editCategory")
-                }
+              <Route
+                render={({ history }) => (
+                  <Edit
+                    className="mr-50"
+                    size="25px"
+                    color="blue"
+                    onClick={() =>
+                      history.push("/app/freshlist/category/editCategory")
+                    }
+                  />
+                )}
               />
-              <Trash2
-                className="mr-50"
-                size="25px"
-                color="red"
-                onClick={() => {
-                  let selectedData = this.gridApi.getSelectedRows();
-                  this.runthisfunction(params.data._id);
-                  this.gridApi.updateRowData({ remove: selectedData });
-                }}
+              <Route
+                render={({ history }) => (
+                  <Trash2
+                    className="mr-50"
+                    size="25px"
+                    color="red"
+                    onClick={() => {
+                      let selectedData = this.gridApi.getSelectedRows();
+                      this.runthisfunction(params.data._id);
+                      this.gridApi.updateRowData({ remove: selectedData });
+                    }}
+                  />
+                )}
               />
             </div>
           );
@@ -204,7 +212,7 @@ class CategoryList extends React.Component {
                     Category List
                   </h1>
                 </Col>
-                <Col>
+                {/* <Col>
                   <Button
                     style={{ marginRight: "-22rem" }}
                     className="btn btn-danger float-right"
@@ -214,7 +222,7 @@ class CategoryList extends React.Component {
                   >
                     Back
                   </Button>
-                </Col>
+                </Col> */}
                 <Col>
                   <Route
                     render={({ history }) => (

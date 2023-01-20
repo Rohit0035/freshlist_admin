@@ -13,7 +13,7 @@ import "../../../../assets/scss/pages/app-ecommerce-shop.scss";
 import "../../../../assets/scss/pages/users.scss";
 import axiosConfig from "../../../../axiosConfig";
 import { Route } from "react-router-dom";
-class ViewCustomer extends React.Component {
+class ViewHub extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -61,7 +61,7 @@ class ViewCustomer extends React.Component {
             <Row className="m-2">
               <Col>
                 <h1 col-sm-6 className="float-left">
-                  View CustomerList
+                  View HubList
                 </h1>
               </Col>
               <Col>
@@ -70,7 +70,7 @@ class ViewCustomer extends React.Component {
                     <Button
                       className=" btn btn-danger float-right"
                       onClick={() =>
-                        history.push("/app/freshlist/customer/customerList")
+                        history.push("/app/freshlist/hubs/hubList")
                       }
                     >
                       Back
@@ -134,4 +134,4 @@ class ViewCustomer extends React.Component {
   }
 }
 
-export default View;
+export default ViewHub;

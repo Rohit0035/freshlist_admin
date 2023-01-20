@@ -22,9 +22,6 @@ const AddHub = () => {
     mobile: "",
     address: "",
     delivery_zone: "",
-    // cat: "",
-    // subcat: "",
-    // desc: "",
     status: "",
   });
   const changeHandler = (e) => {
@@ -59,7 +56,7 @@ const AddHub = () => {
               render={({ history }) => (
                 <Button
                   className=" btn btn-danger float-right"
-                  onClick={() => history.push("/app/freshlist/hubs/hub_list")}
+                  onClick={() => history.push("/app/freshlist/hubs/hubList")}
                 >
                   Back
                 </Button>

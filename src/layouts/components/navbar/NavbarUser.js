@@ -19,21 +19,18 @@ import Autocomplete from "../../../components/@vuexy/autoComplete/AutoCompleteCo
 //import { useAuth0 } from "../../../authServices/auth0/auth0Service"
 import { history } from "../../../history";
 import { IntlContext } from "../../../utility/context/Internationalization";
+import { Route } from "react-router-dom";
 
-const handleNavigation = (e, path) => {
+const handleNavigation = (e) => {
   e.preventDefault();
-  history.push(path);
+  history.push("/#/pages/profile/userProfile");
 };
 
 const UserDropdown = (props) => {
   // const { logout, isAuthenticated } = useAuth0()
   return (
     <DropdownMenu right>
-      <DropdownItem
-        tag="a"
-        href="#"
-        onClick={(e) => handleNavigation(e, "/pages/profile/userProfile")}
-      >
+      <DropdownItem tag="a" href="#" onClick={(e) => handleNavigation(e)}>
         <Icon.User size={14} className="mr-50" />
         <span className="align-middle">Edit Profile</span>
       </DropdownItem>
@@ -66,34 +63,38 @@ const UserDropdown = (props) => {
         <span className="align-middle">WishList</span>
       </DropdownItem> */}
       <DropdownItem divider />
-      <DropdownItem
-        tag="a"
-        // href="/pages/login"
-        onClick={(e) => {
-          e.preventDefault();
-          // if (isAuthenticated) {
-          //    // return logout({
-          //    //   returnTo: window.location.origin + process.env.REACT_APP_PUBLIC_PATH
-          //    // })
-          // }
-          const provider = props.loggedInWith;
-          if (provider !== null) {
-            if (provider === "jwt") {
-              return props.logoutWithJWT();
-            }
-            if (provider === "firebase") {
-              return props.logoutWithFirebase();
-            }
-          } else {
-            localStorage.removeItem("auth-admintoken");
-            localStorage.clear();
-            history.push("/");
-          }
-        }}
-      >
-        <Icon.Power size={14} className="mr-50" />
-        <span className="align-middle">Log Out</span>
-      </DropdownItem>
+      <Route
+        render={({ history }) => (
+          <DropdownItem
+            tag="a"
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              // if (isAuthenticated) {
+              //    // return logout({
+              //    //   returnTo: window.location.origin + process.env.REACT_APP_PUBLIC_PATH
+              //    // })
+              // }
+              const provider = props.loggedInWith;
+              if (provider !== null) {
+                if (provider === "jwt") {
+                  return props.logoutWithJWT();
+                }
+                if (provider === "firebase") {
+                  return props.logoutWithFirebase();
+                }
+              } else {
+                localStorage.removeItem("auth-admintoken");
+                localStorage.clear();
+                history.push("/#/pages/login");
+              }
+            }}
+          >
+            <Icon.Power size={14} className="mr-50" />
+            <span className="align-middle">Log Out</span>
+          </DropdownItem>
+        )}
+      />
     </DropdownMenu>
   );
 };

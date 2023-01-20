@@ -22,7 +22,7 @@ import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../../assets/scss/pages/users.scss";
 import { Route, Link } from "react-router-dom";
 
-class CategoryList extends React.Component {
+class HubList extends React.Component {
   state = {
     name: "",
     mobile: "",
@@ -148,7 +148,7 @@ class CategoryList extends React.Component {
                     color="green"
                     onClick={() =>
                       history.push(
-                        `/app/customer/viewCustomer/${params.data._id}`
+                        `/app/freshlist/hubs/ViewHub/${params.data._id}`
                       )
                     }
                   />
@@ -370,4 +370,4 @@ class CategoryList extends React.Component {
     );
   }
 }
-export default CategoryList;
+export default HubList;

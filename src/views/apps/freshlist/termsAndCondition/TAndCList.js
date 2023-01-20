@@ -21,8 +21,9 @@ import { Trash2, ChevronDown } from "react-feather";
 import { history } from "../../../../history";
 import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../../assets/scss/pages/users.scss";
-import Moment from "react-moment";
+// import Moment from "react-moment";
 import "moment-timezone";
+import { Route } from "react-router-dom";
 
 class TAndCList extends React.Component {
   state = {
@@ -37,7 +38,6 @@ class TAndCList extends React.Component {
       suppressMenu: true,
     },
     columnDefs: [
-
       {
         headerName: "S.No",
         valueGetter: "node.rowIndex + 1",
@@ -72,7 +72,6 @@ class TAndCList extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="actions cursor-pointer">
-
               <Trash2
                 className="mr-50"
                 size="25px"
@@ -104,7 +103,6 @@ class TAndCList extends React.Component {
     });
   }
 
-
   onGridReady = (params) => {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -132,9 +130,7 @@ class TAndCList extends React.Component {
     const { rowData, columnDefs, defaultColDef } = this.state;
     return (
       <Row className="app-user-list">
-        <Col sm="12">
-
-        </Col>
+        <Col sm="12"></Col>
         <Col sm="12">
           <Card>
             <Row className="m-2">
@@ -144,14 +140,20 @@ class TAndCList extends React.Component {
                 </h1>
               </Col>
               <Col>
-                <Button
-                  className=" btn btn-danger float-right"
-                  onClick={() =>
-                    history.push("/app/freshlist/termsAndCondition/addTAndC")
-                  }
-                >
-                  Add New T&C
-                </Button>
+                <Route
+                  render={({ history }) => (
+                    <Button
+                      className=" btn btn-danger float-right"
+                      onClick={() =>
+                        history.push(
+                          "/app/freshlist/termsAndCondition/addTAndC"
+                        )
+                      }
+                    >
+                      Add New T&C
+                    </Button>
+                  )}
+                />
               </Col>
             </Row>
             <CardBody>
@@ -164,11 +166,11 @@ class TAndCList extends React.Component {
                           {this.gridApi
                             ? this.state.currenPageSize
                             : "" * this.state.getPageSize -
-                            (this.state.getPageSize - 1)}{" "}
+                              (this.state.getPageSize - 1)}{" "}
                           -{" "}
                           {this.state.rowData.length -
                             this.state.currenPageSize * this.state.getPageSize >
-                            0
+                          0
                             ? this.state.currenPageSize * this.state.getPageSize
                             : this.state.rowData.length}{" "}
                           of {this.state.rowData.length}

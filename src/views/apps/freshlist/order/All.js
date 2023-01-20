@@ -38,8 +38,76 @@ class All extends React.Component {
         headerName: "S.No",
         valueGetter: "node.rowIndex + 1",
         field: "node.rowIndex + 1",
-        width: 120,
+        width: 70,
         filter: true,
+      },
+      {
+        headerName: "Status",
+        field: "status",
+        filter: true,
+        width: 120,
+        cellRendererFramework: (params) => {
+          return params.value === "complete" ? (
+            <div className="badge badge-pill badge-success">Completed</div>
+          ) : params.value === "pending" ? (
+            <div className="badge badge-pill badge-warning">
+              {params.data.status}
+            </div>
+          ) : params.value === "delivery" ? (
+            <div className="badge badge-pill bg-primary">Delivered</div>
+          ) : params.value === "canceled" ? (
+            <div className="badge badge-pill bg-danger">
+              {params.data.status}
+            </div>
+          ) : params.value === "Approved" ? (
+            <div className="badge badge-pill bg-success">
+              {params.data.status}
+            </div>
+          ) : params.value === "Order Placed" ? (
+            <div className="badge badge-pill bg-success">Order Placed</div>
+          ) : null;
+        },
+      },
+
+      {
+        headerName: "Actions",
+        field: "sortorder",
+        field: "transactions",
+        width: 120,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="actions cursor-pointer">
+              <Route
+                render={({ history }) => (
+                  <Edit
+                    className="mr-50"
+                    size="25px"
+                    color="blue"
+                    onClick={() =>
+                      history.push(
+                        `/app/freshlist/order/viewAll/${params.data._id}`
+                      )
+                    }
+                  />
+                )}
+              />
+              <Route
+                render={() => (
+                  <Trash2
+                    className="mr-50"
+                    size="25px"
+                    color="red"
+                    onClick={() => {
+                      let selectedData = this.gridApi.getSelectedRows();
+                      this.runthisfunction(params.data._id);
+                      this.gridApi.updateRowData({ remove: selectedData });
+                    }}
+                  />
+                )}
+              />
+            </div>
+          );
+        },
       },
       {
         headerName: "Order ID ",
@@ -187,74 +255,74 @@ class All extends React.Component {
       //     );
       //   },
       // },
-      {
-        headerName: "Status",
-        field: "status",
-        filter: true,
-        width: 120,
-        cellRendererFramework: (params) => {
-          return params.value === "complete" ? (
-            <div className="badge badge-pill badge-success">
-              {params.data.status}
-            </div>
-          ) : params.value === "pending" ? (
-            <div className="badge badge-pill badge-warning">
-              {params.data.status}
-            </div>
-          ) : params.value === "delivery" ? (
-            <div className="badge badge-pill bg-primary">
-              {params.data.status}
-            </div>
-          ) : params.value === "canceled" ? (
-            <div className="badge badge-pill bg-danger">
-              {params.data.status}
-            </div>
-          ) : (
-            "No Status"
-          );
-        },
-      },
+      // {
+      //   headerName: "Status",
+      //   field: "status",
+      //   filter: true,
+      //   width: 120,
+      //   cellRendererFramework: (params) => {
+      //     return params.value === "complete" ? (
+      //       <div className="badge badge-pill badge-success">
+      //         {params.data.status}
+      //       </div>
+      //     ) : params.value === "pending" ? (
+      //       <div className="badge badge-pill badge-warning">
+      //         {params.data.status}
+      //       </div>
+      //     ) : params.value === "delivery" ? (
+      //       <div className="badge badge-pill bg-primary">
+      //         {params.data.status}
+      //       </div>
+      //     ) : params.value === "canceled" ? (
+      //       <div className="badge badge-pill bg-danger">
+      //         {params.data.status}
+      //       </div>
+      //     ) : (
+      //       "No Status"
+      //     );
+      //   },
+      // },
 
-      {
-        headerName: "Actions",
-        field: "sortorder",
-        field: "transactions",
-        width: 120,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="actions cursor-pointer">
-              <Route
-                render={({ history }) => (
-                  <Edit
-                    className="mr-50"
-                    size="25px"
-                    color="blue"
-                    onClick={() =>
-                      history.push(
-                        `/app/freshlist/order/viewAll/${params.data._id}`
-                      )
-                    }
-                  />
-                )}
-              />
-              <Route
-                render={() => (
-                  <Trash2
-                    className="mr-50"
-                    size="25px"
-                    color="red"
-                    onClick={() => {
-                      let selectedData = this.gridApi.getSelectedRows();
-                      this.runthisfunction(params.data._id);
-                      this.gridApi.updateRowData({ remove: selectedData });
-                    }}
-                  />
-                )}
-              />
-            </div>
-          );
-        },
-      },
+      // {
+      //   headerName: "Actions",
+      //   field: "sortorder",
+      //   field: "transactions",
+      //   width: 120,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="actions cursor-pointer">
+      //         <Route
+      //           render={({ history }) => (
+      //             <Edit
+      //               className="mr-50"
+      //               size="25px"
+      //               color="blue"
+      //               onClick={() =>
+      //                 history.push(
+      //                   `/app/freshlist/order/viewAll/${params.data._id}`
+      //                 )
+      //               }
+      //             />
+      //           )}
+      //         />
+      //         <Route
+      //           render={() => (
+      //             <Trash2
+      //               className="mr-50"
+      //               size="25px"
+      //               color="red"
+      //               onClick={() => {
+      //                 let selectedData = this.gridApi.getSelectedRows();
+      //                 this.runthisfunction(params.data._id);
+      //                 this.gridApi.updateRowData({ remove: selectedData });
+      //               }}
+      //             />
+      //           )}
+      //         />
+      //       </div>
+      //     );
+      //   },
+      // },
     ],
   };
   handleSwitchChange = () => {

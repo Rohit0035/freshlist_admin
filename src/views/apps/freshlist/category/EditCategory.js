@@ -12,6 +12,7 @@ import {
   CustomInput,
 } from "reactstrap";
 import { history } from "../../../../history";
+import { Route, Link } from "react-router-dom";
 import axiosConfig from "../../../../axiosConfig";
 
 export class EditCategory extends Component {
@@ -70,14 +71,18 @@ export class EditCategory extends Component {
               </h1>
             </Col>
             <Col>
-              <Button
-                className=" btn btn-danger float-right"
-                onClick={() =>
-                  history.push("/app/freshlist/category/categoryList")
-                }
-              >
-                Back
-              </Button>
+              <Route
+                render={({ history }) => (
+                  <Button
+                    className=" btn btn-danger float-right"
+                    onClick={() =>
+                      history.push("/app/freshlist/category/categoryList")
+                    }
+                  >
+                    Back
+                  </Button>
+                )}
+              />
             </Col>
           </Row>
           <CardBody>

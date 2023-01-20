@@ -41,7 +41,7 @@ class MainDash extends React.Component {
     axiosConfig
       .get("/admin/product_list")
       .then((response) => {
-        console.log(response.data.data.length);
+        // console.log(response.data.data.length);
         this.setState({ product: response.data.data.length });
       })
       .catch((error) => {

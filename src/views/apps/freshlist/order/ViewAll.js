@@ -27,9 +27,11 @@ class ViewAll extends React.Component {
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
-  componentDidMount() {
+  async componentDidMount() {
+    console.log(this.props.match.params);
     let { id } = this.props.match.params;
-    axiosConfig
+    // debugger;
+    await axiosConfig
       .get(`/admin/viewone_order/${id}`)
       .then((response) => {
         console.log(response.data.data);
@@ -45,7 +47,7 @@ class ViewAll extends React.Component {
       .get(`/admin/getall_drive`)
       .then((response) => {
         // let drivername = response.data.data;
-        console.log("DriverList", response.data.data);
+        // console.log("DriverList", response.data.data);
         this.setState({ drivername: response.data.data });
       })
       .catch((error) => {
@@ -71,6 +73,9 @@ class ViewAll extends React.Component {
                     </p>
                     <p>Total KM: 20KM</p>
                     <p>Total Time :27MIN</p>
+                    <p>
+                      Driver Will Get (RS) :<b>40</b> Rs
+                    </p>
                   </Col>
                   <Col sm="6" style={{ textAlign: "right" }}>
                     <Route
@@ -84,17 +89,21 @@ class ViewAll extends React.Component {
                         </Button>
                       )}
                     />
+
                     <Route
-                      render={() => (
+                      render={({ history }) => (
                         <Button
-                          className=""
+                          className=" float-right"
                           color="primary"
-                          // onClick={() => print()}
+                          onClick={() =>
+                            history.push("/app/freshlist/order/addOrder")
+                          }
                         >
                           Add Product
                         </Button>
                       )}
                     />
+
                     <p className="my-1">
                       Status:
                       <span
@@ -279,7 +288,7 @@ class ViewAll extends React.Component {
                 </Container>
               </Card>
             </Col>
-            <Col sm="3">
+            <Col lg="3" sm="4">
               <Card>
                 <Row className="m-2">
                   <h5 className="fw-bold">Order & Shipping Info</h5>
@@ -353,7 +362,7 @@ class ViewAll extends React.Component {
                     </Input>
                   </Col>
 
-                  <Col sm="12" className="my-1">
+                  {/* <Col sm="12" className="my-1">
                     <Label>Driver Will Get (RS) </Label>
                     <Input
                       required
@@ -363,8 +372,7 @@ class ViewAll extends React.Component {
                       value="40"
                       onChange={this.changeHandler}
                     />
-                  </Col>
-
+                  </Col> */}
                   <Col sm="12" className="">
                     <Label>Expected Delivery Date </Label>
                     <Input
@@ -378,29 +386,34 @@ class ViewAll extends React.Component {
                   </Col>
                 </Row>
               </Card>
+            </Col>
+          </Row>
+          <Row sm="3">
+            <Col sm="3" lg="3">
               <Card>
-                <Row className="m-2">
-                  <Col sm="12" className="my-1">
-                    <Label>Customer Information</Label>
-                    <Row>
-                      <Col sm="6">
-                        <h6>
-                          <b>Rahul Sharma</b>
-                        </h6>
-                        <p>
-                          <b>11</b>Orders
-                        </p>
-                        <p>#100210</p>
-                        <p>customer@customer.com</p>
-                      </Col>
-                    </Row>
-                  </Col>
+                <Label className="mx-3 mt-2 mb-2">Customer Information</Label>
+                <Row className="mx-1">
+                  <h6>
+                    <b>Name :</b> <b>Rahul Sharma</b>
+                  </h6>
+                </Row>
+                <Row className="mx-1">
+                  <span>Order</span> <span>11</span>Orders
+                </Row>
+                <Row className="mx-1">
+                  <span>id</span>: <span>#100210</span>
+                </Row>
+                <Row className="mx-1 mb-2">
+                  {" "}
+                  <span>mail</span> :<span>customer@customer.com</span>
                 </Row>
               </Card>
+            </Col>
 
+            <Col sm="3" lg="3">
               <Card>
                 <Row className="m-2">
-                  <h5 className="fw-bold">Shipping Address</h5>
+                  <h5 className="fw-bold mx-2">Shipping Address</h5>
                   <Col sm="12" className="my-1">
                     <Label>Name: 201 Near South Mumbai</Label>
                     <p>Contact: +918884152574</p>
@@ -409,9 +422,11 @@ class ViewAll extends React.Component {
                   </Col>
                 </Row>
               </Card>
+            </Col>
+            <Col sm="3" lg="3">
               <Card>
                 <Row className="m-2">
-                  <h5 className="fw-bold">Billing Address</h5>
+                  <h5 className="fw-bold mx-2">Billing Address</h5>
                   <Col sm="12" className="my-1">
                     <Label>Name: 201 Near South Mumbai</Label>
                     <p>Contact: +918884152574</p>
@@ -420,9 +435,11 @@ class ViewAll extends React.Component {
                   </Col>
                 </Row>
               </Card>
+            </Col>
+            <Col sm="3" lg="3">
               <Card>
                 <Row className="m-2">
-                  <h5 className="fw-bold">Hub Information</h5>
+                  <h5 className="fw-bold mx-2">Hub Information</h5>
                   <Col sm="12" className="my-1">
                     <Label>Name: xyz</Label>
                     <p>Mobile: +91147852652</p>

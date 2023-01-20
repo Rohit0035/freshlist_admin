@@ -9,6 +9,7 @@ import "../../../../assets/scss/plugins/extensions/editor.scss";
 import axiosConfig from "../../../../axiosConfig";
 import { history } from "../../../../history";
 import swal from "sweetalert";
+import { Route } from "react-router-dom";
 
 class AddTAndC extends React.Component {
   constructor(props) {
@@ -49,14 +50,18 @@ class AddTAndC extends React.Component {
             </h1>
           </Col>
           <Col>
-            <Button
-              className=" btn btn-danger float-right"
-              onClick={() =>
-                history.push("/app/freshlist/termsAndCondition/TAndCList")
-              }
-            >
-              Back
-            </Button>
+            <Route
+              render={({ history }) => (
+                <Button
+                  className=" btn btn-danger float-right"
+                  onClick={() =>
+                    history.push("/app/freshlist/termsAndCondition/TAndCList")
+                  }
+                >
+                  Back
+                </Button>
+              )}
+            />
           </Col>
         </Row>
         <CardBody>

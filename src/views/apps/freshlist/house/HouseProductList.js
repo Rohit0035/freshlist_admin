@@ -201,7 +201,7 @@ class HouseProductList extends React.Component {
                     Product List
                   </h1>
                 </Col>
-                <Col>
+                {/* <Col>
                   <Button
                     style={{ marginRight: "-22rem" }}
                     className=" btn btn-danger float-right"
@@ -211,7 +211,7 @@ class HouseProductList extends React.Component {
                   >
                     Back
                   </Button>
-                </Col>
+                </Col> */}
                 <Col>
                   <Route
                     render={({ history }) => (

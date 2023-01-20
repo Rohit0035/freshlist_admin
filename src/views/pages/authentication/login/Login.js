@@ -44,9 +44,6 @@ class Login extends React.Component {
     e.preventDefault();
     console.log(this.state.email);
     console.log(this.state.password);
-    // const header = {
-    //   "Content-Type": "application/json",
-    // };
     axios
       .post("http://3.6.37.16:8000/admin/adminlogin", this.state)
       .then((response) => {
@@ -54,10 +51,9 @@ class Login extends React.Component {
         console.log(response.data.user);
         console.log(response.data);
         localStorage.setItem("auth-admintoken", response.data.token);
-
         localStorage.setItem("userData", JSON.stringify(response.data.user));
-        this.props.history.push("/home");
-        // history.push("/");
+        this.props.history.push("/dashboard");
+        // history.push("/dashboard");
       })
       .catch((error) => {
         console.log(error.response);

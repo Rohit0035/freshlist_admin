@@ -401,7 +401,10 @@ export class AddRefund extends Component {
                 {this.state.Refundstatus == "Refund" ? (
                   <>
                     <Col lg="6" md="6">
-                      <Label className="mt-2"> Payment Refund Method</Label>
+                      <Label className="mt-2  mb-2">
+                        {" "}
+                        Payment Refund Method
+                      </Label>
 
                       <CustomInput
                         type="select"
@@ -413,12 +416,13 @@ export class AddRefund extends Component {
                         <option value="Paid">wallet</option>
                         <option value="Unpaid">bank Account</option>
                         <option value="Unpaid">UPI</option>
+                        <option value="Unpaid">Other</option>
                       </CustomInput>
                     </Col>
                   </>
                 ) : null}
                 <Col lg="6" md="6">
-                  <Label for="exampleText" className="">
+                  <Label for="exampleText mx-2" className="">
                     {this.state.Refundstatus} Reason
                   </Label>
                   <Col>

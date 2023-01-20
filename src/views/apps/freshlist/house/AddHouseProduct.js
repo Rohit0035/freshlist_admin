@@ -60,6 +60,8 @@ export class AddHouseProduct extends Component {
       brN: [],
       unT: [],
       status: "",
+      attributename: "",
+      attributevalue: "",
       inputlist: [{ notify: "", attribute: "", quantity: "" }],
     };
   }
@@ -358,25 +360,45 @@ export class AddHouseProduct extends Component {
                           />
                           
                         </Col> */}
-                        <Col lg="3" md="3" className="mb-1">
+                        <Col lg="6" md="6">
                           <Label>Attribute Name</Label>
-                          <Input
-                            type="select"
-                            placeholder="Enter Attribute"
-                            name="attribute"
-                            value={this.state.attribute}
-                            onChange={(e) => this.handleinputchange(e, i)}
-                          >
-                            <option>Select Attribute</option>
-                            {this.state.attribuName?.map((attlist) => (
-                              <option value={attlist?._id} key={attlist?._id}>
-                                {attlist?.units_name}
-                              </option>
-                            ))}
-                          </Input>
+                          <Multiselect
+                            name="attributename"
+                            value={this.state.attributename}
+                            isObject={false}
+                            onRemove={(e) => {
+                              console.log(e);
+                            }}
+                            onSelect={(e) => {
+                              this.setState({ attributename: e });
+                              console.log(e);
+                            }}
+                            onChange={this.changeHandler}
+                            options={["KG", "Gram", "Meter", "Liter"]}
+                            showCheckbox
+                            className="mmm"
+                          />
                         </Col>
-
-                        <Col lg="3" md="3">
+                        <Col lg="6" md="6">
+                          <Label>Attribute Value</Label>
+                          <Multiselect
+                            name="attributevalue"
+                            value={this.state.attributevalue}
+                            isObject={false}
+                            onRemove={(e) => {
+                              console.log(e);
+                            }}
+                            onSelect={(e) => {
+                              this.setState({ attributevalue: e });
+                              console.log(e);
+                            }}
+                            onChange={this.changeHandler}
+                            options={["1KG", "2KG", "5KG", "10KG"]}
+                            showCheckbox
+                            className="mmm"
+                          />
+                        </Col>
+                        <Col lg="3" md="3" className="my-2">
                           <Label>Quantity</Label>
                           <Input
                             type="number"
@@ -386,7 +408,7 @@ export class AddHouseProduct extends Component {
                             onChange={(e) => this.handleinputchange(e, i)}
                           />
                         </Col>
-                        <Col lg="3" md="3">
+                        <Col lg="3" md="3" className="my-2">
                           <Label>Price</Label>
                           <Input
                             type="number"
@@ -408,7 +430,7 @@ export class AddHouseProduct extends Component {
                         <Col
                           lg="3"
                           md="3"
-                          className="d-flex justify-content-left"
+                          className="d-flex justify-content-left my-2"
                         >
                           {this.state.inputlist.length - 1 === i && (
                             <Button

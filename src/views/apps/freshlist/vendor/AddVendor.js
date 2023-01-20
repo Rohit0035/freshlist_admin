@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import VendorInformation from "./VendorInformation";
 import Account from "./Account";
+import BankDetails from "./BankDetails";
 import ShopInformation from "./ShopInfomation";
 import {
   Card,
@@ -82,6 +83,13 @@ export class AddVendor extends Component {
           <Col>
             <h1 sm="12">
               <Account />
+            </h1>
+          </Col>
+        </Col>
+        <Col sm="12">
+          <Col>
+            <h1 sm="12">
+              <BankDetails />
             </h1>
           </Col>
         </Col>

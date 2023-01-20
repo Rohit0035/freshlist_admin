@@ -34,7 +34,8 @@ export class AddOrder extends Component {
       attribuName: [],
       new_address: "",
       notify: [],
-      inputlist: [{ notify: "", attribute: "", quantity: "" }],
+      myvalue: "",
+      inputlist: [{ selected: "", attribute: "", quantity: "" }],
       // selectedOptions: [],
     };
   }
@@ -53,14 +54,15 @@ export class AddOrder extends Component {
     const { name, value } = e.target;
     const list = [...this.state.inputlist];
     list[index][name] = value;
-
     this.setState({ inputlist: list });
+
+    console.log(this.state.inputlist);
   };
   handleClick = () => {
     this.setState({
       inputlist: [
         ...this.state.inputlist,
-        { notify: "", attribute: "", quantity: "" },
+        { selected: this.state.myvalue, attribute: "", quantity: "" },
       ],
     });
   };
@@ -285,14 +287,14 @@ export class AddOrder extends Component {
                     onChange={this.changeHandler}
                   >
                     <option>--Select--</option>
+                    <option value="Approved">Approved</option>
                     <option value="pending">Pending</option>
                     <option value="complete">Completed</option>
                     <option value="delivery">Delivery</option>
                     <option value="canceled">Canceled</option>
-                    {/* <option value="Approved">Approved</option>
-                    <option value="Packaging">Packaging</option>
-                    <option value="Rejected">Rejected</option> */}
-                    {/* <option value="Outfordelivery">Outfordelivery</option> */}
+
+                    {/* <option value="Packaging">Packaging</option>
+                    <option value="Rejected">Rejected</option>  */}
                     {/* <option value="Delivered">Delivered</option>
                     <option value="Failedtodeliver">Failedtodeliver</option>
                     <option value="Returned">Returned</option> */}
@@ -305,74 +307,105 @@ export class AddOrder extends Component {
                   Add Product
                 </h1>
               </Row>
-              <Row>
-                <Col lg="6" md="6" className="mb-1">
-                  <Label>Category name</Label>
-                  <Input
-                    type="select"
-                    placeholder="Enter Attribute"
-                    name="attribute"
-                    value={this.state.attribute}
-                    onChange={this.changeHandler}
-                  >
-                    <option>Select Category</option>
-                    {this.state.attribuName?.map((attlist) => (
-                      <option value={attlist?._id} key={attlist?._id}>
-                        {attlist?.units_name}
-                      </option>
-                    ))}
-                  </Input>
-                </Col>
-                <Col lg="6" md="6" className="mb-1">
-                  <Label> Select Sub Category</Label>
-                  <Input
-                    type="select"
-                    placeholder="Enter Attribute"
-                    name="attribute"
-                    value={this.state.attribute}
-                    onChange={this.changeHandler}
-                  >
-                    <option>Select Sub-Category</option>
-                    {this.state.attribuName?.map((attlist) => (
-                      <option value={attlist?._id} key={attlist?._id}>
-                        {attlist?.units_name}
-                      </option>
-                    ))}
-                  </Input>
-                </Col>
-              </Row>
+              <Row></Row>
 
               {this.state.inputlist.map((e, i) => {
                 return (
-                  <Row key={i}>
-                    <Col lg="3" md="3" className="mb-1">
-                      <Label>Product Name</Label>
-                      <Multiselect
-                        name="notify"
-                        value={this.state.notify}
-                        isObject={false}
-                        placeholder="Search and Select"
-                        onRemove={(e) => {
-                          console.log(e);
-                        }}
-                        onSelect={(e) => {
-                          this.setState({ notify: e });
-                          // this.setState({ [e.target.name]: e.target.value });
-                          console.log(e);
-                        }}
-                        selectionLimit="1"
-                        onChange={(e) => this.handleinputchange(e, i)}
-                        options={[
-                          "Aalu - 2kg ",
-                          "tamater",
-                          "ata",
-                          "milk",
-                          "began,",
-                        ]}
-                        showCheckbox
-                        className="mmm"
-                      />
-                      {/* <Input
+                  <>
+                    <hr className="mt-2 mb-2" style={{ color: "blue" }} />
+                    <Row key={i}>
+                      <hr />
+                      <hr />
+                      <Col lg="3" md="3" className="mb-1">
+                        <Label>Category name</Label>
+                        <Input
+                          type="select"
+                          placeholder="Enter Attribute"
+                          name="attribute"
+                          value={this.state.attribute}
+                          onChange={this.changeHandler}
+                        >
+                          <option>Select Category</option>
+                          {this.state.attribuName?.map((attlist) => (
+                            <option value={attlist?._id} key={attlist?._id}>
+                              {attlist?.units_name}
+                            </option>
+                          ))}
+                        </Input>
+                      </Col>
+                      <Col lg="3" md="3" className="mb-1">
+                        <Label> Select Sub Category</Label>
+                        <Input
+                          type="select"
+                          placeholder="Enter Attribute"
+                          name="attribute"
+                          value={this.state.attribute}
+                          onChange={this.changeHandler}
+                        >
+                          <option>Select Sub-Category</option>
+                          {this.state.attribuName?.map((attlist) => (
+                            <option value={attlist?._id} key={attlist?._id}>
+                              {attlist?.units_name}
+                            </option>
+                          ))}
+                        </Input>
+                      </Col>
+                      <Col lg="3" md="3" className="mb-1">
+                        <Label>Product Name</Label>
+
+                        <Input
+                          type="select"
+                          placeholder="Enter Attribute"
+                          name="selected"
+                          value={this.state.inputlist.selected}
+                          onChange={(e) => this.handleinputchange(e, i)}
+                        >
+                          <option>Select Product</option>
+                          {this.state.attribuName?.map((attlist) => (
+                            <option value={attlist?._id} key={attlist?._id}>
+                              {attlist?.units_name}
+                            </option>
+                          ))}
+                        </Input>
+                      </Col>
+                      <Col lg="3" md="3" className="mb-1">
+                        <Label>Attribute Name</Label>
+
+                        {/* <Input
+                          type="select"
+                          placeholder="Enter Attribute"
+                          name="attribute"
+                          value={this.state.inputlist.attribute}
+                          onChange={(e) => this.handleinputchange(e, i)}
+                        >
+                          <option>Select Attribute</option>
+                          {this.state.attribuName?.map((attlist) => (
+                            <option value={attlist?._id} key={attlist?._id}>
+                              {attlist?.units_name}
+                            </option>
+                          ))}
+                        </Input> */}
+                        <Multiselect
+                          name="selected"
+                          value={this.state.inputlist.selected}
+                          isObject={false}
+                          placeholder="Search and Select"
+                          onRemove={(e) => {
+                            console.log(e);
+                          }}
+                          onSelect={(e) => {
+                            this.setState({ myvalue: e });
+
+                            console.log(e);
+                          }}
+                          selectionLimit="1"
+                          onChange={(e) => this.handleinputchange(e, i)}
+                          // options={["Aalu ", "tamater", "ata", "milk", "began,"]}
+                          options={["Kg ", "Liter", "Meter", "ML", "pieces"]}
+                          showCheckbox
+                          className="mmm"
+                        />
+                        {/* <Input
                     type="select"
                     placeholder="Enter Product"
                     name="product"
@@ -386,36 +419,56 @@ export class AddOrder extends Component {
                       </option>
                     ))}
                   </Input> */}
-                    </Col>
-                    <Col lg="3" md="3" className="mb-1">
-                      <Label>Attribute Name</Label>
-                      <Input
-                        type="select"
-                        placeholder="Enter Attribute"
-                        name="attribute"
-                        value={this.state.inputlist.attribute}
-                        onChange={(e) => this.handleinputchange(e, i)}
-                      >
-                        <option>Select Attribute</option>
-                        {this.state.attribuName?.map((attlist) => (
-                          <option value={attlist?._id} key={attlist?._id}>
-                            {attlist?.units_name}
-                          </option>
-                        ))}
-                      </Input>
-                    </Col>
+                      </Col>
+                      <Col lg="3" md="3" className="mb-1">
+                        <Label>Attribute Value</Label>
 
-                    <Col lg="3" md="3">
-                      <Label>Quantity</Label>
-                      <Input
-                        type="number"
-                        placeholder="Quantity"
-                        name="quantity"
-                        value={this.state.inputlist.quantity}
-                        onChange={(e) => this.handleinputchange(e, i)}
-                      />
-                    </Col>
-                    {/* <Col>
+                        {/* <Input
+                          type="select"
+                          placeholder="Enter Attribute"
+                          name="attribute"
+                          value={this.state.inputlist.attribute}
+                          onChange={(e) => this.handleinputchange(e, i)}
+                        >
+                          <option>Select Attribute</option>
+                          {this.state.attribuName?.map((attlist) => (
+                            <option value={attlist?._id} key={attlist?._id}>
+                              {attlist?.units_name}
+                            </option>
+                          ))}
+                        </Input> */}
+                        <Multiselect
+                          name="selected"
+                          value={this.state.inputlist.selected}
+                          isObject={false}
+                          placeholder="Search and Select"
+                          onRemove={(e) => {
+                            console.log(e);
+                          }}
+                          onSelect={(e) => {
+                            this.setState({ myvalue: e });
+
+                            console.log(e);
+                          }}
+                          selectionLimit="1"
+                          onChange={(e) => this.handleinputchange(e, i)}
+                          options={["1 kg", "2 kg", "3 kg", "4 kg", "5kg"]}
+                          showCheckbox
+                          className="mmm"
+                        />
+                      </Col>
+
+                      <Col lg="3" md="3">
+                        <Label>Quantity</Label>
+                        <Input
+                          type="number"
+                          placeholder="Quantity"
+                          name="quantity"
+                          value={this.state.inputlist.quantity}
+                          onChange={(e) => this.handleinputchange(e, i)}
+                        />
+                      </Col>
+                      {/* <Col>
                       <Button.Ripple
                         onClick={this.handleClick}
                         color="primary"
@@ -424,37 +477,39 @@ export class AddOrder extends Component {
                         Add new Field
                       </Button.Ripple>
                     </Col> */}
-                    <Col lg="3" md="3" className="d-flex">
-                      {this.state.inputlist.length !== 1 && (
-                        <Button.Ripple
-                          color="primary"
-                          className="mr-1 mt-2"
-                          style={{ height: "40px" }}
-                          onClick={() => this.handleremove(i)}
-                        >
-                          Remove
-                        </Button.Ripple>
-                      )}
-                      {this.state.inputlist.length - 1 === i && (
-                        <Button.Ripple
-                          color="primary"
-                          className="mr-1 mt-2"
-                          style={{ height: "40px" }}
-                          onClick={this.handleClick}
-                        >
-                          Add More
-                        </Button.Ripple>
-                      )}
-                    </Col>
-                  </Row>
+                      <Col lg="3" md="3" className="d-flex">
+                        {this.state.inputlist.length !== 1 && (
+                          <Button.Ripple
+                            color="primary"
+                            className="mr-1 mt-2"
+                            style={{ height: "40px" }}
+                            onClick={() => this.handleremove(i)}
+                          >
+                            Remove
+                          </Button.Ripple>
+                        )}
+                        {this.state.inputlist.length - 1 === i && (
+                          <Button.Ripple
+                            color="primary"
+                            className=" mt-2"
+                            style={{ height: "40px" }}
+                            onClick={this.handleClick}
+                          >
+                            Add More
+                          </Button.Ripple>
+                        )}
+                      </Col>
+                    </Row>
+                  </>
                 );
               })}
 
-              <Row>
+              <Row className="d-flex justify-content-center">
+                <hr />
                 <Button.Ripple
                   color="primary"
                   type="submit"
-                  className="mr-1 mt-2"
+                  className="  justify-content-center mt-2"
                 >
                   Add Order
                 </Button.Ripple>

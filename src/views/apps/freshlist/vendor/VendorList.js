@@ -43,31 +43,17 @@ class VendorList extends React.Component {
         width: 150,
         filter: true,
       },
+
       {
-        headerName: "Shop Name",
-        field: "shop_name",
-        filter: true,
+        headerName: "Name",
+        field: "name",
+        //filter: true,
+        filter: "agSetColumnFilter",
         width: 150,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
-                <span>{params.data.shop_name}</span>
-              </div>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Vendor Name",
-        field: "firstname",
-        //filter: true,
-        filter: "agSetColumnFilter",
-        width: 200,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="ml-2">
+              <div className="">
                 <span>{params.data.firstname}</span>
               </div>
             </div>
@@ -75,10 +61,10 @@ class VendorList extends React.Component {
         },
       },
       {
-        headerName: "Contact Info",
-        field: "phone",
+        headerName: "Mobile",
+        field: "mobile",
         filter: true,
-        width: 200,
+        width: 150,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
@@ -88,40 +74,66 @@ class VendorList extends React.Component {
         },
       },
       {
-        headerName: "Total Products",
-        field: "desc",
+        headerName: "Door Number",
+        field: "doorNo",
         filter: true,
-        width: 200,
+        width: 120,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <span>{params.data.desc}</span>
+              <span>{params.data.doorNo}</span>
             </div>
           );
         },
       },
       {
-        headerName: "Total Subscribers",
-        field: "subscribers",
+        headerName: "Street",
+        field: "street",
         filter: true,
         width: 100,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <span>{params.data.subscribers}</span>
+              <span>{params.data.street}</span>
             </div>
           );
         },
       },
       {
-        headerName: "Total Orders",
-        field: "desc",
+        headerName: "Location",
+        field: "location",
         filter: true,
         width: 100,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <span>{params.data.desc}</span>
+              <span>{params.data.location}</span>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "City",
+        field: "city",
+        filter: true,
+        width: 100,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <span>{params.data.city}</span>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "PinCode",
+        field: "pincode",
+        filter: true,
+        width: 100,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <span>{params.data.pincode}</span>
             </div>
           );
         },
@@ -162,6 +174,20 @@ class VendorList extends React.Component {
                         `/app/freshlist/vendor/viewVendor/${params.data._id}`
                       )
                     }
+                  />
+                )}
+              />
+              <Route
+                render={({ history }) => (
+                  <Edit
+                    className="mr-50"
+                    size="25px"
+                    color="blue"
+                    // onClick={() =>
+                    //   history.push(
+                    //     `/app/freshlist/order/viewAll/${params.data._id}`
+                    //   )
+                    // }
                   />
                 )}
               />

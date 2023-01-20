@@ -26,9 +26,17 @@ export class AddGallery extends Component {
       sortorder: "",
       desc: "",
       product_img: "",
+      aadharcardimage: [],
       status: "",
     };
   }
+
+  fileSelectedHandler = (e) => {
+    this.setState({
+      aadharcardimage: [...this.state.aadharcardimage, ...e.target.files],
+    });
+    console.log(this.state.aadharcardimage);
+  };
 
   onChangeHandler = (event) => {
     this.setState({ selectedFile: event.target.files[0] });
@@ -70,7 +78,7 @@ export class AddGallery extends Component {
   render() {
     return (
       <div>
-        <h1>Add New Product</h1>
+        <h1>Add Images</h1>
         <div>
           <Card>
             <Row className="m-1">
@@ -95,16 +103,62 @@ export class AddGallery extends Component {
             <CardBody>
               <Form onSubmit={this.submitHandler}>
                 <Row className="mb-1">
-                  <Col lg="12">
+                  <Col lg="4">
                     <Label>Image</Label>
                     <CustomInput
                       required
+                      accept="application/pdf,image/gif, image/jpeg,image/png"
+                      multiple
+                      type="file"
+                      onChange={this.fileSelectedHandler}
+                    />
+                    {/* <CustomInput
+                      required
+                      multiple
                       type="file"
                       name="bannertype"
                       placeholder="Upload image"
-                      value={this.state.bannertype}
+                      // value={this.state.bannertype}
+                      onChange={this.onChangeHandler}
+                      // onChange={this.changeHandler}
+                    ></CustomInput> */}
+                  </Col>
+                  <Col lg="4">
+                    <Label> Folder Name</Label>
+                    <Input
+                      required
+                      type="select"
+                      name="folder"
+                      placeholder="Driver Name"
+                      // value={this.state.driver}
                       onChange={this.changeHandler}
-                    ></CustomInput>
+                    >
+                      <option>--Select--</option>
+                      <option>Admin</option>
+                      <option>banner</option>
+                      <option>brand</option>
+                      <option>Category</option>
+                      <option>company</option>
+                      <option>Deliveryman</option>
+                      <option>Product</option>
+                      <option>Shop</option>
+                      <option>Deal</option>
+                      {/* {this.state.drivername?.map((driname) => (
+                        <option value={driname?.firstname}>
+                          {driname?.firstname}
+                        </option>
+                      ))} */}
+                    </Input>
+                    {/* <CustomInput
+                      required
+                      multiple
+                      type="file"
+                      name="bannertype"
+                      placeholder="Upload image"
+                      // value={this.state.bannertype}
+                      onChange={this.onChangeHandler}
+                      // onChange={this.changeHandler}
+                    ></CustomInput> */}
                   </Col>
                 </Row>
                 <Row style={{ float: "right" }}>

@@ -11,6 +11,7 @@ import {
   DropdownItem,
   DropdownToggle,
 } from "reactstrap";
+import { Route } from "react-router-dom";
 import axiosConfig from "../../../../axiosConfig";
 import { ContextLayout } from "../../../../utility/context/Layout";
 import { AgGridReact } from "ag-grid-react";
@@ -208,15 +209,19 @@ class BannerList extends React.Component {
                   </h1>
                 </Col>
                 <Col>
-                  <Button
-                    className=" btn float-right"
-                    color="primary"
-                    onClick={() =>
-                      history.push("/app/freshlist/banner/addBanner")
-                    }
-                  >
-                    Add Banner
-                  </Button>
+                  <Route
+                    render={({ history }) => (
+                      <Button
+                        className=" btn float-right"
+                        color="primary"
+                        onClick={() =>
+                          history.push("/app/freshlist/banner/addBanner")
+                        }
+                      >
+                        Add Banner
+                      </Button>
+                    )}
+                  />
                 </Col>
               </Row>
               <CardBody>

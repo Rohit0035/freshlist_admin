@@ -13,24 +13,20 @@ import {
 } from "reactstrap";
 import { history } from "../../../../history";
 import axiosConfig from "../../../../axiosConfig";
-import { Route } from "react-router-dom";
 
-export class VendorInformation extends Component {
+export class BankDetails extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      accountNo: "",
       name: "",
-      mobileNo: "",
-      email: "",
+      branch: "",
+      ifscCode: "",
       selectedFile: null,
       selectedName: "",
       sortorder: "",
-      desc: "",
-      doorNo: "",
-      product_img: "",
-      aadhar_img: "",
-      pan_img: "",
+      passbook_img: "",
       status: "",
     };
   }
@@ -51,14 +47,15 @@ export class VendorInformation extends Component {
     e.preventDefault();
     const data = new FormData();
     data.append("name", this.state.name);
-    data.append("mobileNo", this.state.mobileNo);
-    data.append("email", this.state.email);
+    data.append("accountNo", this.state.name);
+    data.append("branch", this.state.name);
+    data.append("ifscCode", this.state.name);
+    data.append("passbook_img", this.state.name);
     data.append("sortorder", this.state.sortorder);
-    data.append("doorNo", this.state.doorNo);
-    data.append("desc", this.state.desc);
-    data.append("status", this.state.status);
+    // data.append("desc", this.state.desc);
+    // data.append("status", this.state.status);
     data.append(
-      "product_img",
+      "passbook_img",
       this.state.selectedFile,
       this.state.selectedName
     );
@@ -66,10 +63,10 @@ export class VendorInformation extends Component {
     //     console.log(value);
     //  }
     axiosConfig
-      .post(" /addvender", data)
+      .post(" /addproductcategory", data)
       .then((response) => {
         console.log(response);
-        this.props.history.push("/app/vender/venderList");
+        this.props.history.push("/app/category/category");
       })
       .catch((error) => {
         console.log(error);
@@ -83,22 +80,8 @@ export class VendorInformation extends Component {
             <Row className="m-1">
               <Col>
                 <h3 col-sm-6 className="float-left">
-                  Vendor Information
+                  Bank Details
                 </h3>
-              </Col>
-              <Col>
-                <Route
-                  render={({ history }) => (
-                    <Button
-                      className="btn btn-danger float-right"
-                      onClick={() =>
-                        history.push("/app/freshlist/vendor/vendorList")
-                      }
-                    >
-                      Back
-                    </Button>
-                  )}
-                />
               </Col>
 
               {/* <div className="table-input mr-1">
@@ -114,75 +97,43 @@ export class VendorInformation extends Component {
             <CardBody>
               <Form className="m-1" onSubmit={this.submitHandler}>
                 <Row className="mb-2">
-                  <Col lg="6" md="6" className="mb-2">
+                  <Col lg="6" md="6" className="mb-1">
+                    <Label>Account Number</Label>
+                    <Input
+                      type="number"
+                      name="account"
+                      placeholder="Account Number"
+                      value={this.state.account}
+                      onChange={this.changeHandler}
+                    ></Input>
+                  </Col>
+                  <Col lg="6" md="6" className="mb-1">
                     <Label>Name</Label>
                     <Input
                       type="text"
                       name="name"
+                      placeholder="Name"
                       value={this.state.name}
                       onChange={this.changeHandler}
                     ></Input>
                   </Col>
-
                   <Col lg="6" md="6" className="mb-1">
-                    <Label>Mobile No.</Label>
-                    <Input
-                      required
-                      type="number"
-                      name="mobileNo"
-                      placeholder="Enter Mobile Number."
-                      value={this.state.mobileNo}
-                      onChange={this.changeHandler}
-                    ></Input>
-                  </Col>
-                  <Col lg="6" md="6" className="mb-1">
-                    <Label>Email</Label>
-                    <Input
-                      required
-                      type="email"
-                      name="email"
-                      placeholder="Enter Email"
-                      value={this.state.email}
-                      onChange={this.changeHandler}
-                    ></Input>
-                  </Col>
-                  <Col lg="6" md="6" className="mb-1">
-                    <Label>Door Number</Label>
+                    <Label>Branch</Label>
                     <Input
                       type="text"
-                      name="desc"
-                      placeholder="Door Number"
+                      name="branch"
+                      placeholder="Branch Name"
                       value={this.state.desc}
                       onChange={this.changeHandler}
                     ></Input>
                   </Col>
                   <Col lg="6" md="6" className="mb-1">
-                    <Label>Street</Label>
+                    <Label>IFSC Code</Label>
                     <Input
                       type="text"
-                      name="street"
-                      placeholder="Street"
-                      value={this.state.street}
-                      onChange={this.changeHandler}
-                    ></Input>
-                  </Col>
-                  <Col lg="6" md="6" className="mb-1">
-                    <Label>City</Label>
-                    <Input
-                      type="text"
-                      name="desc"
-                      placeholder="City"
-                      value={this.state.desc}
-                      onChange={this.changeHandler}
-                    ></Input>
-                  </Col>
-                  <Col lg="6" md="6" className="mb-1">
-                    <Label>PINCODE</Label>
-                    <Input
-                      type="text"
-                      name="desc"
-                      placeholder="PINCODE"
-                      value={this.state.desc}
+                      name="ifscCode"
+                      placeholder="IFSC Code"
+                      value={this.state.ifscCode}
                       onChange={this.changeHandler}
                     ></Input>
                   </Col>
@@ -195,4 +146,4 @@ export class VendorInformation extends Component {
     );
   }
 }
-export default VendorInformation;
+export default BankDetails;

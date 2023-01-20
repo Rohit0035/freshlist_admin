@@ -13,16 +13,16 @@ import {
   Badge,
 } from "reactstrap";
 import axios from "axios";
-import axiosConfig from "../../../../axiosConfig";
 import { ContextLayout } from "../../../../utility/context/Layout";
 import { AgGridReact } from "ag-grid-react";
-import { Eye, Edit, Trash2, ChevronDown } from "react-feather";
+import { Edit, Trash2, ChevronDown, Eye } from "react-feather";
 import { history } from "../../../../history";
 import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../../assets/scss/pages/users.scss";
-import { Route } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
+// import { components } from "react-select";
 
-class CustomerGroup extends React.Component {
+class Freebies extends React.Component {
   state = {
     rowData: [],
     paginationPageSize: 20,
@@ -43,14 +43,66 @@ class CustomerGroup extends React.Component {
         filter: true,
       },
       {
-        headerName: " Name",
-        field: "username",
+        headerName: "Name",
+        field: "subscriptions",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.username}</span>
+              <span>{params.data.subscriptions}</span>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Product Name",
+        field: "product",
+        filter: true,
+        width: 190,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <span>{params.data.product}</span>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "How Many Day",
+        field: "validity",
+        filter: true,
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div>
+              <span>{params.data.validity}</span>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "How Many Orders Placed",
+        field: "orders",
+        filter: true,
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div>
+              <span>{params.data.orders}</span>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "How Many Remaining",
+        field: "remaining",
+        filter: true,
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div>
+              <span>{params.data.remaining}</span>
             </div>
           );
         },
@@ -62,11 +114,11 @@ class CustomerGroup extends React.Component {
         filter: true,
         width: 150,
         cellRendererFramework: (params) => {
-          return params.value === "true" ? (
+          return params.value === "Block" ? (
             <div className="badge badge-pill badge-success">
               {params.data.status}
             </div>
-          ) : params.value === "false" ? (
+          ) : params.value === "Unblock" ? (
             <div className="badge badge-pill badge-warning">
               {params.data.status}
             </div>
@@ -87,55 +139,68 @@ class CustomerGroup extends React.Component {
                 color="green"
                 onClick={() =>
                   history.push(
-                    `/app/freshlist/customer/viewCustomer/${params.data._id}`
+                    `/app/freshlist/subscriber/viewSubscriber/${params.data._id}`
                   )
                 }
               />
-              <Edit
-                className="mr-50"
-                size="25px"
-                color="blue"
-                onClick={() =>
-                  history.push(
-                    `/app/freshlist/customer/editCustomer/${params.data._id}`
-                  )
-                }
-              />
-              <Trash2
-                className="mr-50"
-                size="25px"
-                color="red"
-                onClick={() => {
-                  let selectedData = this.gridApi.getSelectedRows();
-                  this.runthisfunction(params.data._id);
-                  this.gridApi.updateRowData({ remove: selectedData });
-                }}
-              />
+              {/* <Edit
+                                className="mr-50"
+                                size="25px"
+                                color="blue"
+                                onClick={() => history.push("/app/customer/editCustomer")}
+                            />
+                            <Trash2
+                                className="mr-50"
+                                size="25px"
+                                color="red"
+                                onClick={() => {
+                                    let selectedData = this.gridApi.getSelectedRows();
+                                    this.runthisfunction(params.data._id);
+                                    this.gridApi.updateRowData({ remove: selectedData });
+                                }}
+                            /> */}
             </div>
           );
         },
       },
     ],
   };
-
-  async componentDidMount() {
-    await axiosConfig.get("/user/userlist").then((response) => {
-      let rowData = response.data.data;
-      console.log(rowData);
-      this.setState({ rowData });
-    });
-  }
-  async runthisfunction(id) {
-    console.log(id);
-    await axios.get(`/user/dlt_user/${id}`).then(
-      (response) => {
-        console.log(response);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
+  // async componentDidMount() {
+  //     await axios.get(`http://35.154.86.59/api/user/view_onecust/${id}`)
+  //         .then((response) => {
+  //             let rowData = response.data.data;
+  //             console.log(rowData);
+  //             this.setState({ rowData });
+  //         });
+  // }
+  // async componentDidMount() {
+  //     await axios
+  //         .get("http://35.154.86.59/api/user/allcustomer")
+  //         .then((response) => {
+  //             let rowData = response.data.data;
+  //             console.log(rowData);
+  //             this.setState({ rowData });
+  //         });
+  // }
+  // // async componentDidMount() {
+  // //   let { id } = this.props.match.params;
+  // //   await axios
+  // //     .get(`/http://35.154.86.59/api/user/allcustomer/${id}`, {
+  // //       headers: {
+  // //         "auth-adtoken": localStorage.getItem("auth-adtoken"),
+  // //       },
+  // //     })}
+  // async runthisfunction(id) {
+  //     console.log(id);
+  //     await axios.get(`http://35.154.86.59/api/user/delcustomer/${id}`).then(
+  //         (response) => {
+  //             console.log(response);
+  //         },
+  //         (error) => {
+  //             console.log(error);
+  //         }
+  //     );
+  // }
   onGridReady = (params) => {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -169,24 +234,8 @@ class CustomerGroup extends React.Component {
               <Row className="m-2">
                 <Col>
                   <h1 sm="6" className="float-left">
-                    Customer Group
+                    Freebies
                   </h1>
-                </Col>
-                <Col>
-                  <Route
-                    render={({ history }) => (
-                      <Button
-                        sm="6"
-                        className="float-right"
-                        color="primary"
-                        onClick={() =>
-                          history.push(`/app/freshlist/customer/AddCustomer`)
-                        }
-                      >
-                        Add New
-                      </Button>
-                    )}
-                  />
                 </Col>
               </Row>
               <CardBody>
@@ -288,4 +337,4 @@ class CustomerGroup extends React.Component {
     );
   }
 }
-export default CustomerGroup;
+export default Freebies;
