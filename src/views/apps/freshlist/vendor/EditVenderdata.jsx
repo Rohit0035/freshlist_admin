@@ -17,7 +17,8 @@ import Multiselect from "multiselect-react-dropdown";
 import swal from "sweetalert";
 import "../../../../../src/layouts/assets/scss/pages/users.scss";
 import { Route } from "react-router-dom";
-export class AddOrder extends Component {
+
+export class EditVenderdata extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -113,35 +114,39 @@ export class AddOrder extends Component {
       <div>
         <Card>
           <Row className="m-2">
-            <Col>
+            {/* <Col>
               <h1 col-sm-6 className="float-left">
                 Add Order
               </h1>
-            </Col>
-            <Col>
+            </Col> */}
+            {/* <Col>
               <Route
                 render={({ history }) => (
                   <Button
                     className=" btn btn-danger float-right"
-                    onClick={() => history.push("/app/freshlist/order/all")}
+                    onClick={() =>
+                      history.push(
+                        "/app/freshlist/order/viewAll/63ae84014915409458789aed"
+                      )
+                    }
                   >
                     Back
                   </Button>
                 )}
               />
-            </Col>
+            </Col> */}
           </Row>
-          <CardBody>
+          <CardBody style={{ padding: "0px" }}>
             <Form className="m-1" onSubmit={this.submitHandler}>
               <Row className="mb-2">
                 <Col lg="6" md="6">
                   <FormGroup>
-                    <Label>Mobile Number</Label>
+                    <Label>OrderId</Label>
                     <Input
                       required
                       type="tel"
-                      maxlength="10"
-                      placeholder="Mobile Number"
+                      //   maxlength="10"
+                      placeholder="OrderId"
                       name="phone_no"
                       value={this.state.phone_no}
                       onChange={this.changeHandler.bind(this)}
@@ -244,7 +249,7 @@ export class AddOrder extends Component {
                   </FormGroup>
                 </Col>
 
-                {this.state.phone_no.length == 10 ? (
+                {this.state.phone_no.length >= 10 ? (
                   <>
                     <Col lg="6" md="6" className="mt-2">
                       <FormGroup>
@@ -268,6 +273,19 @@ export class AddOrder extends Component {
                           placeholder="Anujesh yadav"
                           name="email"
                           value={this.state.email}
+                          onChange={this.changeHandler}
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col lg="6" md="6" className="mt-2">
+                      <FormGroup>
+                        <Label>Order Zone </Label>
+                        <Input
+                          readOnly
+                          type="text"
+                          placeholder=" 5"
+                          name="order_zone"
+                          value={this.state.order_zone}
                           onChange={this.changeHandler}
                         />
                       </FormGroup>
@@ -301,25 +319,11 @@ export class AddOrder extends Component {
                       <FormGroup>
                         <Label>New Address</Label>
                         <Input
-                          readOnly
+                          // readOnly
                           type="textarea"
                           placeholder="151/2 akhand nagar indore"
                           name="new_address"
                           value={this.state.new_address}
-                          onChange={this.changeHandler}
-                        />
-                      </FormGroup>
-                    </Col>
-
-                    <Col lg="6" md="6" className="mt-2">
-                      <FormGroup>
-                        <Label>Order Zone </Label>
-                        <Input
-                          readOnly
-                          type="text"
-                          placeholder=" 5"
-                          name="order_zone"
-                          value={this.state.order_zone}
                           onChange={this.changeHandler}
                         />
                       </FormGroup>
@@ -503,7 +507,7 @@ export class AddOrder extends Component {
                         Add new Field
                       </Button.Ripple>
                     </Col> */}
-                      <Col lg="3" md="3" className="d-flex">
+                      <Col lg="6" md="6" className="d-flex">
                         {this.state.inputlist.length !== 1 && (
                           <Button.Ripple
                             color="primary"
@@ -547,4 +551,4 @@ export class AddOrder extends Component {
     );
   }
 }
-export default AddOrder;
+export default EditVenderdata;

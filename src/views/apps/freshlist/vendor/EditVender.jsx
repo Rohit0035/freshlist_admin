@@ -17,9 +17,13 @@ import {
 } from "reactstrap";
 import classnames from "classnames";
 import { Eye, Code } from "react-feather";
-import { modalBasic } from "./ModalSourceCode";
+import { Trash2, Edit } from "react-feather";
 
-class ModalBasic extends React.Component {
+import { modalBasic } from "../../../../components/reactstrap/modal/ModalSourceCode.js";
+
+import EditVenderdata from "./EditVenderdata.jsx";
+
+class EditVender extends React.Component {
   state = {
     activeTab: "1",
     modal: false,
@@ -39,11 +43,11 @@ class ModalBasic extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <>
         <Card>
-          <CardHeader>
-            <CardTitle>Basic Modal</CardTitle>
-            <div className="views">
+          {/* <CardHeader> */}
+          {/* <CardTitle>Basic Modal</CardTitle> */}
+          {/* <div className="views">
               <Nav tabs>
                 <NavItem>
                   <NavLink
@@ -70,45 +74,38 @@ class ModalBasic extends React.Component {
                   </NavLink>
                 </NavItem>
               </Nav>
-            </div>
-          </CardHeader>
-          <CardBody>
-            <p>
-              Use <code>Modal</code>, <code>ModalBody</code> and{" "}
-              <code>ModalFooter</code> tags to create a Modal with reactstrap.
-            </p>
+            </div> */}
+          {/* </CardHeader> */}
+          <CardBody className="pb-0 ">
             <TabContent activeTab={this.state.activeTab}>
               <TabPane tabId="1">
-                <Button.Ripple
+                {/* <Button.Ripple
                   color="primary"
                   className="btn-block"
-                  size="lg"
-                  outline
-                  block
+                  size="md"
+                  // outline
                   onClick={this.toggleModal}
                 >
-                  Launch Modal
-                </Button.Ripple>
+                  Add
+                </Button.Ripple> */}
+                <Edit size="30px" color="Green" onClick={this.toggleModal} />
                 <Modal
                   isOpen={this.state.modal}
                   toggle={this.toggleModal}
-                  className={this.props.className}
+                  style={{ maxWidth: "950px" }}
+                  // className={this.props.className}
                 >
                   <ModalHeader toggle={this.toggleModal}>
-                    Basic Modal
+                    Edit Product
                   </ModalHeader>
                   <ModalBody>
-                    <h5>Check First Paragraph</h5>
-                    Oat cake ice cream candy chocolate cake chocolate cake
-                    cotton candy dragée apple pie. Brownie carrot cake candy
-                    canes bonbon fruitcake topping halvah. Cake sweet roll cake
-                    cheesecake cookie chocolate cake liquorice.
+                    <EditVenderdata />
                   </ModalBody>
-                  <ModalFooter>
+                  {/* <ModalFooter>
                     <Button color="primary" onClick={this.toggleModal}>
                       Accept
                     </Button>{" "}
-                  </ModalFooter>
+                  </ModalFooter> */}
                 </Modal>
               </TabPane>
               <TabPane className="component-code" tabId="2">
@@ -117,8 +114,8 @@ class ModalBasic extends React.Component {
             </TabContent>
           </CardBody>
         </Card>
-      </React.Fragment>
+      </>
     );
   }
 }
-export default ModalBasic;
+export default EditVender;

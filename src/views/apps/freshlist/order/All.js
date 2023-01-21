@@ -59,10 +59,6 @@ class All extends React.Component {
             <div className="badge badge-pill bg-danger">
               {params.data.status}
             </div>
-          ) : params.value === "Approved" ? (
-            <div className="badge badge-pill bg-success">
-              {params.data.status}
-            </div>
           ) : params.value === "Order Placed" ? (
             <div className="badge badge-pill bg-success">Order Placed</div>
           ) : null;

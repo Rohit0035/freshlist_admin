@@ -23,6 +23,11 @@ import { history } from "../../../../history";
 import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../../assets/scss/pages/users.scss";
 import { Route } from "react-router-dom";
+import EditVender from "./EditVender";
+
+// import Modals from "../../../../components/reactstrap/modal/Modal";
+// import EditModalVender from "./EditModalVender";
+
 class VendorList extends React.Component {
   state = {
     rowData: [],
@@ -31,7 +36,7 @@ class VendorList extends React.Component {
     getPageSize: "",
     defaultColDef: {
       sortable: true,
-      editable: true,
+      // editable: true,
       resizable: true,
       suppressMenu: true,
     },
@@ -46,7 +51,7 @@ class VendorList extends React.Component {
 
       {
         headerName: "Name",
-        field: "name",
+        field: "cus_name",
         //filter: true,
         filter: "agSetColumnFilter",
         width: 150,
@@ -54,7 +59,7 @@ class VendorList extends React.Component {
           return (
             <div className="d-flex align-items-center cursor-pointer">
               <div className="">
-                <span>{params.data.firstname}</span>
+                <span>{params?.data?.cus_name}</span>
               </div>
             </div>
           );
@@ -68,7 +73,7 @@ class VendorList extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <span>{params.data.phone}</span>
+              <span>{params?.data?.mobile}</span>
             </div>
           );
         },
@@ -81,7 +86,7 @@ class VendorList extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <span>{params.data.doorNo}</span>
+              <span>{params?.data?.door_number}</span>
             </div>
           );
         },
@@ -94,7 +99,7 @@ class VendorList extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <span>{params.data.street}</span>
+              <span>{params?.data?.street}</span>
             </div>
           );
         },
@@ -107,7 +112,7 @@ class VendorList extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <span>{params.data.location}</span>
+              <span>{params?.data?.location}</span>
             </div>
           );
         },
@@ -120,7 +125,7 @@ class VendorList extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <span>{params.data.city}</span>
+              <span>{params?.data?.city}</span>
             </div>
           );
         },
@@ -133,7 +138,7 @@ class VendorList extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <span>{params.data.pincode}</span>
+              <span>{params?.data?.pincode}</span>
             </div>
           );
         },
@@ -145,64 +150,76 @@ class VendorList extends React.Component {
         filter: true,
         width: 120,
         cellRendererFramework: (params) => {
-          return params.value === "Active" ? (
+          return params.value === "true" ? (
             <div className="badge badge-pill badge-success">
-              {params.data.status}
+              {params?.data?.status}
             </div>
-          ) : params.value === "Inactive" ? (
+          ) : params.value === "false" ? (
             <div className="badge badge-pill badge-danger">
-              {params.data.status}
+              {params?.data?.status}
             </div>
           ) : null;
         },
       },
       {
         headerName: "Actions",
-        field: "transactions",
-        width: 150,
+        field: "Actions",
+        width: 180,
         cellRendererFramework: (params) => {
           return (
-            <div className="actions cursor-pointer">
-              <Route
-                render={({ history }) => (
-                  <Eye
-                    className="mr-50"
-                    size="25px"
-                    color="green"
-                    onClick={() =>
-                      history.push(
-                        `/app/freshlist/vendor/viewVendor/${params.data._id}`
-                      )
-                    }
-                  />
-                )}
-              />
-              <Route
-                render={({ history }) => (
-                  <Edit
-                    className="mr-50"
-                    size="25px"
-                    color="blue"
-                    // onClick={() =>
-                    //   history.push(
-                    //     `/app/freshlist/order/viewAll/${params.data._id}`
-                    //   )
-                    // }
-                  />
-                )}
-              />
-              <Route
-                render={({ history }) => (
-                  <Trash2
-                    size={20}
-                    onClick={() => {
-                      let selectedData = this.gridApi.getSelectedRows();
-                      this.runthisfunction(params.data._id);
-                      this.gridApi.updateRowData({ remove: selectedData });
-                    }}
-                  />
-                )}
-              />
+            <div>
+              <span>
+                <Route
+                  render={({ history }) => (
+                    <Eye
+                      className=""
+                      size="25px"
+                      color="green"
+                      onClick={() =>
+                        history.push(
+                          `/app/freshlist/vendor/viewVendor/${params?.data?._id}`
+                        )
+                      }
+                    />
+                  )}
+                />
+              </span>
+
+              <span>
+                <EditVender />
+              </span>
+              <span>
+                <Route
+                  render={({ history }) => (
+                    <Edit
+                      className=""
+                      size="25px"
+                      color="blue"
+                      // onClick={() => }
+                      // onClick={() =>
+                      //   history.push(
+                      //     `/app/freshlist/vendor/EditVendor/${params.data._id}`
+                      //   )
+                      // }
+                    />
+                  )}
+                />
+              </span>
+              <span>
+                <Route
+                  render={({ history }) => (
+                    <Trash2
+                      size={20}
+                      color="red"
+                      onClick={() => {
+                        let selectedData = this.gridApi.getSelectedRows();
+                        this.runthisfunction(params.data._id);
+                        this.gridApi.updateRowData({ remove: selectedData });
+                      }}
+                    />
+                  )}
+                />
+              </span>
             </div>
           );
         },
@@ -211,11 +228,13 @@ class VendorList extends React.Component {
   };
 
   async componentDidMount() {
-    await axiosConfig.get("/admin/getall_vendor").then((response) => {
-      let rowData = response.data.data;
-      console.log(rowData);
-      this.setState({ rowData });
-    });
+    await axiosConfig
+      .get("http://3.6.37.16:8000/app/vender_getlist")
+      .then((response) => {
+        let rowData = response.data.data;
+        console.log(rowData);
+        this.setState({ rowData });
+      });
   }
 
   async runthisfunction(id) {
@@ -261,6 +280,8 @@ class VendorList extends React.Component {
                 <h1 col-sm-6 className="float-left">
                   Vendor List
                 </h1>
+
+                <EditVender />
               </Col>
               <Col>
                 <Route

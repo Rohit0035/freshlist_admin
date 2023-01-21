@@ -3,12 +3,25 @@ import {
   Card,
   Row,
   Col,
-  Button,
   Table,
   Label,
   Input,
   Container,
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  CardHeader,
+  CardBody,
+  CardTitle,
+  TabContent,
+  TabPane,
+  Nav,
+  NavItem,
+  NavLink,
 } from "reactstrap";
+
 import { Trash2, Edit } from "react-feather";
 import axiosConfig from "../../../../axiosConfig";
 import { FaBeer } from "react-icons/fa";
@@ -16,6 +29,9 @@ import { history } from "../../../../history";
 import { Route } from "react-router-dom";
 import imagecal from "../../../../assets/img/svg/imagecal.png";
 import "../../../../layouts/assets/scss/pages/users.scss";
+import ModalBasic from "./ModalBasic";
+import EditProductModal from "./EditProductModal";
+
 class ViewAll extends React.Component {
   constructor(props) {
     super(props);
@@ -27,11 +43,9 @@ class ViewAll extends React.Component {
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
-  async componentDidMount() {
-    console.log(this.props.match.params);
+  componentDidMount() {
     let { id } = this.props.match.params;
-    // debugger;
-    await axiosConfig
+    axiosConfig
       .get(`/admin/viewone_order/${id}`)
       .then((response) => {
         console.log(response.data.data);
@@ -47,7 +61,7 @@ class ViewAll extends React.Component {
       .get(`/admin/getall_drive`)
       .then((response) => {
         // let drivername = response.data.data;
-        // console.log("DriverList", response.data.data);
+        console.log("DriverList", response.data.data);
         this.setState({ drivername: response.data.data });
       })
       .catch((error) => {
@@ -81,25 +95,11 @@ class ViewAll extends React.Component {
                     <Route
                       render={() => (
                         <Button
-                          className="mr-2"
+                          className=""
                           color="primary"
                           onClick={() => print()}
                         >
                           Hub Invoice
-                        </Button>
-                      )}
-                    />
-
-                    <Route
-                      render={({ history }) => (
-                        <Button
-                          className=" float-right"
-                          color="primary"
-                          onClick={() =>
-                            history.push("/app/freshlist/order/addOrder")
-                          }
-                        >
-                          Add Product
                         </Button>
                       )}
                     />
@@ -131,6 +131,32 @@ class ViewAll extends React.Component {
                     </p>
                   </Col>
                 </Row>
+                <div
+                  style={{
+                    justifyContent: "right",
+                    marginTop: "0px",
+                    marginBottom: "0px",
+                  }}
+                  className="d-flex"
+                >
+                  <Row className="m-2 addorder">
+                    {/* <Route
+                      render={({ history }) => (
+                        <Button
+                          // className=" float-right"
+                          color="primary"
+                          onClick={() =>
+                            history.push("/app/freshlist/order/addexorder")
+                          }
+                        >
+                          Add Product
+                        </Button>
+                      )}
+                    /> */}
+                    <ModalBasic />
+                  </Row>
+                </div>
+                {/* <ModalBasic /> */}
                 <Container>
                   <Row className="">
                     <Table className="table-responsive">
@@ -164,13 +190,21 @@ class ViewAll extends React.Component {
                           >
                             Pending
                           </td>
-                          <td>
-                            <Route
+
+                          {/* <ModalBasic /> */}
+
+                          <td className="">
+                            {/* <Route
                               render={({ history }) => (
                                 <Edit
                                   className="mr-50"
                                   size="25px"
                                   color="blue"
+                                  onClick={() =>
+                                    history.push(
+                                      `/app/freshlist/order/editOrder/${params.data._id}`
+                                    )
+                                  }
                                   // onClick={() =>
                                   //   history.push(
                                   //     `/app/freshlist/order/editOrder/${params.data._id}`
@@ -178,24 +212,30 @@ class ViewAll extends React.Component {
                                   // }
                                 />
                               )}
-                            />
-                            <Route
-                              render={() => (
-                                <Trash2
-                                  className="mr-50"
-                                  size="25px"
-                                  color="red"
-                                  // onClick={() => {
-                                  //   let selectedData =
-                                  //     this.gridApi.getSelectedRows();
-                                  //   this.runthisfunction(params.data._id);
-                                  //   this.gridApi.updateRowData({
-                                  //     remove: selectedData,
-                                  //   });
-                                  // }}
-                                />
-                              )}
-                            />
+                            /> */}
+
+                            <EditProductModal />
+                          </td>
+                          <td>
+                            <span>
+                              <Route
+                                render={() => (
+                                  <Trash2
+                                    className=""
+                                    size="25px"
+                                    color="red"
+                                    // onClick={() => {
+                                    //   let selectedData =
+                                    //     this.gridApi.getSelectedRows();
+                                    //   this.runthisfunction(params.data._id);
+                                    //   this.gridApi.updateRowData({
+                                    //     remove: selectedData,
+                                    //   });
+                                    // }}
+                                  />
+                                )}
+                              />
+                            </span>
                           </td>
                         </tr>
                         <tr>
@@ -213,13 +253,18 @@ class ViewAll extends React.Component {
                           >
                             Pending
                           </td>
-                          <td>
-                            <Route
+                          <td className="">
+                            {/* <Route
                               render={({ history }) => (
                                 <Edit
                                   className="mr-50"
                                   size="25px"
                                   color="blue"
+                                  onClick={() =>
+                                    history.push(
+                                      `/app/freshlist/order/editOrder/${params.data._id}`
+                                    )
+                                  }
                                   // onClick={() =>
                                   //   history.push(
                                   //     `/app/freshlist/order/editOrder/${params.data._id}`
@@ -227,24 +272,30 @@ class ViewAll extends React.Component {
                                   // }
                                 />
                               )}
-                            />
-                            <Route
-                              render={() => (
-                                <Trash2
-                                  className="mr-50"
-                                  size="25px"
-                                  color="red"
-                                  // onClick={() => {
-                                  //   let selectedData =
-                                  //     this.gridApi.getSelectedRows();
-                                  //   this.runthisfunction(params.data._id);
-                                  //   this.gridApi.updateRowData({
-                                  //     remove: selectedData,
-                                  //   });
-                                  // }}
-                                />
-                              )}
-                            />
+                            /> */}
+
+                            <EditProductModal className="" />
+                          </td>
+                          <td>
+                            <span>
+                              <Route
+                                render={() => (
+                                  <Trash2
+                                    className=""
+                                    size="25px"
+                                    color="red"
+                                    // onClick={() => {
+                                    //   let selectedData =
+                                    //     this.gridApi.getSelectedRows();
+                                    //   this.runthisfunction(params.data._id);
+                                    //   this.gridApi.updateRowData({
+                                    //     remove: selectedData,
+                                    //   });
+                                    // }}
+                                  />
+                                )}
+                              />
+                            </span>
                           </td>
                         </tr>
                       </tbody>
