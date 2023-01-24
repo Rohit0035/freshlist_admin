@@ -188,7 +188,7 @@ class CustomSetupRole extends React.Component {
               <Row className="m-2">
                 <Col>
                   <h1 sm="6" className="float-left">
-                    CustomerSetupRole
+                    Manage Role
                   </h1>
                 </Col>
               </Row>

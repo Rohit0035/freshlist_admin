@@ -312,26 +312,26 @@ class ViewAll extends React.Component {
                           style={{ listStyle: "none" }}
                         >
                           Sub Total:{" "}
-                          <sapn className="float-right"> Rs6300</sapn>
+                          <span className="float-right"> Rs6300</span>
                         </li>
                         <li
                           className="billingdetails mb-1 mt-1"
                           style={{ listStyle: "none" }}
                         >
-                          Shipping: <sapn className="float-right"> Rs500</sapn>
+                          Shipping: <span className="float-right"> Rs500</span>
                         </li>
                         <li
                           className="billingdetails mb-1 mt-1"
                           style={{ listStyle: "none" }}
                         >
                           Coupon Discount:
-                          <sapn className="float-right">-Rs0.0</sapn>
+                          <span className="float-right">-Rs0.0</span>
                         </li>
                         <li
                           className="billingdetails mb-1"
                           style={{ listStyle: "none" }}
                         >
-                          Total: <sapn className="float-right"> Rs6800</sapn>
+                          Total: <span className="float-right"> Rs6800</span>
                         </li>
                       </ul>
                     </Col>

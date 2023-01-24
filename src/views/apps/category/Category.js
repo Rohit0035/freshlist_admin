@@ -150,6 +150,7 @@ class Category extends React.Component {
 
   async componentDidMount() {
     await axiosConfig.get("/getproductCategory").then((response) => {
+      console.log(response);
       let rowData = response.data.data;
       this.setState({ rowData });
     });

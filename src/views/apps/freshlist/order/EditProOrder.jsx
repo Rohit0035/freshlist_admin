@@ -32,6 +32,8 @@ export class EditProOrder extends Component {
       status: "",
       productName: [],
       attribuName: [],
+      categoryList: [],
+      subCatList: [],
       new_address: "",
       notify: [],
       myvalue: "",
@@ -66,7 +68,21 @@ export class EditProOrder extends Component {
       ],
     });
   };
+
   async componentDidMount() {
+    axiosConfig
+      .get("/admin/getallcategory")
+      .then((response) => {
+        console.log(response.data.data);
+        this.setState({
+          categoryList: response.data.data,
+        });
+      })
+      .catch((err) => {
+        swal("Oops", "Something went wrong!", "error");
+        console.log(err);
+      });
+
     axiosConfig
       .get("/admin/product_list")
       .then((response) => {
@@ -82,14 +98,26 @@ export class EditProOrder extends Component {
     axiosConfig
       .get("/admin/getall_units")
       .then((response) => {
+        console.log(response);
         this.setState({
           attribuName: response.data.data,
         });
       })
       .catch((err) => {
-        swal("Oops", "Something went wrong!", "error");
+        swal("Oops", "Something went wrong111!", "error");
         console.log(err);
       });
+    // axiosConfig
+    // .get("http://3.6.37.16:8000/admin/getalldata")
+    // .then((response) => {
+    //   this.setState({
+    //     attribuName: response.data.data,
+    //   });
+    // })
+    // .catch((err) => {
+    //   swal("Oops", "Something went wrong123!", "error");
+    //   console.log(err);
+    // });
   }
 
   submitHandler = (e) => {
@@ -97,7 +125,6 @@ export class EditProOrder extends Component {
 
     axiosConfig
       .post("/admin/addorder", this.state)
-
       .then((response) => {
         console.log(response.data.data);
         swal("Success!", "Submitted SuccessFull!", "success");
@@ -433,18 +460,19 @@ export class EditProOrder extends Component {
               </Row> */}
               <Row>
                 <Col lg="3" md="3" className="mb-1">
-                  <Label>Category name</Label>
+                  <Label>Category Name</Label>
+
                   <Input
                     type="select"
-                    placeholder="Enter Attribute"
-                    name="attribute"
-                    value={this.state.attribute}
+                    placeholder="Enter Category"
+                    name="selected"
+                    value={this.state.categoryList}
                     onChange={this.changeHandler}
                   >
                     <option>Select Category</option>
-                    {this.state.attribuName?.map((attlist) => (
-                      <option value={attlist?._id} key={attlist?._id}>
-                        {attlist?.units_name}
+                    {this.state.categoryList?.map((catlist) => (
+                      <option value={catlist?._id} key={catlist?._id}>
+                        {catlist?.category_name}
                       </option>
                     ))}
                   </Input>
@@ -468,6 +496,44 @@ export class EditProOrder extends Component {
                 </Col>
                 <Col lg="3" md="3" className="mb-1">
                   <Label>Product Name</Label>
+
+                  <Input
+                    type="select"
+                    placeholder="Enter Product"
+                    name="selected"
+                    // value={this.state.inputlist.selected}
+                    // onChange={(e) => this.handleinputchange(e, i)}
+                    value={this.state.productName}
+                    onChange={this.changeHandler}
+                  >
+                    <option>Select Product</option>
+                    {this.state.productName?.map((prdlist) => (
+                      <option value={prdlist?._id} key={prdlist?._id}>
+                        {prdlist?.product_name}
+                      </option>
+                    ))}
+                  </Input>
+                </Col>
+                <Col lg="3" md="3" className="mb-1">
+                  <Label>Attribute Name</Label>
+
+                  <Input
+                    type="select"
+                    placeholder="Enter Attribute"
+                    name="selected"
+                    value={this.state.inputlist.selected}
+                    onChange={(e) => this.handleinputchange(e, i)}
+                  >
+                    <option>Select Product</option>
+                    {this.state.attribuName?.map((attlist) => (
+                      <option value={attlist?._id} key={attlist?._id}>
+                        {attlist?.units_name}
+                      </option>
+                    ))}
+                  </Input>
+                </Col>
+                <Col lg="3" md="3" className="mb-1">
+                  <Label>Attribute Value</Label>
 
                   <Input
                     type="select"

@@ -113,29 +113,6 @@ export class EditVenderdata extends Component {
     return (
       <div>
         <Card>
-          <Row className="m-2">
-            {/* <Col>
-              <h1 col-sm-6 className="float-left">
-                Add Order
-              </h1>
-            </Col> */}
-            {/* <Col>
-              <Route
-                render={({ history }) => (
-                  <Button
-                    className=" btn btn-danger float-right"
-                    onClick={() =>
-                      history.push(
-                        "/app/freshlist/order/viewAll/63ae84014915409458789aed"
-                      )
-                    }
-                  >
-                    Back
-                  </Button>
-                )}
-              />
-            </Col> */}
-          </Row>
           <CardBody style={{ padding: "0px" }}>
             <Form className="m-1" onSubmit={this.submitHandler}>
               <Row className="mb-2">
@@ -153,30 +130,6 @@ export class EditVenderdata extends Component {
                     />
                   </FormGroup>
                 </Col>
-                {/* <Col lg="6" md="6">
-                  <FormGroup>
-                    <Label>Delivery Slot</Label>
-                    <Input
-                      type="text"
-                      placeholder="Delivery Slot"
-                      name="delivery_slot"
-                      value={this.state.delivery_slot}
-                      onChange={this.changeHandler}
-                    />
-                  </FormGroup>
-                </Col> */}
-                {/* <Col lg="6" md="6">
-                  <FormGroup>
-                    <Label>Items</Label>
-                    <Input
-                      type="text"
-                      placeholder="Items"
-                      name="items"
-                      value={this.state.items}
-                      onChange={this.changeHandler}
-                    />
-                  </FormGroup>
-                </Col> */}
 
                 <Col lg="6" md="6">
                   <FormGroup>

@@ -27,7 +27,7 @@ export class GeneralInformation extends Component {
       identity_no: "",
       phone_no: "",
       address: "",
-      deliveryman_img: [],
+      // driver_img: [],
       identity_img: [],
       aadharcardimage: [],
       selectedFile: null,
@@ -52,6 +52,7 @@ export class GeneralInformation extends Component {
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
+
   submitHandler = (e) => {
     e.preventDefault();
     console.log(this.state.files);
@@ -95,6 +96,18 @@ export class GeneralInformation extends Component {
         console.log(error.response.data);
       });
   };
+  componentDidMount() {
+    // debugger;
+    // const { id } = this.props.match.params;
+    // console.log(this.props, this.prop.id);
+    // axiosConfig.get(`/admin/viewone_drive/${id}`).then((response) => {
+    //   console.log("viewOneDriver", response.data.data);
+    //   this.setState({
+    //     banner_title: response.data.data.banner_title,
+    // status: response.data.data.status,
+    //   });
+    // });
+  }
 
   onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -146,7 +159,7 @@ export class GeneralInformation extends Component {
           <Card>
             <Row className="m-1">
               <Col>
-                <h1>Add Driver</h1>
+                <h1>Edit Driver</h1>
                 <h3 col-sm-6 className="float-left">
                   <BsFillPersonFill />
                   General Information
@@ -244,7 +257,7 @@ export class GeneralInformation extends Component {
                     <Input
                       required
                       type="tel"
-                      maxlength="10"
+                      maxLength="10"
                       name="phone_no"
                       value={this.state.phone_no}
                       onChange={this.changeHandler}

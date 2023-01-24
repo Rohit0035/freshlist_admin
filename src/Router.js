@@ -112,18 +112,14 @@ const DriverList = lazy(() =>
   import("./views/apps/freshlist/driver/DriverList")
 );
 
-const EditDeliveryMan = lazy(() =>
-  import("./views/apps/freshlist/driver/EditDeliveryMan")
+const EditDriver = lazy(() =>
+  import("./views/apps/freshlist/driver/EditDriver")
 );
 
-//Employee
+//User management
 
-const CustomSetupRole = lazy(() =>
-  import("./views/apps/freshlist/employee/CustomSetupRole")
-);
-const EmployeesList = lazy(() =>
-  import("./views/apps/freshlist/employee/EmployeesList")
-);
+const ManageRole = lazy(() => import("./views/apps/freshlist/user/ManageRole"));
+const UserList = lazy(() => import("./views/apps/freshlist/user/UserList"));
 
 //special offer
 const SpecialList = lazy(() =>
@@ -358,13 +354,20 @@ const SuggestedProducts = lazy(() =>
 const SubscriberList = lazy(() =>
   import("./views/apps/freshlist/subscriber/SubscriberList")
 );
-// Notification
-const Notification = lazy(() =>
-  import("./views/apps/freshlist/notif/Notification")
+// Notification;
+const AllNotification = lazy(() =>
+  import("./views/apps/freshlist/mobile/AllNotification")
+);
+const CustomerGroupWise = lazy(() =>
+  import("./views/apps/freshlist/mobile/CustomerGroupWise")
+);
+const BannerSection = lazy(() =>
+  import("./views/apps/freshlist/mobile/BannerSection")
 );
 const AddNotification = lazy(() =>
   import("./views/apps/freshlist/notif/AddNotification")
 );
+
 // policy
 const PrivacyPolicy = lazy(() =>
   import("./views/apps/freshlist/privacyPolicy/PrivacyPolicy")
@@ -850,7 +853,7 @@ class AppRouter extends React.Component {
             component={AddBanner}
           />
           <AppRoute
-            path="/app/freshlist/banner/viewBanner"
+            path="/app/freshlist/banner/viewBanner/:id"
             component={ViewBanner}
           />
           <AppRoute
@@ -858,7 +861,7 @@ class AppRouter extends React.Component {
             component={BannerList}
           />
           <AppRoute
-            path="/app/freshlist/banner/editBanner"
+            path="/app/freshlist/banner/editBanner/:id"
             component={EditBanner}
           />
           {/* Sales
@@ -908,18 +911,19 @@ class AppRouter extends React.Component {
             component={AddDriver}
           />
           <AppRoute
+            path="/app/freshlist/driver/editDriver/:id"
+            component={EditDriver}
+          />
+          <AppRoute
             path="/app/freshlist/driver/driverList"
             component={DriverList}
           />
           {/* Employee */}
           <AppRoute
-            path="/app/freshlist/employee/customsetuprole"
-            component={CustomSetupRole}
+            path="/app/freshlist/user/manageRole"
+            component={ManageRole}
           />
-          <AppRoute
-            path="/app/freshlist/employee/employeeslist"
-            component={EmployeesList}
-          />
+          <AppRoute path="/app/freshlist/user/userList" component={UserList} />
           {/* Special */}
           <AppRoute
             path="/app/freshlist/special/SpecialList"
@@ -1220,15 +1224,27 @@ class AppRouter extends React.Component {
             path="/app/freshlist/subscriber/subscriberList"
             component={SubscriberList}
           />
-          {/* notification */}
-          <AppRoute
+          {/* Mobile */}
+          {/* <AppRoute
             path="/app/freshlist/mobile/Notification"
             component={Notification}
+          /> */}
+          <AppRoute
+            path="/app/freshlist/mobile/bannerSection"
+            component={BannerSection}
           />
           <AppRoute
+            path="/app/freshlist/mobile/allNotify"
+            component={AllNotification}
+          />
+          <AppRoute
+            path="/app/freshlist/mobile/customerGroupWise"
+            component={CustomerGroupWise}
+          />
+          {/* <AppRoute
             path="/app/freshlist/notif/addNotification"
             component={AddNotification}
-          />
+          /> */}
           {/* Privacy Police */}
           <AppRoute
             path="/app/freshlist/privacyPolicy/privacyPolicy"

@@ -43,8 +43,8 @@ class SubscriberList extends React.Component {
         filter: true,
       },
       {
-        headerName: "Name",
-        field: "subscriptions",
+        headerName: "Date Added",
+        field: "dateAdded",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
@@ -56,8 +56,8 @@ class SubscriberList extends React.Component {
         },
       },
       {
-        headerName: "Product Name",
-        field: "product",
+        headerName: "Subscribed Product",
+        field: "subscribedproduct",
         filter: true,
         width: 190,
         cellRendererFramework: (params) => {
@@ -69,7 +69,7 @@ class SubscriberList extends React.Component {
         },
       },
       {
-        headerName: "How Many Day",
+        headerName: "Validity",
         field: "validity",
         filter: true,
         width: 200,
@@ -82,8 +82,8 @@ class SubscriberList extends React.Component {
         },
       },
       {
-        headerName: "How Many Orders Placed",
-        field: "orders",
+        headerName: "Vendor Name",
+        field: "vendorName",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
@@ -95,8 +95,8 @@ class SubscriberList extends React.Component {
         },
       },
       {
-        headerName: "How Many Remaining",
-        field: "remaining",
+        headerName: "Group Name",
+        field: "groupName",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
@@ -108,19 +108,19 @@ class SubscriberList extends React.Component {
         },
       },
 
-      // {
-      //   headerName: "Door No.",
-      //   field: "lastname",
-      //   filter: true,
-      //   width: 200,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div>
-      //         <span>{params.data.lastname}</span>
-      //       </div>
-      //     );
-      //   },
-      // },
+      {
+        headerName: "Quantity",
+        field: "lastname",
+        filter: true,
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div>
+              <span>{params.data.lastname}</span>
+            </div>
+          );
+        },
+      },
       // {
       //   headerName: "Street",
       //   field: "street",
@@ -214,31 +214,32 @@ class SubscriberList extends React.Component {
                                 size="25px"
                                 color="blue"
                                 onClick={() => history.push("/app/customer/editCustomer")}
-                            />
-                            <Trash2
-                                className="mr-50"
-                                size="25px"
-                                color="red"
-                                onClick={() => {
-                                    let selectedData = this.gridApi.getSelectedRows();
-                                    this.runthisfunction(params.data._id);
-                                    this.gridApi.updateRowData({ remove: selectedData });
-                                }}
                             /> */}
+              <Trash2
+                className="mr-50"
+                size="25px"
+                color="red"
+                onClick={() => {
+                  let selectedData = this.gridApi.getSelectedRows();
+                  this.runthisfunction(params.data._id);
+                  this.gridApi.updateRowData({ remove: selectedData });
+                }}
+              />
             </div>
           );
         },
       },
     ],
   };
-  // async componentDidMount() {
-  //     await axios.get(`http://35.154.86.59/api/user/view_onecust/${id}`)
-  //         .then((response) => {
-  //             let rowData = response.data.data;
-  //             console.log(rowData);
-  //             this.setState({ rowData });
-  //         });
-  // }
+  async componentDidMount() {
+    await axios
+      .get(`http://35.154.86.59/api/user/view_onecust/${id}`)
+      .then((response) => {
+        let rowData = response.data.data;
+        console.log(rowData);
+        this.setState({ rowData });
+      });
+  }
   // async componentDidMount() {
   //     await axios
   //         .get("http://35.154.86.59/api/user/allcustomer")

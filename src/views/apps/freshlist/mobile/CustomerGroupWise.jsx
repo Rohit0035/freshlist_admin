@@ -3,7 +3,7 @@ import { Card, CardBody, Media, Row, Col, Button } from "reactstrap";
 import axiosConfig from "../../../../axiosConfig";
 import { history } from "../../../../history";
 import { Route } from "react-router-dom";
-class Notification extends React.Component {
+class CustomerGroupWise extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -163,4 +163,4 @@ class Notification extends React.Component {
     );
   }
 }
-export default Notification;
+export default CustomerGroupWise;

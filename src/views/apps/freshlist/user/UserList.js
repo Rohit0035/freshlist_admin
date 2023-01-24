@@ -187,7 +187,7 @@ class EmployeesList extends React.Component {
               <Row className="m-2">
                 <Col>
                   <h1 sm="6" className="float-left">
-                    EmployeesList
+                    User List
                   </h1>
                 </Col>
               </Row>

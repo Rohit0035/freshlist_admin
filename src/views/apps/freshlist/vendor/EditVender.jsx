@@ -18,9 +18,6 @@ import {
 import classnames from "classnames";
 import { Eye, Code } from "react-feather";
 import { Trash2, Edit } from "react-feather";
-
-import { modalBasic } from "../../../../components/reactstrap/modal/ModalSourceCode.js";
-
 import EditVenderdata from "./EditVenderdata.jsx";
 
 class EditVender extends React.Component {
@@ -44,10 +41,10 @@ class EditVender extends React.Component {
   render() {
     return (
       <>
-        <Card>
-          {/* <CardHeader> */}
-          {/* <CardTitle>Basic Modal</CardTitle> */}
-          {/* <div className="views">
+        {/* <Card> */}
+        {/* <CardHeader> */}
+        {/* <CardTitle>Basic Modal</CardTitle> */}
+        {/* <div className="views">
               <Nav tabs>
                 <NavItem>
                   <NavLink
@@ -75,11 +72,11 @@ class EditVender extends React.Component {
                 </NavItem>
               </Nav>
             </div> */}
-          {/* </CardHeader> */}
-          <CardBody className="pb-0 ">
-            <TabContent activeTab={this.state.activeTab}>
-              <TabPane tabId="1">
-                {/* <Button.Ripple
+        {/* </CardHeader> */}
+        {/* <CardBody className="pb-0 "> */}
+        <TabContent activeTab={this.state.activeTab}>
+          <TabPane tabId="1">
+            {/* <Button.Ripple
                   color="primary"
                   className="btn-block"
                   size="md"
@@ -88,32 +85,30 @@ class EditVender extends React.Component {
                 >
                   Add
                 </Button.Ripple> */}
-                <Edit size="30px" color="Green" onClick={this.toggleModal} />
-                <Modal
-                  isOpen={this.state.modal}
-                  toggle={this.toggleModal}
-                  style={{ maxWidth: "950px" }}
-                  // className={this.props.className}
-                >
-                  <ModalHeader toggle={this.toggleModal}>
-                    Edit Product
-                  </ModalHeader>
-                  <ModalBody>
-                    <EditVenderdata />
-                  </ModalBody>
-                  {/* <ModalFooter>
+            {/* <Edit size="30px" color="Green" onClick={this.toggleModal} /> */}
+            <Modal
+              isOpen={this.state.modal}
+              toggle={this.toggleModal}
+              style={{ maxWidth: "950px" }}
+              // className={this.props.className}
+            >
+              <ModalHeader toggle={this.toggleModal}>Edit Product</ModalHeader>
+              <ModalBody>
+                <EditVenderdata />
+              </ModalBody>
+              {/* <ModalFooter>
                     <Button color="primary" onClick={this.toggleModal}>
                       Accept
                     </Button>{" "}
                   </ModalFooter> */}
-                </Modal>
-              </TabPane>
-              <TabPane className="component-code" tabId="2">
-                {modalBasic}
-              </TabPane>
-            </TabContent>
-          </CardBody>
-        </Card>
+            </Modal>
+          </TabPane>
+          <TabPane className="component-code" tabId="2">
+            {modalBasic}
+          </TabPane>
+        </TabContent>
+        {/* </CardBody> */}
+        {/* </Card> */}
       </>
     );
   }

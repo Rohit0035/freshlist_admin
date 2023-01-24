@@ -76,13 +76,26 @@ class BannerList extends React.Component {
       },
       {
         headerName: "Banner Type",
-        field: "bannertype",
+        field: "banner_type",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.bannertype}</span>
+              <span>{params.data.banner_type}</span>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Banner Url",
+        field: "banner_url",
+        filter: true,
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div>
+              <span>{params.data.banner_url}</span>
             </div>
           );
         },
@@ -111,35 +124,48 @@ class BannerList extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="actions cursor-pointer">
-              <Eye
-                className="mr-50"
-                size="25px"
-                color="green"
-                onClick={() =>
-                  history.push(
-                    `/app/freshlist/banner/viewBanner/${params.data._id}`
-                  )
-                }
+              {/* <Route
+                render={({ history }) => (
+                  <Eye
+                    className="mr-50"
+                    size="25px"
+                    color="green"
+                    onClick={() =>
+                      history.push(
+                        `/app/freshlist/banner/viewBanner/${params.data._id}`
+                      )
+                    }
+                  />
+                )}
+              /> */}
+
+              <Route
+                render={({ history }) => (
+                  <Edit
+                    className="mr-50"
+                    size="25px"
+                    color="blue"
+                    onClick={() =>
+                      history.push(
+                        `/app/freshlist/banner/editBanner/${params.data._id}`
+                      )
+                    }
+                  />
+                )}
               />
-              <Edit
-                className="mr-50"
-                size="25px"
-                color="blue"
-                onClick={() =>
-                  history.push(
-                    "/app/freshlist/banner/editBanner/${params.data._id}"
-                  )
-                }
-              />
-              <Trash2
-                className="mr-50"
-                size="25px"
-                color="red"
-                onClick={() => {
-                  let selectedData = this.gridApi.getSelectedRows();
-                  this.runthisfunction(params.data._id);
-                  this.gridApi.updateRowData({ remove: selectedData });
-                }}
+              <Route
+                render={({ history }) => (
+                  <Trash2
+                    className="mr-50"
+                    size="25px"
+                    color="red"
+                    onClick={() => {
+                      let selectedData = this.gridApi.getSelectedRows();
+                      this.runthisfunction(params.data._id);
+                      this.gridApi.updateRowData({ remove: selectedData });
+                    }}
+                  />
+                )}
               />
             </div>
           );
@@ -147,23 +173,16 @@ class BannerList extends React.Component {
       },
     ],
   };
+
   async componentDidMount() {
-    await axiosConfig.get("/viewonebanner").then((response) => {
-      let rowData = response.data.data;
-      console.log(rowData);
-      this.setState({ rowData });
-    });
-  }
-  async componentDidMount() {
-    await axiosConfig.get("/getbanner").then((response) => {
+    await axiosConfig.get("/admin/getall_banner").then((response) => {
       const rowData = response.data.data;
       console.log(rowData);
       this.setState({ rowData });
     });
   }
   async runthisfunction(id) {
-    console.log(id);
-    await axiosConfig.get(`/delbanner/${id}`).then(
+    await axiosConfig.delete(`/admin/del_banner/${id}`).then(
       (response) => {
         console.log(response);
       },

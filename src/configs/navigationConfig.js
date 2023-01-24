@@ -195,30 +195,32 @@ const navigationConfig = [
     type: "groupHeader",
     groupTitle: "USER MANAGEMENT",
   },
+  // {
+  //   id: "employee",
+  //   title: "Employee",
+  //   type: "collapse",
+  //   icon: <FaUser size={15} />,
+  //   children: [
   {
-    id: "employee",
-    title: "Employee",
-    type: "collapse",
-    icon: <FaUser size={15} />,
-    children: [
-      {
-        id: "setup",
-        title: "Employee Role Setup",
-        type: "item",
-        icon: <FaCircle size={8} />,
-        permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/employee/customsetuprole",
-      },
-      {
-        id: "employees",
-        title: "Employees",
-        type: "item",
-        icon: <FaCircle size={8} />,
-        permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/employee/employeeslist",
-      },
-    ],
+    id: "setup",
+    title: "Manage Role",
+    type: "item",
+    icon: <FaCircle size={8} />,
+    permissions: ["admin", "editor"],
+    navLink: "/app/freshlist/user/manageRole",
+    // navLink: "/app/freshlist/user/customsetuprole",
   },
+  {
+    id: "manageUsers",
+    title: "Manage Users",
+    type: "item",
+    icon: <FaCircle size={8} />,
+    permissions: ["admin", "editor"],
+    navLink: "/app/freshlist/user/userlist",
+    // navLink: "/app/freshlist/user/employeeslist",
+  },
+  //   ],
+  // },
   {
     type: "groupHeader",
     groupTitle: "SEO MANAGEMENT",
@@ -492,15 +494,13 @@ const navigationConfig = [
     type: "item",
     icon: <GiWantedReward size={18} />,
     permissions: ["admin", "editor"],
-    navLink: "/app/freshlist/mobile/Notification",
+    navLink: "/app/freshlist/mobile/bannerSection",
   },
   {
     id: "notification",
     title: "Notification",
-    type: "item",
+    type: "collapse",
     icon: <GiWantedReward size={18} />,
-    permissions: ["admin", "editor"],
-    navLink: "/app/freshlist/mobile/Notification",
     children: [
       {
         id: "all",
@@ -508,7 +508,7 @@ const navigationConfig = [
         type: "item",
         icon: <FaCircle size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/mobile/Notification",
+        navLink: "/app/freshlist/mobile/allNotify",
       },
       {
         id: "customerGroupWise",
@@ -516,7 +516,7 @@ const navigationConfig = [
         type: "item",
         icon: <FaCircle size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/mobile/Notification",
+        navLink: "/app/freshlist/mobile/customerGroupWise",
       },
     ],
   },
@@ -643,8 +643,6 @@ const navigationConfig = [
     type: "groupHeader",
     groupTitle: "PRODUCT MANAGEMENT",
   },
-
-  // -------------
   {
     id: "product_attribute",
     title: "Product",
