@@ -15,14 +15,14 @@ class ViewVendor extends React.Component {
     let { id } = this.props.match.params;
     console.log("vendor id ", id);
     axiosConfig
-      .get(`/admin/viewone_vendor/${id}`)
-      .then((response) => {
+      .get(`/viewone_vendor/${id}`)
+      .then(response => {
         console.log(response.data.data);
-        console.log(response.data.data.shop_name);
+        //console.log(response.data.data.shop_name);
         this.setState({ data: response.data.data });
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(error => {
+        console.log(error.response.data);
       });
   }
   render() {
