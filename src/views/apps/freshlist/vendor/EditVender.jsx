@@ -18,7 +18,7 @@ import {
 import classnames from "classnames";
 import { Eye, Code } from "react-feather";
 import { Trash2, Edit } from "react-feather";
-import EditVenderdata from "./EditVenderdata.jsx";
+import EditVenderdata from "./EditVendor.js";
 
 class EditVender extends React.Component {
   state = {
@@ -26,14 +26,14 @@ class EditVender extends React.Component {
     modal: false,
   };
 
-  toggleTab = (tab) => {
+  toggleTab = tab => {
     if (this.state.activeTab !== tab) {
       this.setState({ activeTab: tab });
     }
   };
 
   toggleModal = () => {
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       modal: !prevState.modal,
     }));
   };

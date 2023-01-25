@@ -98,6 +98,9 @@ const VendorInformation = lazy(() =>
 const VendorList = lazy(() =>
   import("./views/apps/freshlist/vendor/VendorList")
 );
+const EditVendor = lazy(() =>
+  import("./views/apps/freshlist/vendor/EditVendor")
+);
 const ViewVendor = lazy(() =>
   import("./views/apps/freshlist/vendor/ViewVendor")
 );
@@ -743,10 +746,10 @@ const accessControl = lazy(() =>
 const RouteConfig = ({ component: Component, fullLayout, ...rest }) => (
   <Route
     {...rest}
-    render={(props) => {
+    render={props => {
       return (
         <ContextLayout.Consumer>
-          {(context) => {
+          {context => {
             let LayoutTag =
               fullLayout === true
                 ? context.fullLayout
@@ -766,7 +769,7 @@ const RouteConfig = ({ component: Component, fullLayout, ...rest }) => (
     }}
   />
 );
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     user: state.auth.login.userRole,
   };
@@ -896,6 +899,10 @@ class AppRouter extends React.Component {
           <AppRoute
             path="/app/freshlist/vendor/viewVendor/:id"
             component={ViewVendor}
+          />
+          <AppRoute
+            path="/app/freshlist/vendor/editVendor/:id"
+            component={EditVendor}
           />
           <AppRoute
             path="/app/freshlist/vendor/withDraws"
