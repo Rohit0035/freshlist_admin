@@ -92,9 +92,7 @@ const AddDeliveryCharges = lazy(() =>
 );
 //Vendor
 const AddVendor = lazy(() => import("./views/apps/freshlist/vendor/AddVendor"));
-const VendorInformation = lazy(() =>
-  import("./views/apps/freshlist/vendor/VendorInformation")
-);
+
 const VendorList = lazy(() =>
   import("./views/apps/freshlist/vendor/VendorList")
 );
@@ -874,10 +872,6 @@ class AppRouter extends React.Component {
           <AppRoute
             path="/app/freshlist/vendor/addVendor"
             component={AddVendor}
-          />
-          <AppRoute
-            path="/app/freshlist/vendor/vendorInformation"
-            component={VendorInformation}
           />
           <AppRoute
             path="/app/freshlist/vendor/vendorList"
