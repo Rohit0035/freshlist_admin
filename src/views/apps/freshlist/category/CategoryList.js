@@ -43,7 +43,7 @@ class CategoryList extends React.Component {
         filter: true,
       },
       {
-        headerName: "Category Imagee",
+        headerName: "Category Image",
         field: "image",
         filter: true,
         width: 170,

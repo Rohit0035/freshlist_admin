@@ -43,38 +43,6 @@ class ModalBasic extends React.Component {
     return (
       <>
         <Card>
-          {/* <CardHeader> */}
-          {/* <CardTitle>Basic Modal</CardTitle> */}
-          {/* <div className="views">
-              <Nav tabs>
-                <NavItem>
-                  <NavLink
-                    className={classnames({
-                      active: this.state.activeTab === "1",
-                    })}
-                    onClick={() => {
-                      this.toggleTab("1");
-                    }}
-                  >
-                    <Eye size={15} />
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink
-                    className={classnames({
-                      active: this.state.activeTab === "2",
-                    })}
-                    onClick={() => {
-                      this.toggleTab("2");
-                    }}
-                  >
-                    <Code size={15} />
-                  </NavLink>
-                </NavItem>
-              </Nav>
-            </div> */}
-          {/* </CardHeader> */}
-
           <TabContent activeTab={this.state.activeTab}>
             <TabPane tabId="1">
               <Button.Ripple

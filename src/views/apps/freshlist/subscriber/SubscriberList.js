@@ -44,26 +44,26 @@ class SubscriberList extends React.Component {
       },
       {
         headerName: "Date Added",
-        field: "dateAdded",
+        field: "date_add",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.subscriptions}</span>
+              <span>{params.data.date_add}</span>
             </div>
           );
         },
       },
       {
         headerName: "Subscribed Product",
-        field: "subscribedproduct",
+        field: "subscribed_product",
         filter: true,
         width: 190,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <span>{params.data.product}</span>
+              <span>{params.data.subscribed_product.product_name}</span>
             </div>
           );
         },
@@ -83,26 +83,26 @@ class SubscriberList extends React.Component {
       },
       {
         headerName: "Vendor Name",
-        field: "vendorName",
+        field: "vender_id",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.orders}</span>
+              <span>{params.data.vender_id.name}</span>
             </div>
           );
         },
       },
       {
         headerName: "Group Name",
-        field: "groupName",
+        field: "group_id",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.remaining}</span>
+              <span>{params.data.group_id.group_name}</span>
             </div>
           );
         },
@@ -184,7 +184,7 @@ class SubscriberList extends React.Component {
             <div className="badge badge-pill badge-success">
               {params.data.status}
             </div>
-          ) : params.value === "Unblock" ? (
+          ) : params.value === "Deactive" ? (
             <div className="badge badge-pill badge-warning">
               {params.data.status}
             </div>
@@ -233,7 +233,7 @@ class SubscriberList extends React.Component {
   };
   async componentDidMount() {
     await axios
-      .get(`http://35.154.86.59/api/user/view_onecust/${id}`)
+      .get("http://3.6.37.16:8000/admin/SubscrptionList")
       .then((response) => {
         let rowData = response.data.data;
         console.log(rowData);

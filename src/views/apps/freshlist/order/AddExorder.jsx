@@ -210,7 +210,7 @@ export class AddExorder extends Component {
                     className="mmm"
                   />
                 </Col>
-                <Col lg="6" md="6">
+                {/* <Col lg="6" md="6">
                   <Label>Order Status</Label>
                   <CustomInput
                     readOnly
@@ -226,16 +226,9 @@ export class AddExorder extends Component {
                     <option value="complete">Completed</option>
                     <option value="delivery">Delivery</option>
                     <option value="canceled">Canceled</option>
-
-                    {/* <option value="Packaging">Packaging</option>
-                    <option value="Rejected">Rejected</option>  */}
-                    {/* <option value="Outfordelivery">Outfordelivery</option> */}
-                    {/* <option value="Delivered">Delivered</option>
-                    <option value="Failedtodeliver">Failedtodeliver</option>
-                    <option value="Returned">Returned</option> */}
-                  </CustomInput>
-                </Col>
-                <Col lg="6" md="6" className="mt-2">
+                </CustomInput>
+                </Col> */}
+                <Col lg="6" md="6" className="">
                   <FormGroup>
                     <Label>Time Slot of Delivery</Label>
                     <Input
@@ -265,7 +258,7 @@ export class AddExorder extends Component {
                     </Col>
                     <Col lg="6" md="6" className="mt-2">
                       <FormGroup>
-                        <Label> Customer-Name</Label>
+                        <Label> CustomerName</Label>
                         <Input
                           readOnly
                           type="email"
@@ -336,16 +329,14 @@ export class AddExorder extends Component {
                   Add Product
                 </h1>
               </Row>
-              <Row></Row>
-
               {this.state.inputlist.map((e, i) => {
                 return (
                   <>
                     <hr className="mt-2 mb-2" style={{ color: "blue" }} />
                     <Row key={i}>
-                      <hr />
-                      <hr />
-                      <Col lg="3" md="3" className="mb-1">
+                      {/* <hr />
+                      <hr /> */}
+                      {/* <Col lg="3" md="3" className="mb-1">
                         <Label>Category name</Label>
                         <Input
                           type="select"
@@ -361,8 +352,8 @@ export class AddExorder extends Component {
                             </option>
                           ))}
                         </Input>
-                      </Col>
-                      <Col lg="3" md="3" className="mb-1">
+                      </Col> */}
+                      {/* <Col lg="3" md="3" className="mb-1">
                         <Label> Select Sub Category</Label>
                         <Input
                           type="select"
@@ -378,7 +369,7 @@ export class AddExorder extends Component {
                             </option>
                           ))}
                         </Input>
-                      </Col>
+                      </Col> */}
                       <Col lg="3" md="3" className="mb-1">
                         <Label>Product Name</Label>
 
@@ -398,74 +389,7 @@ export class AddExorder extends Component {
                         </Input>
                       </Col>
                       <Col lg="3" md="3" className="mb-1">
-                        <Label>Attribute Name</Label>
-
-                        {/* <Input
-                          type="select"
-                          placeholder="Enter Attribute"
-                          name="attribute"
-                          value={this.state.inputlist.attribute}
-                          onChange={(e) => this.handleinputchange(e, i)}
-                        >
-                          <option>Select Attribute</option>
-                          {this.state.attribuName?.map((attlist) => (
-                            <option value={attlist?._id} key={attlist?._id}>
-                              {attlist?.units_name}
-                            </option>
-                          ))}
-                        </Input> */}
-                        <Multiselect
-                          name="selected"
-                          value={this.state.inputlist.selected}
-                          isObject={false}
-                          placeholder="Search and Select"
-                          onRemove={(e) => {
-                            console.log(e);
-                          }}
-                          onSelect={(e) => {
-                            this.setState({ myvalue: e });
-
-                            console.log(e);
-                          }}
-                          selectionLimit="1"
-                          onChange={(e) => this.handleinputchange(e, i)}
-                          // options={["Aalu ", "tamater", "ata", "milk", "began,"]}
-                          options={["Kg ", "Liter", "Meter", "ML", "pieces"]}
-                          showCheckbox
-                          className="mmm"
-                        />
-                        {/* <Input
-                    type="select"
-                    placeholder="Enter Product"
-                    name="product"
-                    value={this.state.product}
-                    onChange={this.changeHandler}
-                  >
-                    <option>Select Product</option>
-                    {this.state.productName?.map((pnlist) => (
-                      <option value={pnlist?._id} key={pnlist?._id}>
-                        {pnlist?.product_name}
-                      </option>
-                    ))}
-                  </Input> */}
-                      </Col>
-                      <Col lg="3" md="3" className="mb-1">
                         <Label>Attribute Value</Label>
-
-                        {/* <Input
-                          type="select"
-                          placeholder="Enter Attribute"
-                          name="attribute"
-                          value={this.state.inputlist.attribute}
-                          onChange={(e) => this.handleinputchange(e, i)}
-                        >
-                          <option>Select Attribute</option>
-                          {this.state.attribuName?.map((attlist) => (
-                            <option value={attlist?._id} key={attlist?._id}>
-                              {attlist?.units_name}
-                            </option>
-                          ))}
-                        </Input> */}
                         <Multiselect
                           name="selected"
                           value={this.state.inputlist.selected}
@@ -506,7 +430,7 @@ export class AddExorder extends Component {
                         Add new Field
                       </Button.Ripple>
                     </Col> */}
-                      <Col lg="6" md="6" className="d-flex">
+                      <Col className="d-flex">
                         {this.state.inputlist.length !== 1 && (
                           <Button.Ripple
                             color="primary"
@@ -540,7 +464,7 @@ export class AddExorder extends Component {
                   type="submit"
                   className="  justify-content-center mt-2"
                 >
-                  Add Order
+                  Add Product
                 </Button.Ripple>
               </Row>
             </Form>

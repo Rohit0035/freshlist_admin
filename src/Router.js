@@ -92,7 +92,9 @@ const AddDeliveryCharges = lazy(() =>
 );
 //Vendor
 const AddVendor = lazy(() => import("./views/apps/freshlist/vendor/AddVendor"));
-
+const VendorInformation = lazy(() =>
+  import("./views/apps/freshlist/vendor/VendorInformation")
+);
 const VendorList = lazy(() =>
   import("./views/apps/freshlist/vendor/VendorList")
 );
@@ -173,15 +175,6 @@ const EditFeatureDeal = lazy(() =>
 const AddFeatureDeal = lazy(() =>
   import("./views/apps/freshlist/featuredeal/AddFeatureDeal")
 );
-//Language
-
-const LanguageList = lazy(() =>
-  import("./views/apps/freshlist/language/LanguageList")
-);
-const AddLanguage = lazy(() =>
-  import("./views/apps/freshlist/language/AddLanguage")
-);
-
 //Gallery
 
 const Gallery = lazy(() => import("./views/apps/freshlist/gallery/Gallery"));
@@ -348,6 +341,10 @@ const AddHouseProduct = lazy(() =>
 const EditHouseProduct = lazy(() =>
   import("./views/apps/freshlist/house/EditHouseProduct")
 );
+const ViewHouseProduct = lazy(() =>
+  import("./views/apps/freshlist/house/ViewHouseProduct")
+);
+
 // BundleList
 const BundleList = lazy(() =>
   import("./views/apps/freshlist/bundle/BundleList")
@@ -454,6 +451,8 @@ const offerByBrand = lazy(() =>
 const buyGet = lazy(() => import("./views/apps/offerAndCoupon/BuyGet"));
 const rewardPoint = lazy(() => import("./views/apps/rewards/RewardPoint"));
 
+const commission = lazy(() => import("./views/apps/commission/Commission"));
+
 const onlineOrders = lazy(() =>
   import("./views/apps/onlineOrders/OnlineOrders")
 );
@@ -472,6 +471,26 @@ const stockTransferRequest = lazy(() =>
   import("./views/apps/stockControl/StockTransferRequest")
 );
 
+const activityLogs = lazy(() => import("./views/apps/activity/ActivityLogs"));
+const addActivityLogs = lazy(() =>
+  import("./views/apps/activity/AddActivityLogs")
+);
+const editActivityLogs = lazy(() =>
+  import("./views/apps/activity/EditActivityLogs")
+);
+const viewActivityLogs = lazy(() =>
+  import("./views/apps/activity/ViewActivityLogs")
+);
+const systemMails = lazy(() => import("./views/apps/activity/SystemMails"));
+const addSystemMails = lazy(() =>
+  import("./views/apps/activity/AddSystemMails")
+);
+const editSystemMails = lazy(() =>
+  import("./views/apps/activity/EditSystemMails")
+);
+const viewSystemMails = lazy(() =>
+  import("./views/apps/activity/ViewSystemMails")
+);
 const menuManagementList = lazy(() =>
   import("./views/apps/menuManagement/MenuManagementList")
 );
@@ -731,10 +750,10 @@ const accessControl = lazy(() =>
 const RouteConfig = ({ component: Component, fullLayout, ...rest }) => (
   <Route
     {...rest}
-    render={props => {
+    render={(props) => {
       return (
         <ContextLayout.Consumer>
-          {context => {
+          {(context) => {
             let LayoutTag =
               fullLayout === true
                 ? context.fullLayout
@@ -754,7 +773,7 @@ const RouteConfig = ({ component: Component, fullLayout, ...rest }) => (
     }}
   />
 );
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     user: state.auth.login.userRole,
   };
@@ -874,6 +893,10 @@ class AppRouter extends React.Component {
             component={AddVendor}
           />
           <AppRoute
+            path="/app/freshlist/vendor/vendorInformation"
+            component={VendorInformation}
+          />
+          <AppRoute
             path="/app/freshlist/vendor/vendorList"
             component={VendorList}
           />
@@ -970,15 +993,6 @@ class AppRouter extends React.Component {
           <AppRoute
             path="/app/freshlist/featuredeal/addFeatureDeal"
             component={AddFeatureDeal}
-          />
-          {/* Language */}
-          <AppRoute
-            path="/app/freshlist/language/languageList"
-            component={LanguageList}
-          />
-          <AppRoute
-            path="/app/freshlist/language/addLanguage"
-            component={AddLanguage}
           />
           {/* gallery */}
           <AppRoute path="/app/freshlist/gallery/gallery" component={Gallery} />
@@ -1197,8 +1211,12 @@ class AppRouter extends React.Component {
             component={AddHouseProduct}
           />
           <AppRoute
-            path="/app/freshlist/house/editHouseProduct"
+            path="/app/freshlist/house/EditHouseProduct/:id"
             component={EditHouseProduct}
+          />
+          <AppRoute
+            path="/app/freshlist/house/ViewHouseProduct/:id"
+            component={ViewHouseProduct}
           />
           {/* Bundle*/}
           <AppRoute
@@ -1346,6 +1364,7 @@ class AppRouter extends React.Component {
           />
           <AppRoute path="/app/offerAndCoupon/buyGet" component={buyGet} />
           <AppRoute path="/app/reward/rewardPoint" component={rewardPoint} />
+          <AppRoute path="/app/commission/commission" component={commission} />
           <AppRoute
             path="/app/subscription/subscription"
             component={Subscription}
@@ -1361,6 +1380,35 @@ class AppRouter extends React.Component {
           <AppRoute
             path="/app/stockControl/stockAdjustment"
             component={stockAdjustment}
+          />
+          <AppRoute
+            path="/app/activity/activityLogs"
+            component={activityLogs}
+          />
+          <AppRoute
+            path="/app/activity/addActivityLogs"
+            component={addActivityLogs}
+          />
+          <AppRoute
+            path="/app/activity/editActivityLogs"
+            component={editActivityLogs}
+          />
+          <AppRoute
+            path="/app/activity/viewActivityLogs"
+            component={viewActivityLogs}
+          />
+          <AppRoute path="/app/activity/systemMails" component={systemMails} />
+          <AppRoute
+            path="/app/activity/addSystemMails"
+            component={addSystemMails}
+          />
+          <AppRoute
+            path="/app/activity/editSystemMails"
+            component={editSystemMails}
+          />
+          <AppRoute
+            path="/app/activity/viewSystemMails"
+            component={viewSystemMails}
           />
           <AppRoute
             path="/app/sellerSubs/sellerSubscription"

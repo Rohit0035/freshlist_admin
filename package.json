@@ -46,6 +46,8 @@
     "react-beautiful-dnd": "^12.2.0",
     "react-big-calendar": "^0.24.0",
     "react-bootstrap-sweetalert": "^5.1.9",
+    "react-bootstrap-tab": "^2.6.6",
+    "react-bootstrap-tabs": "^2.0.0",
     "react-chartjs": "^1.2.0",
     "react-chartjs-2": "^2.9.0",
     "react-contexify": "~4.1.1",

@@ -62,6 +62,7 @@ export class AddHouseProduct extends Component {
       status: "",
       attributename: "",
       attributevalue: "",
+      radio1: "",
       inputlist: [{ notify: "", attribute: "", quantity: "" }],
     };
   }
@@ -99,6 +100,9 @@ export class AddHouseProduct extends Component {
 
   changeHandler1 = (e) => {
     this.setState({ status: e.target.value });
+  };
+  changeHandler2 = (e) => {
+    this.setState({ radio1: e.target.value });
   };
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
@@ -307,7 +311,7 @@ export class AddHouseProduct extends Component {
                       />
                     </Col>
 
-                    <Col lg="6" md="6" className="mb-1">
+                    {/* <Col lg="6" md="6" className="mb-1">
                       <Label>Fix Price</Label>
                       <Input
                         type="text"
@@ -316,17 +320,7 @@ export class AddHouseProduct extends Component {
                         value={this.state.sortorder}
                         onChange={this.changeHandler}
                       />
-                    </Col>
-                    <Col lg="6" md="6" className="mb-1">
-                      <Label>Discount %</Label>
-                      <Input
-                        type="text"
-                        placeholder="Enter Discount"
-                        name="type"
-                        value={this.state.sortorder}
-                        onChange={this.changeHandler}
-                      />
-                    </Col>
+                    </Col> */}
                   </Row>
                   {this.state.inputlist.map((e, i) => {
                     return (
@@ -360,7 +354,7 @@ export class AddHouseProduct extends Component {
                           />
                           
                         </Col> */}
-                        <Col lg="6" md="6">
+                        {/* <Col lg="6" md="6">
                           <Label>Attribute Name</Label>
                           <Multiselect
                             name="attributename"
@@ -378,8 +372,8 @@ export class AddHouseProduct extends Component {
                             showCheckbox
                             className="mmm"
                           />
-                        </Col>
-                        <Col lg="6" md="6">
+                        </Col> */}
+                        <Col lg="6" md="6" className="mb-2">
                           <Label>Attribute Value</Label>
                           <Multiselect
                             name="attributevalue"
@@ -398,7 +392,7 @@ export class AddHouseProduct extends Component {
                             className="mmm"
                           />
                         </Col>
-                        <Col lg="3" md="3" className="my-2">
+                        <Col lg="6" md="6" className="mb-2">
                           <Label>Quantity</Label>
                           <Input
                             type="number"
@@ -408,16 +402,27 @@ export class AddHouseProduct extends Component {
                             onChange={(e) => this.handleinputchange(e, i)}
                           />
                         </Col>
-                        <Col lg="3" md="3" className="my-2">
+                        <Col lg="6" md="6" className="">
                           <Label>Price</Label>
                           <Input
                             type="number"
-                            placeholder="Quantity"
-                            name="quantity"
-                            value={this.state.inputlist.quantity}
+                            placeholder="Price"
+                            name="price"
+                            value={this.state.inputlist.price}
                             onChange={(e) => this.handleinputchange(e, i)}
                           />
                         </Col>
+                        <Col lg="6" md="6" className="mb-1">
+                          <Label>Discount %</Label>
+                          <Input
+                            type="text"
+                            placeholder="Enter Discount"
+                            name="type"
+                            value={this.state.sortorder}
+                            onChange={this.changeHandler}
+                          />
+                        </Col>
+
                         {/* <Col>
                       <Button.Ripple
                         onClick={this.handleClick}
@@ -518,6 +523,17 @@ export class AddHouseProduct extends Component {
                         onChange={this.changeHandler}
                       />
                     </Col>
+
+                    <Col lg="6" md="6" className="mb-1">
+                      <Label>Thumnail Image</Label>
+                      <CustomInput
+                        type="file"
+                        placeholder=""
+                        name=""
+                        value={this.state.sortorder}
+                        onChange={this.changeHandler}
+                      />
+                    </Col>
                     <Col lg="6" md="6" className="mb-1">
                       <Label>Upload Product Images</Label>
                       <CustomInput
@@ -560,24 +576,68 @@ export class AddHouseProduct extends Component {
                       />
                     </Col>
                     <Col lg="6" md="6" className="mb-1">
-                      <FormGroup tag="fieldset">
+                      <FormGroup tag="fieldset" onChange={this.changeHandler2}>
                         <Label>Bundle:</Label>
                         <div className="d-flex">
                           <FormGroup check>
-                            <Input name="radio1" type="radio" />
+                            <Input
+                              value="bundleyes"
+                              name="radio1"
+                              type="radio"
+                            />
+
                             <Label check className="mr-2">
                               Yes
                             </Label>
                           </FormGroup>
                           <FormGroup check>
-                            <Input name="radio1" type="radio" />
+                            <Input
+                              value="bundleNO"
+                              name="radio1"
+                              type="radio"
+                            />
                             <Label check>No</Label>
                           </FormGroup>
                         </div>
                       </FormGroup>
                     </Col>
                   </Row>
-
+                  <Row>
+                    {this.state.radio1 === "bundleyes" ? (
+                      <>
+                        <Col lg="6" md="6" className="">
+                          <Label>Bundle</Label>
+                          <Input
+                            type="text"
+                            placeholder=""
+                            name="type"
+                            value={this.state.sortorder}
+                            onChange={this.changeHandler}
+                          />
+                        </Col>
+                        <Col lg="6" md="6" className="">
+                          <Label>Attribute Value</Label>
+                          <Input
+                            type="text"
+                            placeholder=""
+                            name="type"
+                            value={this.state.sortorder}
+                            onChange={this.changeHandler}
+                          />
+                        </Col>
+                        <Col lg="6" md="6" className="">
+                          <Label>Price</Label>
+                          <Input
+                            type="text"
+                            placeholder=""
+                            name="type"
+                            value={this.state.sortorder}
+                            onChange={this.changeHandler}
+                          />
+                        </Col>
+                      </>
+                    ) : null}
+                  </Row>
                   <Row className="my-1">
                     <Col lg="12" md="12">
                       <h1 col-sm-6 className="float-left">
@@ -643,10 +703,22 @@ export class AddHouseProduct extends Component {
                             <Row className="mb-2 mt-1">
                               <Col lg="6" md="6">
                                 <FormGroup>
+                                  <Label>MRP</Label>
+                                  <Input
+                                    type="text"
+                                    placeholder="MRP"
+                                    name="mrp"
+                                    value={this.state.mrp}
+                                    onChange={this.changeHandler}
+                                  />
+                                </FormGroup>
+                              </Col>
+                              <Col lg="6" md="6">
+                                <FormGroup>
                                   <Label>Buying Price</Label>
                                   <Input
                                     type="text"
-                                    placeholder="Enter title Here"
+                                    placeholder="Enter Buying Price"
                                     name="buying_price"
                                     value={this.state.buying_price}
                                     onChange={this.changeHandler}
@@ -658,9 +730,48 @@ export class AddHouseProduct extends Component {
                                   <Label>M Margin (%)</Label>
                                   <Input
                                     type="text"
-                                    placeholder="Enter title Here"
+                                    placeholder="Enter M Margin"
                                     name="m_margin"
                                     value={this.state.m_margin}
+                                    onChange={this.changeHandler}
+                                  />
+                                </FormGroup>
+                              </Col>
+                              <Col lg="6" md="6">
+                                <FormGroup>
+                                  <Label>Selling Price</Label>
+                                  <Input
+                                    type="text"
+                                    readOnly
+                                    placeholder="Enter Selling Price"
+                                    name="selling_price"
+                                    value={this.state.selling_price}
+                                    onChange={this.changeHandler}
+                                  />
+                                </FormGroup>
+                              </Col>
+                              <Col lg="6" md="6">
+                                <FormGroup>
+                                  <Label>M Customer</Label>
+                                  <Input
+                                    type="text"
+                                    readOnly
+                                    placeholder="Enter M Customer"
+                                    name="Mcustom"
+                                    value={this.state.Mcustom}
+                                    onChange={this.changeHandler}
+                                  />
+                                </FormGroup>
+                              </Col>
+                              <Col lg="6" md="6">
+                                <FormGroup>
+                                  <Label>Save %</Label>
+                                  <Input
+                                    type="text"
+                                    readOnly
+                                    placeholder="Enter Save %"
+                                    name="save"
+                                    value={this.state.save}
                                     onChange={this.changeHandler}
                                   />
                                 </FormGroup>
@@ -680,12 +791,24 @@ export class AddHouseProduct extends Component {
                             <Row className="mb-2 mt-1">
                               <Col lg="4" md="4">
                                 <FormGroup>
+                                  <Label>MRP</Label>
+                                  <Input
+                                    type="text"
+                                    placeholder="Enter MRP"
+                                    name="onmrp"
+                                    value={this.state.onmrp}
+                                    onChange={this.changeHandler}
+                                  />
+                                </FormGroup>
+                              </Col>
+                              <Col lg="4" md="4">
+                                <FormGroup>
                                   <Label>Buying Price</Label>
                                   <Input
                                     type="text"
-                                    placeholder="Enter title Here"
+                                    placeholder="Enter Buying Price"
                                     name="buying_price1"
-                                    value={this.state.buying_price}
+                                    value={this.state.buying_price1}
                                     onChange={this.changeHandler}
                                   />
                                 </FormGroup>
@@ -695,7 +818,7 @@ export class AddHouseProduct extends Component {
                                   <Label>M Margin (%)</Label>
                                   <Input
                                     type="text"
-                                    placeholder="Enter title Here"
+                                    placeholder="Enter M Margin"
                                     name="m_margin"
                                     value={this.state.m_margin}
                                     onChange={this.changeHandler}
@@ -707,9 +830,36 @@ export class AddHouseProduct extends Component {
                                   <Label>Selling Price</Label>
                                   <Input
                                     type="text"
-                                    placeholder="Enter title Here"
+                                    readOnly
+                                    placeholder="Enter Selling Price"
                                     name="selling_price"
                                     value={this.state.selling_price}
+                                    onChange={this.changeHandler}
+                                  />
+                                </FormGroup>
+                              </Col>
+                              <Col lg="4" md="4">
+                                <FormGroup>
+                                  <Label>M Customer</Label>
+                                  <Input
+                                    type="text"
+                                    readOnly
+                                    placeholder="Enter M Customer"
+                                    name="Mcustom"
+                                    value={this.state.Mcustom}
+                                    onChange={this.changeHandler}
+                                  />
+                                </FormGroup>
+                              </Col>
+                              <Col lg="4" md="4">
+                                <FormGroup>
+                                  <Label>Save %</Label>
+                                  <Input
+                                    readOnly
+                                    type="text"
+                                    placeholder="Enter Save %"
+                                    name="save"
+                                    value={this.state.save}
                                     onChange={this.changeHandler}
                                   />
                                 </FormGroup>
@@ -761,21 +911,6 @@ export class AddHouseProduct extends Component {
                   <li>
                     <Input type="checkbox" />
                     <Label check>Category</Label>
-                    {/* <Input
-                      type="checkbox"
-                      placeholder="Enter brand"
-                      name="category"
-                      value={this.state.category}
-                      onChange={this.changeHandler}
-                    > */}
-                    {/* <option>select Brand</option>
-                      {this.state.categoryT?.map((allCategory) => (
-                        <option value={allCategory?._id} key={allCategory?._id}>
-                          {allCategory?.title}
-                        </option>
-                      ))}
-                    </Input> */}
-
                     <ul>
                       <li style={{ listStyleType: "none" }}>
                         <Input type="checkbox" />

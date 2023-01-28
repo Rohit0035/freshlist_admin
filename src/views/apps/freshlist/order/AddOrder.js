@@ -35,6 +35,7 @@ export class AddOrder extends Component {
       new_address: "",
       notify: [],
       myvalue: "",
+      customerName: "",
       inputlist: [{ selected: "", attribute: "", quantity: "" }],
       // selectedOptions: [],
     };
@@ -70,7 +71,7 @@ export class AddOrder extends Component {
     axiosConfig
       .get("/admin/product_list")
       .then((response) => {
-        // console.log(response);
+        console.log(response?.data.data);
         this.setState({
           productName: response.data.data,
         });
@@ -140,7 +141,7 @@ export class AddOrder extends Component {
                     <Input
                       required
                       type="tel"
-                      maxlength="10"
+                      maxLength="10"
                       placeholder="Mobile Number"
                       name="phone_no"
                       value={this.state.phone_no}
@@ -206,47 +207,22 @@ export class AddOrder extends Component {
                     className="mmm"
                   />
                 </Col>
-                <Col lg="6" md="6">
-                  <Label>Order Status</Label>
-                  <CustomInput
-                    readOnly
-                    type="select"
-                    placeholder=""
-                    name="status"
-                    value={this.state.status}
-                    onChange={this.changeHandler}
-                  >
-                    <option>--Select--</option>
-                    <option value="Approved">Approved</option>
-                    <option value="pending">Pending</option>
-                    <option value="complete">Completed</option>
-                    <option value="delivery">Delivery</option>
-                    <option value="canceled">Canceled</option>
-
-                    {/* <option value="Packaging">Packaging</option>
-                    <option value="Rejected">Rejected</option>  */}
-                    {/* <option value="Outfordelivery">Outfordelivery</option> */}
-                    {/* <option value="Delivered">Delivered</option>
-                    <option value="Failedtodeliver">Failedtodeliver</option>
-                    <option value="Returned">Returned</option> */}
-                  </CustomInput>
-                </Col>
-                <Col lg="6" md="6" className="mt-2">
-                  <FormGroup>
-                    <Label>Time Slot of Delivery</Label>
-                    <Input
-                      type="time"
-                      placeholder="Time Slot"
-                      name="time_slot"
-                      value={this.state.time_slot}
-                      onChange={this.changeHandler}
-                    />
-                  </FormGroup>
-                </Col>
-
                 {this.state.phone_no.length == 10 ? (
                   <>
-                    <Col lg="6" md="6" className="mt-2">
+                    <Col lg="6" md="6" className="">
+                      <FormGroup>
+                        <Label> CustomerName</Label>
+                        <Input
+                          readOnly
+                          type="text"
+                          placeholder="Customer Name"
+                          name="customer"
+                          value={this.state.customerName}
+                          onChange={this.changeHandler}
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col lg="6" md="6" className="">
                       <FormGroup>
                         <Label>Email</Label>
                         <Input
@@ -259,20 +235,7 @@ export class AddOrder extends Component {
                         />
                       </FormGroup>
                     </Col>
-                    <Col lg="6" md="6" className="mt-2">
-                      <FormGroup>
-                        <Label> Customer-Name</Label>
-                        <Input
-                          readOnly
-                          type="email"
-                          placeholder="Anujesh yadav"
-                          name="email"
-                          value={this.state.email}
-                          onChange={this.changeHandler}
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col lg="6" md="6" className="mt-2">
+                    {/* <Col lg="6" md="6" className="mt-2">
                       <FormGroup>
                         <Label>Delivery Address</Label>
                         <Input
@@ -284,34 +247,44 @@ export class AddOrder extends Component {
                           onChange={this.changeHandler}
                         />
                       </FormGroup>
+                    </Col> */}
+                    <Col lg="6" md="6" className="mb-1">
+                      <Label>Delivery Address</Label>
+                      <Input
+                        type="select"
+                        placeholder="Enter brand"
+                        name="brand"
+                        value={this.state.brand}
+                        onChange={this.changeHandler}
+                      >
+                        {/* <option>select Brand</option> */}
+                        <option>174 near vijay nagar</option>
+                        <option>145 near palasiya square</option>
+                        <option>220 madhumilan </option>
+                        <option>541 annapurna </option>
+                        {/* {this.state.brN?.map((brandlist) => (
+                          <option value={brandlist?._id} key={brandlist?._id}>
+                            {brandlist?.brand_name}
+                          </option> */}
+                        {/* ))} */}
+                      </Input>
                     </Col>
-                    {/* <Col lg="6" md="6">
-                  <FormGroup>
-                    <Label>Previous Address</Label>
-                    <Input
-                      type="text"
-                      placeholder="Previous Address"
-                      name="previous_add"
-                      value={this.state.previous_add}
-                      onChange={this.changeHandler}
-                    />
-                  </FormGroup>
-                </Col> */}
-                    <Col lg="6" md="6" className="mt-2">
-                      <FormGroup>
-                        <Label>New Address</Label>
-                        <Input
-                          readOnly
-                          type="textarea"
-                          placeholder="151/2 akhand nagar indore"
-                          name="new_address"
-                          value={this.state.new_address}
-                          onChange={this.changeHandler}
-                        />
-                      </FormGroup>
+                    <Col lg="6" md="6" className="mb-1">
+                      <Label>Time Slot of Delivery</Label>
+                      <Input
+                        type="select"
+                        placeholder="Time Slot"
+                        name="time_slot"
+                        value={this.state.time_slot}
+                        onChange={this.changeHandler}
+                      >
+                        <option>10:30AM To 6:30PM</option>
+                        <option>06:40AM TO 7:00PM</option>
+                        <option>02:00PM TO 4:00PM</option>
+                        <option>06:20AM TO 6:50PM</option>
+                      </Input>
                     </Col>
-
-                    <Col lg="6" md="6" className="mt-2">
+                    <Col lg="6" md="6" className="">
                       <FormGroup>
                         <Label>Order Zone </Label>
                         <Input
@@ -320,6 +293,18 @@ export class AddOrder extends Component {
                           placeholder=" 5"
                           name="order_zone"
                           value={this.state.order_zone}
+                          onChange={this.changeHandler}
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col lg="6" md="6" className="mt-2">
+                      <FormGroup>
+                        <Label>New Address</Label>
+                        <Input
+                          type="textarea"
+                          placeholder="151/2 akhand nagar indore"
+                          name="new_address"
+                          value={this.state.new_address}
                           onChange={this.changeHandler}
                         />
                       </FormGroup>
@@ -333,8 +318,6 @@ export class AddOrder extends Component {
                   Add Product
                 </h1>
               </Row>
-              <Row></Row>
-
               {this.state.inputlist.map((e, i) => {
                 return (
                   <>
@@ -342,7 +325,7 @@ export class AddOrder extends Component {
                     <Row key={i}>
                       <hr />
                       <hr />
-                      <Col lg="3" md="3" className="mb-1">
+                      {/* <Col lg="3" md="3" className="mb-1">
                         <Label>Category name</Label>
                         <Input
                           type="select"
@@ -358,8 +341,8 @@ export class AddOrder extends Component {
                             </option>
                           ))}
                         </Input>
-                      </Col>
-                      <Col lg="3" md="3" className="mb-1">
+                      </Col> */}
+                      {/* <Col lg="3" md="3" className="mb-1">
                         <Label> Select Sub Category</Label>
                         <Input
                           type="select"
@@ -375,13 +358,13 @@ export class AddOrder extends Component {
                             </option>
                           ))}
                         </Input>
-                      </Col>
-                      <Col lg="3" md="3" className="mb-1">
+                      </Col> */}
+                      {/* <Col lg="3" md="3" className="mb-1">
                         <Label>Product Name</Label>
 
                         <Input
                           type="select"
-                          placeholder="Enter Attribute"
+                          placeholder="Enter Product"
                           name="selected"
                           value={this.state.inputlist.selected}
                           onChange={(e) => this.handleinputchange(e, i)}
@@ -393,78 +376,36 @@ export class AddOrder extends Component {
                             </option>
                           ))}
                         </Input>
-                      </Col>
+                      </Col> */}
                       <Col lg="3" md="3" className="mb-1">
-                        <Label>Attribute Name</Label>
-
-                        {/* <Input
-                          type="select"
-                          placeholder="Enter Attribute"
-                          name="attribute"
-                          value={this.state.inputlist.attribute}
-                          onChange={(e) => this.handleinputchange(e, i)}
-                        >
-                          <option>Select Attribute</option>
-                          {this.state.attribuName?.map((attlist) => (
-                            <option value={attlist?._id} key={attlist?._id}>
-                              {attlist?.units_name}
-                            </option>
-                          ))}
-                        </Input> */}
+                        <Label>Product Name</Label>
                         <Multiselect
-                          name="selected"
-                          value={this.state.inputlist.selected}
-                          isObject={false}
-                          placeholder="Search and Select"
+                          // name="product_name"
+                          // value={this.state.inputlist.selected}
+                          // value={this.state.productName}
+                          // isObject={false}
+                          placeholder="Select Product"
+                          displayValue="product_name"
                           onRemove={(e) => {
                             console.log(e);
                           }}
                           onSelect={(e) => {
                             this.setState({ myvalue: e });
 
-                            console.log(e);
+                            console.log(e[0].product_name);
                           }}
                           selectionLimit="1"
                           onChange={(e) => this.handleinputchange(e, i)}
-                          // options={["Aalu ", "tamater", "ata", "milk", "began,"]}
-                          options={["Kg ", "Liter", "Meter", "ML", "pieces"]}
+                          options={this.state.productName}
                           showCheckbox
                           className="mmm"
                         />
-                        {/* <Input
-                    type="select"
-                    placeholder="Enter Product"
-                    name="product"
-                    value={this.state.product}
-                    onChange={this.changeHandler}
-                  >
-                    <option>Select Product</option>
-                    {this.state.productName?.map((pnlist) => (
-                      <option value={pnlist?._id} key={pnlist?._id}>
-                        {pnlist?.product_name}
-                      </option>
-                    ))}
-                  </Input> */}
                       </Col>
                       <Col lg="3" md="3" className="mb-1">
                         <Label>Attribute Value</Label>
-
-                        {/* <Input
-                          type="select"
-                          placeholder="Enter Attribute"
-                          name="attribute"
-                          value={this.state.inputlist.attribute}
-                          onChange={(e) => this.handleinputchange(e, i)}
-                        >
-                          <option>Select Attribute</option>
-                          {this.state.attribuName?.map((attlist) => (
-                            <option value={attlist?._id} key={attlist?._id}>
-                              {attlist?.units_name}
-                            </option>
-                          ))}
-                        </Input> */}
                         <Multiselect
-                          name="selected"
+                          // name="selected"
+                          displayValue="product_name"
                           value={this.state.inputlist.selected}
                           isObject={false}
                           placeholder="Search and Select"
