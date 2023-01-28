@@ -109,23 +109,33 @@ class HouseProductList extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="actions cursor-pointer">
-              <Eye
-                className="mr-50"
-                size="25px"
-                color="green"
-                onClick={() =>
-                  history.push(
-                    `/app/freshlist/house/viewHouseProduct/${params.data._id}`
-                  )
-                }
+              <Route
+                render={({ history }) => (
+                  <Eye
+                    className="mr-50"
+                    size="25px"
+                    color="green"
+                    onClick={() =>
+                      history.push(
+                        `/app/freshlist/house/viewHouseProduct/${params.data._id}`
+                      )
+                    }
+                  />
+                )}
               />
-              <Edit
-                className="mr-50"
-                size="25px"
-                color="blue"
-                onClick={() =>
-                  history.push("/app/freshlist/house/editHouseProduct")
-                }
+              <Route
+                render={({ history }) => (
+                  <Edit
+                    className="mr-50"
+                    size="25px"
+                    color="blue"
+                    onClick={() =>
+                      history.push(
+                        `/app/freshlist/house/editHouseProduct/${params.data._id}`
+                      )
+                    }
+                  />
+                )}
               />
               <Trash2
                 className="mr-50"

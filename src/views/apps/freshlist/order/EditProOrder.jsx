@@ -180,6 +180,26 @@ export class EditProOrder extends Component {
                     />
                   </FormGroup>
                 </Col>
+                <Col lg="6" md="6" className="mb-1">
+                  <Label>Product Name</Label>
+
+                  <Input
+                    type="select"
+                    placeholder="Enter Product"
+                    name="selected"
+                    // value={this.state.inputlist.selected}
+                    // onChange={(e) => this.handleinputchange(e, i)}
+                    value={this.state.productName}
+                    onChange={this.changeHandler}
+                  >
+                    {/* <option>Select Product</option> */}
+                    {this.state.productName?.map((prdlist) => (
+                      <option value={prdlist?._id} key={prdlist?._id}>
+                        {prdlist?.product_name}
+                      </option>
+                    ))}
+                  </Input>
+                </Col>
                 {/* <Col lg="6" md="6">
                   <FormGroup>
                     <Label>Delivery Slot</Label>
@@ -291,10 +311,28 @@ export class EditProOrder extends Component {
                   </FormGroup>
                 </Col> */}
                 <Col lg="6" md="6" className="">
+                  <Label>Attribute Value</Label>
+
+                  <Input
+                    type="select"
+                    placeholder="Enter Attribute"
+                    name="selected"
+                    value={this.state.inputlist.selected}
+                    onChange={(e) => this.handleinputchange(e, i)}
+                  >
+                    {/* <option>Select Product</option> */}
+                    {this.state.attribuName?.map((attlist) => (
+                      <option value={attlist?._id} key={attlist?._id}>
+                        {attlist?.units_name}
+                      </option>
+                    ))}
+                  </Input>
+                </Col>
+                <Col lg="6" md="6" className="">
                   <FormGroup>
                     <Label> Quantity</Label>
                     <Input
-                      readOnly
+                      // readOnly
                       type="text"
                       placeholder="6"
                       name="quantity"
@@ -303,11 +341,11 @@ export class EditProOrder extends Component {
                     />
                   </FormGroup>
                 </Col>
-                <Col lg="6" md="6" className="mt-2">
+                <Col lg="6" md="6" className="">
                   <FormGroup>
                     <Label> Unit Price</Label>
                     <Input
-                      readOnly
+                      // readOnly
                       type="text"
                       placeholder="25"
                       name="quantity"
@@ -316,7 +354,7 @@ export class EditProOrder extends Component {
                     />
                   </FormGroup>
                 </Col>
-                <Col lg="6" md="6" className="mt-2">
+                <Col lg="6" md="6" className="">
                   <FormGroup>
                     <Label> Total Price</Label>
                     <Input
@@ -329,6 +367,7 @@ export class EditProOrder extends Component {
                     />
                   </FormGroup>
                 </Col>
+
                 {/* <Col lg="6" md="6" className="mt-2">
                   <FormGroup>
                     <Label>Order Zone </Label>
@@ -452,14 +491,14 @@ export class EditProOrder extends Component {
                   </>
                 ) : null} */}
               </Row>
-              <hr />
+
               {/* <Row className="">
                 <h1 col-sm-6 className="float-left mt-2 mb-2 mx-2">
                   Add Product
                 </h1>
               </Row> */}
               <Row>
-                <Col lg="3" md="3" className="mb-1">
+                {/* <Col lg="3" md="3" className="mb-1">
                   <Label>Category Name</Label>
 
                   <Input
@@ -476,8 +515,8 @@ export class EditProOrder extends Component {
                       </option>
                     ))}
                   </Input>
-                </Col>
-                <Col lg="3" md="3" className="mb-1">
+                </Col> */}
+                {/* <Col lg="3" md="3" className="mb-1">
                   <Label> Select Sub Category</Label>
                   <Input
                     type="select"
@@ -493,28 +532,9 @@ export class EditProOrder extends Component {
                       </option>
                     ))}
                   </Input>
-                </Col>
-                <Col lg="3" md="3" className="mb-1">
-                  <Label>Product Name</Label>
+                </Col> */}
 
-                  <Input
-                    type="select"
-                    placeholder="Enter Product"
-                    name="selected"
-                    // value={this.state.inputlist.selected}
-                    // onChange={(e) => this.handleinputchange(e, i)}
-                    value={this.state.productName}
-                    onChange={this.changeHandler}
-                  >
-                    <option>Select Product</option>
-                    {this.state.productName?.map((prdlist) => (
-                      <option value={prdlist?._id} key={prdlist?._id}>
-                        {prdlist?.product_name}
-                      </option>
-                    ))}
-                  </Input>
-                </Col>
-                <Col lg="3" md="3" className="mb-1">
+                {/* <Col lg="3" md="3" className="mb-1">
                   <Label>Attribute Name</Label>
 
                   <Input
@@ -531,25 +551,8 @@ export class EditProOrder extends Component {
                       </option>
                     ))}
                   </Input>
-                </Col>
-                <Col lg="3" md="3" className="mb-1">
-                  <Label>Attribute Value</Label>
+                </Col> */}
 
-                  <Input
-                    type="select"
-                    placeholder="Enter Attribute"
-                    name="selected"
-                    value={this.state.inputlist.selected}
-                    onChange={(e) => this.handleinputchange(e, i)}
-                  >
-                    <option>Select Product</option>
-                    {this.state.attribuName?.map((attlist) => (
-                      <option value={attlist?._id} key={attlist?._id}>
-                        {attlist?.units_name}
-                      </option>
-                    ))}
-                  </Input>
-                </Col>
                 {/* <Col lg="3" md="3">
                   <Label>Quantity</Label>
                   <Input
@@ -569,7 +572,7 @@ export class EditProOrder extends Component {
                   type="submit"
                   className="  justify-content-center mt-2"
                 >
-                  Edit Order
+                  Edit Product
                 </Button.Ripple>
               </Row>
             </Form>

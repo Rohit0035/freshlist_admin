@@ -11,17 +11,28 @@ import {
   DropdownToggle,
   Button,
   Badge,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  TabContent,
+  TabPane,
 } from "reactstrap";
 import axiosConfig from "../../../../axiosConfig";
 import { ContextLayout } from "../../../../utility/context/Layout";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
+import EditVenderdata from "./EditVendor";
 import { Eye, Edit, Trash2, ChevronDown } from "react-feather";
 //import classnames from "classnames";
 import { history } from "../../../../history";
 import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../../assets/scss/pages/users.scss";
 import { Route } from "react-router-dom";
+import { modalBasic } from "../../../../components/reactstrap/modal/ModalSourceCode.js";
+import EditVender from "./EditVender";
+
+// import Modals from "../../../../components/reactstrap/modal/Modal";
+// import EditModalVender from "./EditModalVender";
 
 class VendorList extends React.Component {
   state = {
@@ -188,7 +199,7 @@ class VendorList extends React.Component {
                 render={({ history }) => (
                   <>
                     <Eye
-                      className="m-1"
+                      className=""
                       size="25px"
                       color="green"
                       onClick={() =>
@@ -198,6 +209,7 @@ class VendorList extends React.Component {
                       }
                     />
                     <Edit
+                      className=""
                       size="25px"
                       color="blue"
                       onClick={() =>
@@ -213,7 +225,6 @@ class VendorList extends React.Component {
               <Route
                 render={({ history }) => (
                   <Trash2
-                    className="m-1"
                     size={20}
                     color="red"
                     onClick={() => {
